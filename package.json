@@ -30,7 +30,15 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "indent": ["error", 4],
+      "linebreak-style": ["error", "unix"],
+      "quotes": ["error", "double"],
+      "semi": ["error", "always"],
+      "comma-dangle": ["error", "always"],
+      "no-cond-assign": ["error", "always"],
+      "no-console": "off"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }
