@@ -40,7 +40,7 @@
         "unix"
       ],
       "quotes": [
-        "error",
+        "warn",
         "double"
       ],
       "semi": [
@@ -49,7 +49,7 @@
       ],
       "comma-dangle": [
         "error",
-        "always"
+        "only-multiline"
       ],
       "no-cond-assign": [
         "error",

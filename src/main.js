@@ -11,6 +11,7 @@ Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 
 Vue.prototype.$http = Axios;
+Vue.prototype.$http.defaults.baseURL = process.env.VUE_APP_API_HOST;
 const token = localStorage.getItem("token");
 if (token) {
     Vue.prototype.$http.defaults.headers.common["Authorization"] = token;
