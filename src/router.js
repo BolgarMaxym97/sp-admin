@@ -2,8 +2,8 @@ import Vue from "vue";
 import Router from "vue-router";
 import Main from "./views/Main.vue";
 import Login from "./views/Login.vue";
-import Register from "./views/Register.vue";
-import store from "./store.js";
+import Test from "./views/Test.vue";
+import store from "./store/index";
 
 Vue.use(Router);
 
@@ -22,11 +22,14 @@ const router = new Router({
             path: "/login",
             name: "login",
             component: Login,
+            meta: {
+                closedForAuthed: true
+            }
         },
         {
-            path: "/register",
-            name: "register",
-            component: Register,
+            path: "/test",
+            name: "test",
+            component: Test,
         },
     ],
 });
@@ -37,10 +40,11 @@ router.beforeEach((to, from, next) => {
             next();
             return;
         }
-        next("/login");
-    } else {
-        next();
+        return next("/login");
+    } else if (to.matched.some(record => record.meta.closedForAuthed) && store.getters.isLoggedIn) {
+        return next("/");
     }
+    return next();
 });
 
 export default router;

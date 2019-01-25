@@ -1,9 +1,9 @@
 <template>
     <div id="app">
-        <top-bar></top-bar>
+        <top-bar v-if="isLoggedIn"></top-bar>
         <b-container fluid>
             <b-row>
-                <b-col cols="2" class="left-sidebar-col">
+                <b-col v-if="isLoggedIn" cols="2" class="left-sidebar-col">
                     <left-side-bar></left-side-bar>
                 </b-col>
                 <b-col>
@@ -21,6 +21,11 @@
     export default {
         data() {
             return {};
+        },
+        computed: {
+            isLoggedIn: function () {
+                return this.$store.getters.isLoggedIn;
+            }
         },
         created: function () {
             this.$http.interceptors.response.use(undefined, function (err) {
@@ -47,5 +52,6 @@
 
     #app {
         min-height: 100vh;
+        background-color: #ECF0F5;
     }
 </style>
