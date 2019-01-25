@@ -1,20 +1,51 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="app">
+        <top-bar></top-bar>
+        <b-container fluid>
+            <b-row>
+                <b-col cols="2" class="left-sidebar-col">
+                    <left-side-bar></left-side-bar>
+                </b-col>
+                <b-col>
+                    <router-view/>
+                </b-col>
+            </b-row>
+        </b-container>
     </div>
-    <router-view/>
-  </div>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<script>
+    import TopBar from "./components/layout/TopBar";
+    import LeftSideBar from "./components/layout/LeftSideBar";
+
+    export default {
+        data() {
+            return {};
+        },
+        created: function () {
+            this.$http.interceptors.response.use(undefined, function (err) {
+                return new Promise(function () {
+                    if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+                        this.$store.dispatch("logout");
+                    }
+                    throw err;
+                });
+            });
+        },
+        components: {
+            TopBar,
+            LeftSideBar,
+        },
+    };
+</script>
+
+<style scoped>
+    .left-sidebar-col {
+        min-height: 100vh;
+        background-color: #343a40 !important;
+    }
+
+    #app {
+        min-height: 100vh;
+    }
 </style>

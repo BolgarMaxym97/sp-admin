@@ -8,7 +8,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "bootstrap-vue": "^2.0.0-rc.11",
+    "qs": "^6.6.0",
     "vue": "^2.5.21",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
@@ -32,7 +34,8 @@
       "eslint:recommended"
     ],
     "rules": {
-      "indent": [
+      "indent": "off",
+      "indent-legacy": [
         "error",
         4
       ],
@@ -41,7 +44,7 @@
         "unix"
       ],
       "quotes": [
-        "error",
+        "warn",
         "double"
       ],
       "semi": [
@@ -50,7 +53,7 @@
       ],
       "comma-dangle": [
         "error",
-        "always"
+        "only-multiline"
       ],
       "no-cond-assign": [
         "error",
