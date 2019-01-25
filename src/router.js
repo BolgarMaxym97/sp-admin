@@ -23,11 +23,17 @@ const router = new Router({
             path: "/login",
             name: "login",
             component: Login,
+            meta: {
+                closedForAuthed: true
+            }
         },
         {
             path: "/register",
             name: "register",
             component: Register,
+            meta: {
+                closedForAuthed: true
+            }
         },
         {
             path: "/test",
@@ -43,10 +49,11 @@ router.beforeEach((to, from, next) => {
             next();
             return;
         }
-        next("/login");
-    } else {
-        next();
+        return next("/login");
+    } else if (to.matched.some(record => record.meta.closedForAuthed) && store.getters.isLoggedIn) {
+        return next("/");
     }
+    return next();
 });
 
 export default router;

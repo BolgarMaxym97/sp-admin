@@ -1,4 +1,6 @@
+import Cookies from "js-cookie";
+
 export default {
-    token: localStorage.getItem("token") || "",
+    token: Cookies.get("token") || "",
     user: localStorage.getItem("user")  ? JSON.parse(localStorage.getItem("user")) : {}
 };
