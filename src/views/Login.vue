@@ -61,7 +61,7 @@
     .auth-card {
         max-width: 30%;
         left: 50%;
-        transform: translate(-50%, 80%);
+        transform: translate(-50%, 60%);
     }
     .auth-btn {
         margin-left: 10px;
