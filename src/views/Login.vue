@@ -38,7 +38,7 @@
 </template>
 
 <script>
-    import {ENDPOINTS} from "../api";
+    import {ENDPOINTS} from "@/api";
 
     export default {
         data() {

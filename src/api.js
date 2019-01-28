@@ -3,8 +3,8 @@ import qs from "qs";
 import _ from "lodash";
 import Cookies from "js-cookie";
 import Vue from "vue";
-import store from "./store/index";
-import router from "./router";
+import store from "@/store/index";
+import router from "@/router";
 
 const ENDPOINTS = {
     LOGIN: "login",

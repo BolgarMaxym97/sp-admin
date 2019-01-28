@@ -1,7 +1,7 @@
 import Vue from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store/index";
+import App from "@/App.vue";
+import router from "@/router";
+import store from "@/store/index";
 import BootstrapVue from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -10,8 +10,8 @@ import {faUser, faSignInAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import VueToastr from "@deveodk/vue-toastr";
 import "@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css";
-import {api} from "./api";
-import config from "./config";
+import {api} from "@/api";
+import config from "@/config";
 
 library.add(faUser, faSignInAlt);
 Vue.component("font-awesome-icon", FontAwesomeIcon);

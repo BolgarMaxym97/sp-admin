@@ -15,8 +15,8 @@
 </template>
 
 <script>
-    import TopBar from "./components/layout/TopBar";
-    import LeftSideBar from "./components/layout/LeftSideBar";
+    import TopBar from "@/components/layout/TopBar";
+    import LeftSideBar from "@/components/layout/LeftSideBar";
 
     export default {
         data() {

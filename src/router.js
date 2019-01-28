@@ -1,9 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Main from "./views/Main.vue";
-import Login from "./views/Login.vue";
-import Test from "./views/Test.vue";
-import store from "./store/index";
+import Main from "@/views/Main.vue";
+import Login from "@/views/Login.vue";
+import Test from "@/views/Test.vue";
+import store from "@/store/index";
 
 Vue.use(Router);
 
