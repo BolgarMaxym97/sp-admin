@@ -5,12 +5,9 @@
                 <b-navbar-brand>Smart Plants</b-navbar-brand>
             </router-link>
             <b-navbar-nav class="ml-auto">
-                <b-nav-item>
-                    UserName
-                    <span v-if="isLoggedIn">|
-                        <a @click="logout">Logout</a>
-                    </span>
-                </b-nav-item>
+                <b-nav-item-dropdown :text="userName" right>
+                    <b-dropdown-item @click="logout">Logout</b-dropdown-item>
+                </b-nav-item-dropdown>
             </b-navbar-nav>
         </b-navbar>
     </div>
@@ -24,6 +21,9 @@
         computed: {
             isLoggedIn: function () {
                 return this.$store.getters.isLoggedIn;
+            },
+            userName: function () {
+                return this.$store.getters.userName;
             }
         },
         methods: {
