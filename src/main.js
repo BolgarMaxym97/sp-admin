@@ -8,12 +8,16 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faUser, faSignInAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import api from "./api";
+import VueToastr from "@deveodk/vue-toastr";
+import "@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css";
+import {api} from "./api";
+import config from "./config";
 
 library.add(faUser, faSignInAlt);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
+Vue.use(VueToastr, config.toastrDefaultOptions);
 Vue.prototype.$http = api;
 
 new Vue({
