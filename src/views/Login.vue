@@ -41,6 +41,9 @@
     import {ENDPOINTS} from "../api";
 
     export default {
+        created() {
+          console.log("test");
+        },
         data() {
             return {
                 email: "",

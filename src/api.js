@@ -3,6 +3,8 @@ import qs from "qs";
 import _ from "lodash";
 import Cookies from "js-cookie";
 import Vue from "vue";
+import store from "./store/index";
+import router from "./router";
 
 const ENDPOINTS = {
     LOGIN: "login",
@@ -25,11 +27,18 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use((response) => {
     return _.get(response, "data", {});
 }, error => {
-    let messages = _.get(error, "response.data.messages", [_.get(error, "response.data.message", "")]);
-    _.each(messages, function (message) {
-        Vue.prototype.$toastr("error", message, "Ошибка выполнения");
+    return new Promise(function () {
+        if (error.response.status === 401) {
+            store.dispatch("logout").then(() => router.push("/login"));
+        } else {
+            let messages = _.get(error, "response.data.messages", [_.get(error, "response.data.message", "")]);
+            _.each(messages, function (message) {
+                Vue.prototype.$toastr("error", message, "Ошибка выполнения");
+            });
+            return Promise.reject({messages: messages});
+        }
     });
-    return Promise.reject({messages: messages});
+
 });
 
 let token = Cookies.get("token");
