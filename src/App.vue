@@ -22,14 +22,14 @@
         data() {
             return {};
         },
+        components: {
+            TopBar,
+            LeftSideBar,
+        },
         computed: {
             isLoggedIn: function () {
                 return this.$store.getters.isLoggedIn;
             }
-        },
-        components: {
-            TopBar,
-            LeftSideBar,
         },
     };
 </script>
@@ -45,5 +45,8 @@
     .left-sidebar-col {
         height: 100%;
         background-color: #272c33;
+    }
+    .left-sidebar-col {
+        padding: 0;
     }
 </style>

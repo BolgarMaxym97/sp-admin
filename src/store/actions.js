@@ -1,11 +1,12 @@
 import Vue from "vue";
 import axios from "axios";
 import Cookies from "js-cookie";
+import {ENDPOINTS} from "@/api";
 
 export default {
     login({commit}, data) {
         return new Promise((resolve, reject) => {
-            Vue.prototype.$http.post("login", data)
+            Vue.prototype.$http.post(ENDPOINTS.LOGIN, data)
                 .then(resp => {
                     const token = resp.token.token;
                     const user = resp.user;

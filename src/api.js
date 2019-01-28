@@ -9,10 +9,16 @@ import router from "@/router";
 const ENDPOINTS = {
     LOGIN: "login",
     REGISTER: "register",
+    CUSTOMERS: "customers",
 };
 
 let api = axios.create({
     baseURL: process.env.VUE_APP_API_HOST,
+    headers: {
+        common: {
+            "Access-Control-Allow-Headers": "*"
+        }
+    },
     transformRequest: [
         (data) => qs.stringify(data)
     ],
