@@ -5,7 +5,8 @@ import Cookies from "js-cookie";
 import Vue from "vue";
 
 const ENDPOINTS = {
-
+    LOGIN: "login",
+    REGISTER: "register",
 };
 
 let api = axios.create({
