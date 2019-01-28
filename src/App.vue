@@ -1,8 +1,8 @@
 <template>
     <div id="app">
         <top-bar v-if="isLoggedIn"></top-bar>
-        <b-container fluid>
-            <b-row>
+        <b-container fluid class="h-100">
+            <b-row class="h-100">
                 <b-col v-if="isLoggedIn" cols="2" class="left-sidebar-col">
                     <left-side-bar></left-side-bar>
                 </b-col>
@@ -39,10 +39,11 @@
 
     #app {
         font-family: Roboto, serif;
+        height: calc(100% - 56px);
     }
     
     .left-sidebar-col {
-        min-height: 100vh;
+        height: 100%;
         background-color: #272c33;
     }
 </style>
