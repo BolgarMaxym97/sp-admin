@@ -35,13 +35,14 @@
 </script>
 
 <style scoped>
-    .left-sidebar-col {
-        min-height: 100vh;
-        background-color: #343a40 !important;
-    }
+    @import url('https://fonts.googleapis.com/css?family=Roboto');
 
     #app {
+        font-family: Roboto, serif;
+    }
+    
+    .left-sidebar-col {
         min-height: 100vh;
-        background-color: #ECF0F5;
+        background-color: #272c33;
     }
 </style>

@@ -5,6 +5,7 @@ import store from "@/store/index";
 import BootstrapVue from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
+import "@/assets/css/main.css";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faUser, faSignInAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";

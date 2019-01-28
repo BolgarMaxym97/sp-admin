@@ -36,3 +36,9 @@
         }
     };
 </script>
+
+<style scoped>
+    .top-bar {
+        background-color: #2f343c;
+    }
+</style>
