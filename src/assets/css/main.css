@@ -1,0 +1,31 @@
+body, html {
+    height: 100%;
+    margin:0;
+}
+body {
+    box-sizing: border-box;
+    background-color: #ECF0F5;
+    z-index:1;
+}
+
+.loader {
+    color: #fff;
+    font-size: 36px;
+    animation-name: spin;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    text-align: center;
+    width: 100% !important;
+    display: block;
+    margin-top: 10%;
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}

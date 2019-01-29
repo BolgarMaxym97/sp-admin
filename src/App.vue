@@ -3,9 +3,11 @@
         <top-bar v-if="isLoggedIn"></top-bar>
         <b-container fluid>
             <b-row>
-                <b-col v-if="isLoggedIn" cols="2" class="left-sidebar-col">
-                    <left-side-bar></left-side-bar>
-                </b-col>
+                <VuePerfectScrollbar class="left-sidebar-col" v-once :settings="scrollBarrSetting">
+                    <b-col v-if="isLoggedIn" cols="2" style="max-width: 100%;">
+                        <left-side-bar></left-side-bar>
+                    </b-col>
+                </VuePerfectScrollbar>
                 <b-col>
                     <router-view/>
                 </b-col>
@@ -15,43 +17,44 @@
 </template>
 
 <script>
-    import TopBar from "./components/layout/TopBar";
-    import LeftSideBar from "./components/layout/LeftSideBar";
+    import TopBar from "@/components/layout/TopBar";
+    import LeftSideBar from "@/components/layout/LeftSideBar";
+    import VuePerfectScrollbar from "vue-perfect-scrollbar";
+    import config from "@/config";
 
     export default {
         data() {
-            return {};
+            return {
+                scrollBarrSetting: config.vueScrollOptions
+            };
+        },
+        components: {
+            TopBar,
+            LeftSideBar,
+            VuePerfectScrollbar
         },
         computed: {
             isLoggedIn: function () {
                 return this.$store.getters.isLoggedIn;
             }
         },
-        created: function () {
-            this.$http.interceptors.response.use(undefined, function (err) {
-                return new Promise(function () {
-                    if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
-                        this.$store.dispatch("logout");
-                    }
-                    throw err;
-                });
-            });
-        },
-        components: {
-            TopBar,
-            LeftSideBar,
-        },
     };
 </script>
 
 <style scoped>
-    .left-sidebar-col {
-        min-height: 100vh;
-        background-color: #343a40 !important;
-    }
+    @import url("https://fonts.googleapis.com/css?family=Roboto");
 
     #app {
-        min-height: 100vh;
-        background-color: #ECF0F5;
+        font-family: Roboto, serif;
+        height: calc(100% - 56px);
+    }
+
+    .left-sidebar-col {
+        min-height: calc(100vh - 56px);
+        max-height: calc(100vh - 56px);
+        overflow-y: auto;
+        background-color: #272c33;
+        padding: 0;
+        width: 300px;
     }
 </style>

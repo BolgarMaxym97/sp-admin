@@ -1,14 +1,32 @@
 <template>
-    <div class="left-side-bar">
-        <span style="color: #fff;">leftSidebar</span>
-        <router-link to="test">Test</router-link>
+    <div class="left-side-bar h-auto">
+        <font-awesome-icon v-if="!customers.length" icon="spinner" class="loader" />
+        <customer
+                v-for="(customer, index) in customers"
+                :key="index"
+                :customer="customer">
+        </customer>
     </div>
 </template>
 
 <script>
+    import Customer from "@/components/Sidebar/Customer";
+    import {ENDPOINTS} from "@/api";
+
     export default {
         data() {
-            return {};
+            return {
+                customers: []
+            };
+        },
+        mounted() {
+            this.$http.get(ENDPOINTS.CUSTOMERS)
+                .then(customers => {
+                    this.customers = customers;
+                });
+        },
+        components: {
+            Customer,
         },
     };
 </script>

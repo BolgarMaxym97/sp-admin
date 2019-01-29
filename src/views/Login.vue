@@ -38,6 +38,8 @@
 </template>
 
 <script>
+    import {ENDPOINTS} from "@/api";
+
     export default {
         data() {
             return {
@@ -49,9 +51,8 @@
             login: function () {
                 let email = this.email;
                 let password = this.password;
-                this.$store.dispatch("login", {email, password})
-                    .then(() => this.$router.push("/"))
-                    .catch(err => console.log(err));
+                this.$store.dispatch(ENDPOINTS.LOGIN, {email, password})
+                    .then(() => this.$router.push("/"));
             }
         }
     };
@@ -61,7 +62,7 @@
     .auth-card {
         max-width: 30%;
         left: 50%;
-        transform: translate(-50%, 80%);
+        transform: translate(-50%, 60%);
     }
     .auth-btn {
         margin-left: 10px;
