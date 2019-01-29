@@ -3,8 +3,8 @@
         <top-bar v-if="isLoggedIn"></top-bar>
         <b-container fluid>
             <b-row>
-                <VuePerfectScrollbar class="left-sidebar-col" v-once :settings="scrollBarrSetting">
-                    <b-col v-if="isLoggedIn" cols="2" style="max-width: 100%;">
+                <VuePerfectScrollbar  v-if="isLoggedIn" class="left-sidebar-col" v-once :settings="scrollBarrSetting">
+                    <b-col cols="2" style="max-width: 100%;">
                         <left-side-bar></left-side-bar>
                     </b-col>
                 </VuePerfectScrollbar>
