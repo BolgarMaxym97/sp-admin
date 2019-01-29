@@ -1,40 +1,32 @@
 <template>
-    <div class="left-side-bar">
-        <user
-                v-for="(user, index) in users"
+    <div class="left-side-bar h-auto">
+        <font-awesome-icon v-if="!customers.length" icon="spinner" class="loader" />
+        <customer
+                v-for="(customer, index) in customers"
                 :key="index"
-                :user="user">
-        </user>
+                :customer="customer">
+        </customer>
     </div>
 </template>
 
 <script>
-    import User from "@/components/Sidebar/User";
+    import Customer from "@/components/Sidebar/Customer";
     import {ENDPOINTS} from "@/api";
 
     export default {
         data() {
             return {
-                users: [
-                    {
-                        name_first: "First 1",
-                        name_last: "Last 1",
-                    },
-                    {
-                        name_first: "First 2",
-                        name_last: "Last 2",
-                    },
-                ]
+                customers: []
             };
         },
         mounted() {
             this.$http.get(ENDPOINTS.CUSTOMERS)
-                .then(resp => {
-                    console.log(resp);
+                .then(customers => {
+                    this.customers = customers;
                 });
         },
         components: {
-            User,
+            Customer,
         },
     };
 </script>

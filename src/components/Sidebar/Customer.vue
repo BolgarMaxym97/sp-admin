@@ -1,8 +1,8 @@
 <template>
-    <div class="left-side-bar-user">
-        <div class="user-name">
-            {{userName}}
-            <span class="user-arrow">
+    <div class="left-side-bar-customer">
+        <div class="customer-name">
+            {{customerName}}
+            <span class="customer-arrow">
                 <font-awesome-icon icon="arrow-right" />
             </span>
         </div>
@@ -11,34 +11,35 @@
 
 <script>
     export default {
-        props: ["user"],
+        props: ["customer"],
         data() {
             return {};
         },
         computed: {
-            userName: function () {
-                return `${this.user.name_first} ${this.user.name_last}`;
+            customerName: function () {
+                return `${this.customer.name_first} ${this.customer.name_last}`;
             }
         }
     };
 </script>
 
 <style scoped>
-    .user-name {
+    .customer-name {
         color: #fff;
     }
 
-    .user-arrow {
+    .customer-arrow {
         font-size: 12px;
         float: right;
         margin-right: 20px;
     }
 
-    .left-side-bar-user {
+    .left-side-bar-customer {
         padding: 30px 10px;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
     }
 
-    .left-side-bar-user:hover {
+    .left-side-bar-customer:hover {
         background-color: rgba(255, 255, 255, 0.1);
         cursor: pointer;
     }

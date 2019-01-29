@@ -1,8 +1,8 @@
 <template>
     <div id="app">
         <top-bar v-if="isLoggedIn"></top-bar>
-        <b-container fluid class="h-100">
-            <b-row class="h-100">
+        <b-container fluid>
+            <b-row>
                 <b-col v-if="isLoggedIn" cols="2" class="left-sidebar-col">
                     <left-side-bar></left-side-bar>
                 </b-col>
@@ -43,10 +43,10 @@
     }
     
     .left-sidebar-col {
-        height: 100%;
+        min-height: calc(100vh - 56px);
+        max-height: calc(100vh - 56px);
+        overflow-y: auto;
         background-color: #272c33;
-    }
-    .left-sidebar-col {
         padding: 0;
     }
 </style>
