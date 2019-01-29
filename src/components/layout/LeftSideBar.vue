@@ -28,7 +28,6 @@
             };
         },
         mounted() {
-            console.log(this.$http.defaults.headers.common);
             this.$http.get(ENDPOINTS.CUSTOMERS)
                 .then(resp => {
                     console.log(resp);

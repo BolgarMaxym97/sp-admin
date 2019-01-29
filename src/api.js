@@ -14,11 +14,6 @@ const ENDPOINTS = {
 
 let api = axios.create({
     baseURL: process.env.VUE_APP_API_HOST,
-    headers: {
-        common: {
-            "Access-Control-Allow-Headers": "*"
-        }
-    },
     transformRequest: [
         (data) => qs.stringify(data)
     ],
@@ -34,6 +29,10 @@ api.interceptors.response.use((response) => {
     return _.get(response, "data", {});
 }, error => {
     return new Promise(function () {
+        if (!error.response) {
+            Vue.prototype.$toastr("error", "Bad request", "Ошибка выполнения");
+            return Promise.reject({messages: "Bad request"});
+        }
         if (error.response.status === 401) {
             store.dispatch("logout").then(() => router.push("/login"));
         } else {
