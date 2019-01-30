@@ -37,8 +37,10 @@
     };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import "../../assets/scss/colors";
+
     .top-bar {
-        background-color: #2f343c;
+        background-color: $topbar-bg-color;
     }
 </style>

@@ -4,7 +4,7 @@
         <b-container fluid>
             <b-row>
                 <VuePerfectScrollbar  v-if="isLoggedIn" class="left-sidebar-col" v-once :settings="scrollBarrSetting">
-                    <b-col cols="2" style="max-width: 100%;">
+                    <b-col cols="2" class="left-sidebar-col-placeholder">
                         <left-side-bar></left-side-bar>
                     </b-col>
                 </VuePerfectScrollbar>
@@ -41,8 +41,9 @@
     };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     @import url("https://fonts.googleapis.com/css?family=Roboto");
+    @import "/assets/scss/colors";
 
     #app {
         font-family: Roboto, serif;
@@ -53,8 +54,12 @@
         min-height: calc(100vh - 56px);
         max-height: calc(100vh - 56px);
         overflow-y: auto;
-        background-color: #272c33;
+        background-color: $sidebar-bg-color;
         padding: 0;
         width: 300px;
+    }
+
+    .left-sidebar-col-placeholder {
+        max-width: 100%;
     }
 </style>

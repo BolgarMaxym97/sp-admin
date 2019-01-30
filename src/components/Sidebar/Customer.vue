@@ -1,5 +1,5 @@
 <template>
-    <div class="left-side-bar-customer">
+    <div @click="viewUserObject" class="left-side-bar-customer">
         <div class="customer-name">
             {{customerName}}
             <span class="customer-arrow">
@@ -18,6 +18,11 @@
         computed: {
             customerName: function () {
                 return `${this.customer.name_first} ${this.customer.name_last}`;
+            }
+        },
+        methods: {
+            viewUserObject: function () {
+                return this.$router.push("/test");
             }
         }
     };
