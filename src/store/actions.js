@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import {ENDPOINTS} from "@/api";
 
 export default {
+    // Auth
     login({commit}, data) {
         return new Promise((resolve, reject) => {
             Vue.prototype.$http.post(ENDPOINTS.LOGIN, data)
@@ -44,5 +45,9 @@ export default {
             delete axios.defaults.headers.common["Authorization"];
             resolve();
         });
+    },
+    //Customer
+    customers({commit}, customers) {
+        commit("customers", customers);
     }
 };

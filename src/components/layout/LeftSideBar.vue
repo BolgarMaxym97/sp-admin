@@ -4,8 +4,7 @@
         <customer
                 v-for="(customer, index) in customers"
                 :key="index"
-                :customer="customer">
-        </customer>
+                :customer="customer"/>
     </div>
 </template>
 
@@ -23,6 +22,7 @@
             this.$http.get(ENDPOINTS.CUSTOMERS)
                 .then(customers => {
                     this.customers = customers;
+                    this.$store.dispatch("customers", this.customers);
                 });
         },
         components: {

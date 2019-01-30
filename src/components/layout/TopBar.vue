@@ -2,7 +2,7 @@
     <div class="top-bar">
         <b-navbar toggleable="md" type="dark" variant="dark">
             <router-link to="/">
-                <b-navbar-brand>Smart Plants</b-navbar-brand>
+                <b-navbar-brand>{{title}}</b-navbar-brand>
             </router-link>
             <b-navbar-nav class="ml-auto">
                 <b-nav-item-dropdown :text="userName" right>
@@ -24,6 +24,9 @@
             },
             userName: function () {
                 return this.$store.getters.userName;
+            },
+            title: function () {
+                return process.env.VUE_APP_TITLE;
             }
         },
         methods: {
@@ -37,8 +40,10 @@
     };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import "../../assets/scss/colors";
+
     .top-bar {
-        background-color: #2f343c;
+        background-color: $topbar-bg-color;
     }
 </style>
