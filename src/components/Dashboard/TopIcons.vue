@@ -12,32 +12,32 @@
             return {
                 topCards: [
                     {
-                        name: "Test",
-                        count: 5,
+                        name: "Customers",
+                        count: this.$store.getters.customersCount,
                         bg_class: "bg-primary-color-6",
-                        icon: "sign-in-alt",
+                        icon: "users",
                         is_percent: false
                     },
                     {
                         name: "Test",
-                        count: 5,
+                        count: 0,
                         bg_class: "bg-primary-color-5",
-                        icon: "sign-in-alt",
-                        is_percent: true
+                        icon: "spinner",
+                        is_percent: false
                     },
                     {
                         name: "Test",
-                        count: 5,
+                        count: 0,
                         bg_class: "bg-primary-color-3",
-                        icon: "sign-in-alt",
-                        is_percent: true
+                        icon: "spinner",
+                        is_percent: false
                     },
                     {
                         name: "Test",
-                        count: 5,
+                        count: 0,
                         bg_class: "bg-primary-color-7",
-                        icon: "sign-in-alt",
-                        is_percent: true
+                        icon: "spinner",
+                        is_percent: false
                     },
                 ]
             };

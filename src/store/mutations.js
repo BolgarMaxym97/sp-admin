@@ -7,4 +7,7 @@ export default {
         state.token = "";
         state.user = {};
     },
+    customers(state, customers) {
+        state.customers = customers;
+    }
 };

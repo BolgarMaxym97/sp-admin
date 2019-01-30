@@ -38,7 +38,6 @@
 </template>
 
 <script>
-    import {ENDPOINTS} from "@/api";
 
     export default {
         data() {
@@ -51,7 +50,7 @@
             login: function () {
                 let email = this.email;
                 let password = this.password;
-                this.$store.dispatch(ENDPOINTS.LOGIN, {email, password})
+                this.$store.dispatch("login", {email, password})
                     .then(() => this.$router.push("/"));
             }
         }
