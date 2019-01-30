@@ -15,7 +15,8 @@ const router = new Router({
             name: "dashboard",
             component: Dashboard,
             meta: {
-                requiresAuth: true
+                requiresAuth: true,
+                title: "Админ-панель"
             }
         },
         {
@@ -23,18 +24,23 @@ const router = new Router({
             name: "login",
             component: Login,
             meta: {
-                closedForAuthed: true
+                closedForAuthed: true,
+                title: "Логин"
             }
         },
         {
             path: "/test",
             name: "test",
             component: Test,
+            meta: {
+                title: "Тест"
+            }
         },
     ],
 });
 
 router.beforeEach((to, from, next) => {
+    document.title = (to.meta.title || "") + " - " + process.env.VUE_APP_TITLE;
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (store.getters.isLoggedIn) {
             next();
