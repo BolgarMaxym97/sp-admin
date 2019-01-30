@@ -9,8 +9,11 @@
 
     export default {
         data() {
-            return {
-                topCards: [
+            return {};
+        },
+        computed:{
+            topCards: function () {
+                return [
                     {
                         name: "Customers",
                         count: this.$store.getters.customersCount,
@@ -39,8 +42,8 @@
                         icon: "spinner",
                         is_percent: false
                     },
-                ]
-            };
+                ];
+            }
         },
         components: {
             TopIcon,
