@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Main from "@/views/Main.vue";
+import Dashboard from "@/views/Dashboard.vue";
 import Login from "@/views/Login.vue";
 import Test from "@/views/Test.vue";
 import store from "@/store/index";
@@ -12,8 +12,8 @@ const router = new Router({
     routes: [
         {
             path: "/",
-            name: "main",
-            component: Main,
+            name: "dashboard",
+            component: Dashboard,
             meta: {
                 requiresAuth: true
             }

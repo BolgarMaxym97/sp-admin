@@ -4,8 +4,7 @@
         <customer
                 v-for="(customer, index) in customers"
                 :key="index"
-                :customer="customer">
-        </customer>
+                :customer="customer"/>
     </div>
 </template>
 
