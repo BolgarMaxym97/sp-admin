@@ -22,26 +22,19 @@
                         is_percent: false
                     },
                     {
-                        name: "Test",
+                        name: "Nodes",
                         count: 0,
                         bg_class: "bg-primary-color-5",
-                        icon: "spinner",
+                        icon: "network-wired",
                         is_percent: false
                     },
                     {
-                        name: "Test",
+                        name: "Sensors",
                         count: 0,
                         bg_class: "bg-primary-color-3",
-                        icon: "spinner",
+                        icon: "thermometer-half",
                         is_percent: false
-                    },
-                    {
-                        name: "Test",
-                        count: 0,
-                        bg_class: "bg-primary-color-7",
-                        icon: "spinner",
-                        is_percent: false
-                    },
+                    }
                 ];
             }
         },
