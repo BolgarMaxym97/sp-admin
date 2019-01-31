@@ -56,7 +56,7 @@
         overflow-y: auto;
         background-color: $sidebar-bg-color;
         padding: 0;
-        width: 300px;
+        width: 250px;
     }
 
     .left-sidebar-col-placeholder {
