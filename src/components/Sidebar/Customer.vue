@@ -31,6 +31,7 @@
 <style scoped>
     .customer-name {
         color: #fff;
+        font-size: 13px;
     }
 
     .customer-arrow {
