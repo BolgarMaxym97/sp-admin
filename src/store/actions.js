@@ -46,8 +46,4 @@ export default {
             resolve();
         });
     },
-    //Customer
-    customers({commit}, customers) {
-        commit("customers", customers);
-    }
 };

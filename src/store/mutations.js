@@ -6,8 +6,5 @@ export default {
     logout(state) {
         state.token = "";
         state.user = {};
-    },
-    customers(state, customers) {
-        state.customers = customers;
     }
 };

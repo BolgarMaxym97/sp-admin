@@ -16,7 +16,7 @@
                 return [
                     {
                         name: "Customers",
-                        count: this.$store.getters.customersCount,
+                        count: 0,
                         bg_class: "bg-primary-color-6",
                         icon: "users",
                         is_percent: false
