@@ -6,43 +6,35 @@
 
 <script>
     import TopIcon from "@/components/Dashboard/TopIcon";
-    import {ENDPOINTS} from "@/api";
 
     export default {
+        props: ["customersCount", "nodesCount", "sensorsCount"],
         data() {
             return {
                 topIcons: {
                     customersCount: {
                         name: "Клиенты",
-                        count: 0,
+                        count: this.customersCount,
                         bg_class: "bg-primary-color-2",
                         icon: "users",
                         is_percent: false
                     },
                     nodesCount: {
                         name: "Объекты",
-                        count: 0,
+                        count: this.nodesCount,
                         bg_class: "bg-primary-color-5",
                         icon: "network-wired",
                         is_percent: false
                     },
                     sensorsCount: {
                         name: "Сенсоры",
-                        count: 0,
+                        count: this.sensorsCount,
                         bg_class: "bg-primary-color-3",
                         icon: "thermometer-half",
                         is_percent: false
                     }
                 }
             };
-        },
-        mounted() {
-            this.$http.get(ENDPOINTS.STATISTIC)
-                .then(statistic => {
-                    this.topIcons.customersCount.count = statistic.customers_count;
-                    this.topIcons.nodesCount.count = statistic.objects_count;
-                    this.topIcons.sensorsCount.count = statistic.sensors_count;
-                });
         },
         components: {
             TopIcon,
