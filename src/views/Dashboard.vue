@@ -3,7 +3,7 @@
         <top-icons :customersCount="customersCount" :nodesCount="nodesCount" :sensorsCount="sensorsCount"/>
         <b-row>
             <b-card class="text-center m-auto chart-card">
-                <chart/>
+                <chart :customersCountChart="customersCountChart" :nodesCountChart="nodesCountChart"/>
             </b-card>
         </b-row>
     </div>
@@ -20,6 +20,8 @@
                 customersCount: 0,
                 nodesCount: 0,
                 sensorsCount: 0,
+                customersCountChart: {},
+                nodesCountChart: {},
             };
         },
 
@@ -29,6 +31,8 @@
                     this.customersCount = statistic.customers_count;
                     this.nodesCount = statistic.objects_count;
                     this.sensorsCount = statistic.sensors_count;
+                    this.customersCountChart = statistic.customersCountChart;
+                    this.nodesCountChart = statistic.nodesCountChart;
                 });
         },
         components: {

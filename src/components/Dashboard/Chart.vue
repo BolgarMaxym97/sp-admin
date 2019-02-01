@@ -5,6 +5,7 @@
 
     export default {
         extends: Line,
+        props: ["customersCountChart", "nodesCountChart"],
         mounted() {
             const options = {
                 responsive: true,
@@ -31,7 +32,7 @@
             };
 
             this.renderChart({
-                labels: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Окстябрь", "Ноябрь", "Декабрь"],
+                labels: [this.customersCountChart.customersLabelsByDates, this.nodesCountChart.nodesLabelsByDates],
                 datasets: [
                     {
                         label: "Клиенты",
@@ -39,7 +40,7 @@
                         pointBackgroundColor: "#9a5b1c",
                         backgroundColor: "#d4821c",
                         fill: false,
-                        data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+                        data: this.customersCountChart.customersDataByDates
                     },
                     {
                         label: "Обьекты",
@@ -47,7 +48,7 @@
                         pointBackgroundColor: "#1e102c",
                         backgroundColor: "#301846",
                         fill: false,
-                        data: [10, 30, 12, 31, 11, 70, 32, 30, 10, 24, 22, 21]
+                        data: this.nodesCountChart.nodesDataByDates
                     }
                 ],
             }, options);
