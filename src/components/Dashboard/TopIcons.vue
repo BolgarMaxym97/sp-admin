@@ -15,7 +15,7 @@
                     customersCount: {
                         name: "Клиенты",
                         count: 0,
-                        bg_class: "bg-primary-color-6",
+                        bg_class: "bg-primary-color-2",
                         icon: "users",
                         is_percent: false
                     },
