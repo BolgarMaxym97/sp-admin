@@ -13,21 +13,21 @@
             return {
                 topIcons: {
                     customersCount: {
-                        name: "Customers",
+                        name: "Клиенты",
                         count: 0,
                         bg_class: "bg-primary-color-6",
                         icon: "users",
                         is_percent: false
                     },
                     nodesCount: {
-                        name: "Nodes",
+                        name: "Объекты",
                         count: 0,
                         bg_class: "bg-primary-color-5",
                         icon: "network-wired",
                         is_percent: false
                     },
                     sensorsCount: {
-                        name: "Sensors",
+                        name: "Сенсоры",
                         count: 0,
                         bg_class: "bg-primary-color-3",
                         icon: "thermometer-half",
