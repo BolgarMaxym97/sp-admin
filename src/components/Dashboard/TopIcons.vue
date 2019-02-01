@@ -1,6 +1,6 @@
 <template>
     <b-row>
-        <top-icon :key="index" v-for="(topCard, index) in topCards" :card="topCard"/>
+        <top-icon :key="index" v-for="(topIcon, index) in topIcons" :icon="topIcon"/>
     </b-row>
 </template>
 
@@ -8,35 +8,33 @@
     import TopIcon from "@/components/Dashboard/TopIcon";
 
     export default {
+        props: ["customersCount", "nodesCount", "sensorsCount"],
         data() {
-            return {};
-        },
-        computed:{
-            topCards: function () {
-                return [
-                    {
-                        name: "Customers",
-                        count: this.$store.getters.customersCount,
-                        bg_class: "bg-primary-color-6",
+            return {
+                topIcons: {
+                    customersCount: {
+                        name: "Клиенты",
+                        count: this.customersCount,
+                        bg_class: "bg-primary-color-2",
                         icon: "users",
                         is_percent: false
                     },
-                    {
-                        name: "Nodes",
-                        count: 0,
+                    nodesCount: {
+                        name: "Объекты",
+                        count: this.nodesCount,
                         bg_class: "bg-primary-color-5",
                         icon: "network-wired",
                         is_percent: false
                     },
-                    {
-                        name: "Sensors",
-                        count: 0,
+                    sensorsCount: {
+                        name: "Сенсоры",
+                        count: this.sensorsCount,
                         bg_class: "bg-primary-color-3",
                         icon: "thermometer-half",
                         is_percent: false
                     }
-                ];
-            }
+                }
+            };
         },
         components: {
             TopIcon,

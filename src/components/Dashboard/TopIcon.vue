@@ -1,14 +1,14 @@
 <template>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <div class="info-box">
-            <span class="info-box-icon" :class="card.bg_class">
-                <font-awesome-icon class="dashboard-icon" :icon="card.icon"/>
+            <span class="info-box-icon" :class="icon.bg_class">
+                <font-awesome-icon class="dashboard-icon" :icon="icon.icon"/>
             </span>
             <div class="info-box-content">
-                <span class="info-box-text">{{card.name}}</span>
-                <span v-if="card.hasOwnProperty('count')" class="info-box-number">
-                    {{card.count}}
-                    <small v-if="card.is_percent">%</small>
+                <span class="info-box-text">{{icon.name}}</span>
+                <span v-if="icon.hasOwnProperty('count')" class="info-box-number">
+                    {{icon.count}}
+                    <small v-if="icon.is_percent">%</small>
                 </span>
             </div>
         </div>
@@ -17,7 +17,7 @@
 
 <script>
     export default {
-        props: ["card"]
+        props: ["icon"]
     };
 </script>
 
