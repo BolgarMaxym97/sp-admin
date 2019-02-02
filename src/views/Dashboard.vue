@@ -3,7 +3,7 @@
         <top-icons :customersCount="customersCount" :nodesCount="nodesCount" :sensorsCount="sensorsCount"/>
         <b-row>
             <b-card class="text-center m-auto chart-card">
-                <chart :customersCountChart="customersCountChart" :nodesCountChart="nodesCountChart"/>
+                <chart :chartData="chartData"/>
             </b-card>
         </b-row>
     </div>
@@ -20,8 +20,8 @@
                 customersCount: 0,
                 nodesCount: 0,
                 sensorsCount: 0,
-                customersCountChart: {},
-                nodesCountChart: {},
+                labels: [],
+                data: [],
             };
         },
 
@@ -31,9 +31,26 @@
                     this.customersCount = statistic.customers_count;
                     this.nodesCount = statistic.objects_count;
                     this.sensorsCount = statistic.sensors_count;
-                    this.customersCountChart = statistic.customersCountChart;
-                    this.nodesCountChart = statistic.nodesCountChart;
+                    this.labels = statistic.chartData.labels;
+                    this.data = statistic.chartData.data;
                 });
+        },
+        computed: {
+            chartData() {
+                return {
+                    labels: this.labels,
+                    datasets: [
+                        {
+                            label: "Клиенты",
+                            borderColor: "#d4821c",
+                            pointBackgroundColor: "#9a5b1c",
+                            backgroundColor: "#d4821c",
+                            fill: false,
+                            data: this.data.customersDataByDates
+                        }
+                    ],
+                };
+            }
         },
         components: {
             TopIcons,
