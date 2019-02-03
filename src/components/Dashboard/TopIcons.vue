@@ -9,9 +9,9 @@
 
     export default {
         props: ["customersCount", "nodesCount", "sensorsCount"],
-        data() {
-            return {
-                topIcons: {
+        computed: {
+            topIcons() {
+                return {
                     customersCount: {
                         name: "Клиенты",
                         count: this.customersCount,
@@ -33,8 +33,8 @@
                         icon: "thermometer-half",
                         is_percent: false
                     }
-                }
-            };
+                };
+            }
         },
         components: {
             TopIcon,
