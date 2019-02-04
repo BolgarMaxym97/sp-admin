@@ -70,18 +70,18 @@
     };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import "../assets/scss/colors";
     .dashboard {
         padding: 2%;
     }
-
     .chart-card {
         position: relative;
         width: calc(100% - 30px);
         height: 450px;
     }
     .loader {
-        color: #221130;
+        color: $primary-color-5;
         font-size: 48px;
     }
 </style>

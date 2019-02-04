@@ -3,8 +3,8 @@
         <top-bar v-if="isLoggedIn"></top-bar>
         <b-container fluid>
             <b-row>
-                <VuePerfectScrollbar  v-if="isLoggedIn" class="left-sidebar-col" v-once :settings="scrollBarrSetting">
-                    <b-col cols="2" class="left-sidebar-col-placeholder">
+                <VuePerfectScrollbar  v-if="isLoggedIn" class="left-sidebar-col p-0" v-once :settings="scrollBarrSetting">
+                    <b-col cols="2" class="left-sidebar-col-placeholder p-0">
                         <left-side-bar></left-side-bar>
                     </b-col>
                 </VuePerfectScrollbar>
@@ -55,7 +55,6 @@
         max-height: calc(100vh - 56px);
         overflow-y: auto;
         background-color: $sidebar-bg-color;
-        padding: 0;
         width: 250px;
     }
 
