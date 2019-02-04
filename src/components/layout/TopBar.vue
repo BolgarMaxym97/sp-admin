@@ -45,5 +45,8 @@
 
     .top-bar {
         background-color: $topbar-bg-color;
+        position: fixed;
+        width: 100%;
+        z-index: 999;
     }
 </style>
