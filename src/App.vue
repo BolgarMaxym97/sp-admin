@@ -8,7 +8,7 @@
                         <left-side-bar></left-side-bar>
                     </b-col>
                 </VuePerfectScrollbar>
-                <b-col>
+                <b-col class="main-content">
                     <router-view/>
                 </b-col>
             </b-row>
@@ -51,14 +51,19 @@
     }
 
     .left-sidebar-col {
-        min-height: calc(100vh - 56px);
-        max-height: calc(100vh - 56px);
+        height: calc(100% - 56px);
         overflow-y: auto;
         background-color: $sidebar-bg-color;
         width: 250px;
+        position: fixed;
+        margin-top: 56px;
+        z-index: 999;
     }
 
     .left-sidebar-col-placeholder {
         max-width: 100%;
+    }
+    .main-content {
+        margin: 56px 0 0 250px
     }
 </style>
