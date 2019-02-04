@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import img from "@/assets/images/placeholder.jpg";
+    import img from "@/assets/images/greenhouse.png";
 
     export default {
         data() {
