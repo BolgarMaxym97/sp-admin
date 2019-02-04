@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Dashboard from "@/views/Dashboard.vue";
 import Login from "@/views/Login.vue";
-import Test from "@/views/Test.vue";
+import Customer from "@/views/Customer.vue";
 import store from "@/store/index";
 
 Vue.use(Router);
@@ -29,11 +29,11 @@ const router = new Router({
             }
         },
         {
-            path: "/test",
-            name: "test",
-            component: Test,
+            path: "/customer/:id",
+            name: "customer_page",
+            component: Customer,
             meta: {
-                title: "Тест"
+                title: "Объекты клиента"
             }
         },
     ],

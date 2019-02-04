@@ -11,6 +11,7 @@ const ENDPOINTS = {
     REGISTER: "register",
     CUSTOMERS: "customers",
     STATISTIC: "statistic",
+    NODES: "nodes",
 };
 
 let api = axios.create({
