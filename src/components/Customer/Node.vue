@@ -7,27 +7,28 @@
             <p class="card-text">
                 {{node.object_name}}
             </p>
-            <div class="sensor-placeholder">
-                <font-awesome-icon icon="plus" class="sensor-placeholder__icon"/>
-            </div>
-            <div class="sensor-placeholder">
-                <font-awesome-icon icon="plus" class="sensor-placeholder__icon"/>
-            </div>
+            <sensor-icon v-for="(icon, index) in icons"
+            :key="index"
+            :icon="icon"/>
         </b-card>
     </b-col>
 </template>
 
 <script>
     import img from "@/assets/images/greenhouse.png";
+    import SensorIcon from "@/components/Customer/SensorIcon";
 
     export default {
-        props: ["node"],
+        props: ["node", "icons"],
         data() {
             return {
                 publicPath: process.env.BASE_URL,
                 img: img
             };
         },
+        components: {
+            SensorIcon
+        }
     };
 </script>
 

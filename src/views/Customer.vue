@@ -6,7 +6,8 @@
             <b-row>
                 <node v-for="(node, index) in nodes"
                       :key="index"
-                      :node="node"/>
+                      :node="node"
+                      :icons="icons"/>
                 <b-col xl="4" lg="6">
                     <b-card class="text-center mt-3 new-node-card" id="new-node-card-tooltip">
                         <b-tooltip target="new-node-card-tooltip" title="Добавить новый объект" placement="lefttop"></b-tooltip>
@@ -26,6 +27,7 @@
         data() {
             return {
                 nodes: [],
+                icons: [],
                 loading: true,
             };
         },
@@ -36,8 +38,9 @@
             fetch() {
                 this.loading = true;
                 this.$http.get(ENDPOINTS.NODES, {params: {user_id: this.$route.params.id}})
-                    .then(nodes => {
-                        this.nodes = nodes;
+                    .then(resp => {
+                        this.nodes = resp.nodes;
+                        this.icons = resp.icons;
                         this.loading = false;
                     });
             }
