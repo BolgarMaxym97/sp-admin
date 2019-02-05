@@ -1,25 +1,41 @@
 <template>
-    <b-col xl="6" lg="12">
+    <b-col xl="4" lg="6">
         <b-card class="text-center mt-3"
                 :img-src="img"
                 img-alt="Объект"
                 img-top>
             <p class="card-text">
-                Объект
+                {{node.object_name}}
             </p>
+
+            <sensor-icon v-for="(sensor) in node.sensors"
+                         :key="sensor.id"
+                         :sensor="sensor"/>
+
+            <default-icon v-for="(icon) in icons"
+                          :key="icon.id"
+                          :icon="icon"
+                          :existing-types="node.existing_types"/>
         </b-card>
     </b-col>
 </template>
 
 <script>
     import img from "@/assets/images/greenhouse.png";
+    import DefaultIcon from "@/components/Customer/DefaultIcon";
+    import SensorIcon from "@/components/Customer/SensorIcon";
 
     export default {
+        props: ["node", "icons"],
         data() {
             return {
                 publicPath: process.env.BASE_URL,
                 img: img
             };
         },
+        components: {
+            DefaultIcon,
+            SensorIcon
+        }
     };
 </script>
