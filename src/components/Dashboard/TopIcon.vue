@@ -17,7 +17,12 @@
 
 <script>
     export default {
-        props: ["icon"]
+        props: {
+            icon: {
+                type: Object,
+                required: true
+            }
+        }
     };
 </script>
 

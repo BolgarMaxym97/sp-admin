@@ -8,7 +8,20 @@
     import TopIcon from "@/components/Dashboard/TopIcon";
 
     export default {
-        props: ["customersCount", "nodesCount", "sensorsCount"],
+        props: {
+            customersCount: {
+                type: Number,
+                required: true
+            },
+            nodesCount: {
+                type: Number,
+                required: true
+            },
+            sensorsCount: {
+                type: Number,
+                required: true
+            },
+        },
         computed: {
             topIcons() {
                 return {

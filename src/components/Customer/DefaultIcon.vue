@@ -11,7 +11,16 @@
 
 <script>
     export default {
-        props: ["icon", "existing-types"],
+        props: {
+            icon: {
+                type: Object,
+                required: true
+            },
+            existingTypes: {
+                type: Array,
+                required: true
+            },
+        },
         data() {
             return {
                 iconStyle: {
@@ -27,6 +36,7 @@
     @import "../../assets/scss/colors";
 
     .sensor-placeholder {
+        cursor: pointer;
         width: 30px;
         height: 30px;
         border: 2px solid $topbar-bg-color;
