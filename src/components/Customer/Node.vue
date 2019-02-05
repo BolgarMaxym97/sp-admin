@@ -7,15 +7,22 @@
             <p class="card-text">
                 {{node.object_name}}
             </p>
-            <sensor-icon v-for="(icon, index) in icons"
-            :key="index"
-            :icon="icon"/>
+
+            <sensor-icon v-for="(sensor) in node.sensors"
+                         :key="sensor.id"
+                         :sensor="sensor"/>
+
+            <default-icon v-for="(icon) in icons"
+                          :key="icon.id"
+                          :icon="icon"
+                          :existing-types="node.existing_types"/>
         </b-card>
     </b-col>
 </template>
 
 <script>
     import img from "@/assets/images/greenhouse.png";
+    import DefaultIcon from "@/components/Customer/DefaultIcon";
     import SensorIcon from "@/components/Customer/SensorIcon";
 
     export default {
@@ -27,19 +34,8 @@
             };
         },
         components: {
+            DefaultIcon,
             SensorIcon
         }
     };
 </script>
-
-<style lang="scss" scoped>
-    .sensor-placeholder {
-        width: 30px;
-        height: 30px;
-        border: 1px solid #000;
-        position: absolute;
-        .sensor-placeholder__icon {
-            margin: 6px;
-        }
-    }
-</style>

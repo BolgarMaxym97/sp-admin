@@ -66,7 +66,7 @@
 
     .new-node-card__icon {
         font-size: 20em;
-        margin: 44px 0;
+        margin: 52px 0;
         color: $topbar-bg-color;
         opacity: 0.4;
     }
