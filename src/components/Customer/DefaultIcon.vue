@@ -11,7 +11,16 @@
 
 <script>
     export default {
-        props: ["icon", "existing-types"],
+        props: {
+            icon: {
+                type: Object,
+                required: true
+            },
+            existingTypes: {
+                type: Array,
+                required: true
+            },
+        },
         data() {
             return {
                 iconStyle: {

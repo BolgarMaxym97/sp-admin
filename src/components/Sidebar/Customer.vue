@@ -2,7 +2,7 @@
     <router-link :to="{ name: 'customer_page', params: {id: customer.id } }">
         <div class="left-side-bar-customer">
             <div class="customer-name">
-                <font-awesome-icon icon="user" class="mr-2" />
+                <font-awesome-icon icon="user" class="mr-2"/>
                 {{customerName}}
                 <span class="customer-arrow">
                 <font-awesome-icon icon="arrow-right"/>
@@ -14,7 +14,12 @@
 
 <script>
     export default {
-        props: ["customer"],
+        props: {
+            customer: {
+                type: Object,
+                required: true
+            }
+        },
         data() {
             return {};
         },

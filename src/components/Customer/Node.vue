@@ -26,7 +26,16 @@
     import SensorIcon from "@/components/Customer/SensorIcon";
 
     export default {
-        props: ["node", "icons"],
+        props: {
+            node: {
+                type: Object,
+                required: true
+            },
+            icons: {
+                type: Array,
+                required: true
+            },
+        },
         data() {
             return {
                 publicPath: process.env.BASE_URL,

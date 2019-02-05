@@ -10,7 +10,12 @@
 
 <script>
     export default {
-        props: ["sensor"],
+        props: {
+            sensor: {
+                type: Object,
+                required: true
+            }
+        },
         data() {
             return {
                 iconStyle: {
