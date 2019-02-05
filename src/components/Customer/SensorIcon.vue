@@ -1,7 +1,7 @@
 <template>
     <div class="sensor-placeholder"
          :style="iconStyle"
-         v-b-tooltip.hover :title="`Информация по датчику '${sensor.type_name}'`">
+         v-b-tooltip.hover :title="`${this.sensor.last_data} ${this.sensor.sensor_type.dimension}`">
         <font-awesome-icon
                 :icon="sensor.sensor_type.sensor_icon.icon"
                 class="sensor-placeholder__icon"/>
@@ -31,6 +31,7 @@
     @import "../../assets/scss/colors";
 
     .sensor-placeholder {
+        cursor: pointer;
         width: 30px;
         height: 30px;
         border: 2px solid $primary-color-6;

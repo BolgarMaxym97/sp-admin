@@ -36,6 +36,7 @@
     @import "../../assets/scss/colors";
 
     .sensor-placeholder {
+        cursor: pointer;
         width: 30px;
         height: 30px;
         border: 2px solid $topbar-bg-color;
