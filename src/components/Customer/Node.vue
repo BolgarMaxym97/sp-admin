@@ -1,6 +1,6 @@
 <template>
     <b-col xl="4" lg="6">
-        <b-card class="text-center mt-3"
+        <b-card class="text-center mt-3 node-card"
                 :img-src="img"
                 img-alt="Объект"
                 img-top>
@@ -48,3 +48,9 @@
         }
     };
 </script>
+
+<style lang="scss" scoped>
+    .node-card {
+        min-height: 100%;
+    }
+</style>

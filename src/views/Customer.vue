@@ -64,9 +64,13 @@
         font-size: 48px;
     }
 
+    .new-node-card {
+        min-height: 100%;
+    }
+
     .new-node-card__icon {
         font-size: 20em;
-        margin: 52px 0;
+        padding-top: 10%;
         color: $topbar-bg-color;
         opacity: 0.4;
     }
