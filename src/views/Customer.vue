@@ -9,19 +9,23 @@
                       :node="node"
                       :icons="icons"/>
                 <b-col xl="4" lg="6">
-                    <b-card class="text-center mt-3 new-node-card" id="new-node-card-tooltip">
-                        <b-tooltip target="new-node-card-tooltip" title="Добавить новый объект" placement="lefttop"></b-tooltip>
+                    <b-card class="text-center mt-3 new-node-card" id="new-node-card-tooltip"
+                            @click="toggleModal">
+                        <b-tooltip target="new-node-card-tooltip" title="Добавить новый объект"
+                                   placement="lefttop"></b-tooltip>
                         <font-awesome-icon icon="plus" class="new-node-card__icon"/>
                     </b-card>
                 </b-col>
             </b-row>
         </div>
+        <create-modal :modal-create-show="modalCreateShow" @hidden="toggleModal"/>
     </div>
 </template>
 
 <script>
     import {ENDPOINTS} from "@/api";
-    import Node from "@/components/Customer/Node";
+    import Node from "@/components/Customer/Node/Node";
+    import CreateModal from "@/components/Customer/Node/CreateModal";
 
     export default {
         data() {
@@ -29,6 +33,7 @@
                 nodes: [],
                 icons: [],
                 loading: true,
+                modalCreateShow: false,
             };
         },
         mounted() {
@@ -43,6 +48,9 @@
                         this.icons = resp.icons;
                         this.loading = false;
                     });
+            },
+            toggleModal() {
+                this.modalCreateShow = !this.modalCreateShow;
             }
         },
         watch: {
@@ -51,7 +59,8 @@
             }
         },
         components: {
-            Node
+            Node,
+            CreateModal
         }
     };
 </script>

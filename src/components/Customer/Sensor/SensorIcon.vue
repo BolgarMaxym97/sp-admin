@@ -1,10 +1,9 @@
 <template>
-    <div v-if="!existingTypes.includes(icon.sensor_type)"
-         class="sensor-placeholder"
+    <div class="sensor-placeholder"
          :style="iconStyle"
-         v-b-tooltip.hover :title="`Добавить '${icon.type_name}'`">
+         v-b-tooltip.hover :title="`${this.sensor.last_data} ${this.sensor.sensor_type.dimension}`">
         <font-awesome-icon
-                icon="plus"
+                :icon="sensor.sensor_type.sensor_icon.icon"
                 class="sensor-placeholder__icon"/>
     </div>
 </template>
@@ -12,20 +11,16 @@
 <script>
     export default {
         props: {
-            icon: {
+            sensor: {
                 type: Object,
                 required: true
-            },
-            existingTypes: {
-                type: Array,
-                required: true
-            },
+            }
         },
         data() {
             return {
                 iconStyle: {
-                    top: this.icon.position_top,
-                    left: this.icon.position_left
+                    top: this.sensor.sensor_type.sensor_icon.position_top,
+                    left: this.sensor.sensor_type.sensor_icon.position_left
                 }
             };
         }
@@ -33,22 +28,21 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "../../assets/scss/colors";
+    @import "../../../assets/scss/colors";
 
     .sensor-placeholder {
         cursor: pointer;
         width: 30px;
         height: 30px;
-        border: 2px solid $topbar-bg-color;
+        border: 2px solid $primary-color-6;
         position: absolute;
-        opacity: 0.8;
         .sensor-placeholder__icon {
             margin: 6px;
-            color: $topbar-bg-color;
+            color: $primary-color-6;
         }
 
         &:hover {
-            background-color: $topbar-bg-color;
+            background-color: $primary-color-6;
 
             .sensor-placeholder__icon {
                 color: $primary-app-bg-color;

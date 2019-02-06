@@ -21,9 +21,9 @@
 </template>
 
 <script>
-    import img from "@/assets/images/greenhouse.png";
-    import DefaultIcon from "@/components/Customer/DefaultIcon";
-    import SensorIcon from "@/components/Customer/SensorIcon";
+    import img from "../../../assets/images/greenhouse.png";
+    import DefaultIcon from "../Sensor/DefaultIcon";
+    import SensorIcon from "../Sensor/SensorIcon";
 
     export default {
         props: {
