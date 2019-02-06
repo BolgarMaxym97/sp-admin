@@ -18,7 +18,10 @@
                 </b-col>
             </b-row>
         </div>
-        <create-modal :modal-create-show="modalCreateShow" @hidden="toggleModal"/>
+        <create-modal :modal-create-show="modalCreateShow"
+                      :customer-id="customerId"
+                      @fetch="fetch"
+                      @hidden="toggleModal"/>
     </div>
 </template>
 
@@ -34,6 +37,7 @@
                 icons: [],
                 loading: true,
                 modalCreateShow: false,
+                customerId: +this.$route.params.id
             };
         },
         mounted() {
@@ -42,7 +46,7 @@
         methods: {
             fetch() {
                 this.loading = true;
-                this.$http.get(ENDPOINTS.NODES, {params: {user_id: this.$route.params.id}})
+                this.$http.get(ENDPOINTS.NODES, {params: {user_id: this.customerId}})
                     .then(resp => {
                         this.nodes = resp.nodes;
                         this.icons = resp.icons;
