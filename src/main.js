@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import "@/assets/scss/main.scss";
 import "@/assets/css/AdminLTE.min.css";
+import vSelect from "vue-select";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faUser, faSignInAlt, faArrowRight, faSpinner, faUsers, faNetworkWired, faThermometerHalf, faPlus, faTint, faGripLinesVertical} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
@@ -17,6 +18,7 @@ import config from "@/config";
 
 library.add(faUser, faSignInAlt, faArrowRight, faSpinner, faUsers, faNetworkWired, faThermometerHalf, faPlus, faTint, faGripLinesVertical);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
+Vue.component("v-select", vSelect);
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 Vue.use(VueToastr, config.toastrDefaultOptions);

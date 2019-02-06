@@ -29,7 +29,7 @@
                     </b-form-input>
                 </b-form-group>
                 <b-button align="center" class="auth-btn" type="submit" variant="primary">
-                    <font-awesome-icon icon="sign-in-alt" />
+                    <font-awesome-icon icon="sign-in-alt"/>
                     Login
                 </b-button>
             </b-form>
@@ -63,6 +63,7 @@
         left: 50%;
         transform: translate(-50%, 60%);
     }
+
     .auth-btn {
         margin-left: 10px;
     }

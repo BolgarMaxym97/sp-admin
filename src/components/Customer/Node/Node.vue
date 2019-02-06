@@ -1,6 +1,6 @@
 <template>
     <b-col xl="4" lg="6">
-        <b-card class="text-center mt-3"
+        <b-card class="text-center mt-3 node-card"
                 :img-src="img"
                 img-alt="Объект"
                 img-top>
@@ -21,9 +21,9 @@
 </template>
 
 <script>
-    import img from "@/assets/images/greenhouse.png";
-    import DefaultIcon from "@/components/Customer/DefaultIcon";
-    import SensorIcon from "@/components/Customer/SensorIcon";
+    import img from "../../../assets/images/greenhouse.png";
+    import DefaultIcon from "../Sensor/DefaultIcon";
+    import SensorIcon from "../Sensor/SensorIcon";
 
     export default {
         props: {
@@ -48,3 +48,9 @@
         }
     };
 </script>
+
+<style lang="scss" scoped>
+    .node-card {
+        min-height: 100%;
+    }
+</style>

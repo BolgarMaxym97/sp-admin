@@ -12,6 +12,7 @@ const ENDPOINTS = {
     CUSTOMERS: "customers",
     STATISTIC: "statistic",
     NODES: "nodes",
+    NODE_TYPES: "node-types",
 };
 
 let api = axios.create({
@@ -37,6 +38,12 @@ api.interceptors.response.use((response) => {
         }
         if (error.response.status === 401) {
             store.dispatch("logout").then(() => router.push("/login"));
+        } else if (error.response.status === 422) {
+            _.each(error.response.data.errors, function (errors) {
+                _.each(errors, function (error) {
+                    Vue.prototype.$toastr("error", error, _.get(error, "response.data.message", "Ошибка выполнения"));
+                });
+            });
         } else {
             let messages = _.get(error, "response.data.messages", [_.get(error, "response.data.message", "")]);
             _.each(messages, function (message) {

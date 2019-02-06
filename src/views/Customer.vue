@@ -9,19 +9,26 @@
                       :node="node"
                       :icons="icons"/>
                 <b-col xl="4" lg="6">
-                    <b-card class="text-center mt-3 new-node-card" id="new-node-card-tooltip">
-                        <b-tooltip target="new-node-card-tooltip" title="Добавить новый объект" placement="lefttop"></b-tooltip>
+                    <b-card class="text-center mt-3 new-node-card" id="new-node-card-tooltip"
+                            @click="toggleModal">
+                        <b-tooltip target="new-node-card-tooltip" title="Добавить новый объект"
+                                   placement="lefttop"></b-tooltip>
                         <font-awesome-icon icon="plus" class="new-node-card__icon"/>
                     </b-card>
                 </b-col>
             </b-row>
         </div>
+        <create-modal :modal-create-show="modalCreateShow"
+                      :customer-id="customerId"
+                      @fetch="fetch"
+                      @hidden="toggleModal"/>
     </div>
 </template>
 
 <script>
     import {ENDPOINTS} from "@/api";
-    import Node from "@/components/Customer/Node";
+    import Node from "@/components/Customer/Node/Node";
+    import CreateModal from "@/components/Customer/Node/CreateModal";
 
     export default {
         data() {
@@ -29,6 +36,8 @@
                 nodes: [],
                 icons: [],
                 loading: true,
+                modalCreateShow: false,
+                customerId: +this.$route.params.id
             };
         },
         mounted() {
@@ -37,12 +46,15 @@
         methods: {
             fetch() {
                 this.loading = true;
-                this.$http.get(ENDPOINTS.NODES, {params: {user_id: this.$route.params.id}})
+                this.$http.get(ENDPOINTS.NODES, {params: {user_id: this.customerId}})
                     .then(resp => {
                         this.nodes = resp.nodes;
                         this.icons = resp.icons;
                         this.loading = false;
                     });
+            },
+            toggleModal() {
+                this.modalCreateShow = !this.modalCreateShow;
             }
         },
         watch: {
@@ -51,7 +63,8 @@
             }
         },
         components: {
-            Node
+            Node,
+            CreateModal
         }
     };
 </script>
@@ -64,9 +77,13 @@
         font-size: 48px;
     }
 
+    .new-node-card {
+        min-height: 100%;
+    }
+
     .new-node-card__icon {
         font-size: 20em;
-        margin: 52px 0;
+        padding-top: 10%;
         color: $topbar-bg-color;
         opacity: 0.4;
     }
