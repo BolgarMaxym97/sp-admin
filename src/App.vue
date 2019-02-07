@@ -4,7 +4,7 @@
         <b-container fluid>
             <b-row>
                 <transition name="slide">
-                    <div v-show="isMenuOpened && isLoggedIn" class="perfect-wrapper">
+                    <div v-show="isLoggedIn" class="perfect-wrapper" :class="{show: isMenuOpened}">
                         <VuePerfectScrollbar class="left-sidebar-col p-0" v-once
                                              :settings="scrollBarrSetting">
                             <b-col cols="2" class="left-sidebar-col-placeholder p-0">
@@ -32,18 +32,12 @@
         data() {
             return {
                 scrollBarrSetting: config.vueScrollOptions,
-                isOpened: false,
             };
         },
         components: {
             TopBar,
             LeftSideBar,
             VuePerfectScrollbar
-        },
-        watch: {
-            isMenuOpened(newVal) {
-                this.isOpened = newVal;
-            }
         },
         computed: {
             ...mapGetters([
@@ -85,9 +79,16 @@
         z-index: 999;
     }
 
+    .show {
+        display: block !important;
+    }
+
     @media screen and (max-width: 1280px) {
         .main-content {
             margin-left: 0;
+        }
+        .perfect-wrapper {
+            display: none;
         }
     }
 </style>
