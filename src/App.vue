@@ -3,14 +3,17 @@
         <top-bar v-if="isLoggedIn"></top-bar>
         <b-container fluid>
             <b-row>
-                <VuePerfectScrollbar v-if="isLoggedIn" class="left-sidebar-col p-0" :class="{show: isMenuOpened}" v-once
-                                     :settings="scrollBarrSetting">
-                    <b-col cols="2" class="left-sidebar-col-placeholder p-0">
-                        <left-side-bar></left-side-bar>
-                    </b-col>
-                </VuePerfectScrollbar>
+                <transition name="slide">
+                    <div v-show="isMenuOpened && isLoggedIn" class="perfect-wrapper">
+                        <VuePerfectScrollbar class="left-sidebar-col p-0" v-once
+                                             :settings="scrollBarrSetting">
+                            <b-col cols="2" class="left-sidebar-col-placeholder p-0">
+                                <left-side-bar></left-side-bar>
+                            </b-col>
+                        </VuePerfectScrollbar>
+                    </div>
+                </transition>
                 <b-col class="main-content">
-                    {{isMenuOpened}}
                     <router-view/>
                 </b-col>
             </b-row>
@@ -28,7 +31,8 @@
     export default {
         data() {
             return {
-                scrollBarrSetting: config.vueScrollOptions
+                scrollBarrSetting: config.vueScrollOptions,
+                isOpened: false,
             };
         },
         components: {
@@ -36,10 +40,15 @@
             LeftSideBar,
             VuePerfectScrollbar
         },
+        watch: {
+            isMenuOpened(newVal) {
+                this.isOpened = newVal;
+            }
+        },
         computed: {
             ...mapGetters([
                 "isMenuOpened",
-                "isLoggedIn",
+                "isLoggedIn"
             ])
         },
     };
@@ -72,16 +81,13 @@
         margin: 56px 0 0 250px
     }
 
-    .show {
-        display: block !important;
+    .perfect-wrapper {
+        z-index: 999;
     }
 
     @media screen and (max-width: 1280px) {
         .main-content {
             margin-left: 0;
-        }
-        .left-sidebar-col {
-            display: none;
         }
     }
 </style>
