@@ -26,7 +26,7 @@
     import LeftSideBar from "@/components/layout/LeftSideBar";
     import VuePerfectScrollbar from "vue-perfect-scrollbar";
     import config from "@/config";
-    import { mapGetters } from "vuex";
+    import {mapGetters} from "vuex";
 
     export default {
         data() {
