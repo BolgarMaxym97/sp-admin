@@ -46,4 +46,7 @@ export default {
             resolve();
         });
     },
+    toggleMenu({commit}) {
+        commit("menuToggle");
+    }
 };

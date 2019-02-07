@@ -6,5 +6,8 @@ export default {
     logout(state) {
         state.token = "";
         state.user = {};
+    },
+    menuToggle(state) {
+        state.menuOpened = !state.menuOpened;
     }
 };
