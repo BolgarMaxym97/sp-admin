@@ -1,6 +1,6 @@
 <template>
     <div class="left-side-bar h-auto">
-        <font-awesome-icon v-if="!customers.length" icon="spinner" class="loader" />
+        <font-awesome-icon v-if="!customers.length" icon="spinner" class="loader"/>
         <customer
                 v-for="(customer, index) in customers"
                 :key="index"
