@@ -9,9 +9,10 @@
                       variant="danger"
                       class="node-card__delete"
                       v-b-tooltip.hover title="Удалить объект"
-                      @click="removeNode">
+                      @click="confirmShow = true">
                 <font-awesome-icon icon="trash"/>
             </b-button>
+            <confirm-modal @hidden="confirmShow = false" @onOk="removeNode" :text="`Вы уверены что хотите удалить объект?`" :show="confirmShow"/>
             <p class="card-text">
                 <!--TODO: alarms need to be finished-->
                 <span v-if="node.id % 2 === 0" class="node-card__alarms">
@@ -33,10 +34,11 @@
 </template>
 
 <script>
-    import img from "../../../assets/images/greenhouse.png";
+    import img from "@/assets/images/greenhouse.png";
     import DefaultIcon from "../Sensor/DefaultIcon";
     import SensorIcon from "../Sensor/SensorIcon";
     import {ENDPOINTS} from "@/api";
+    import ConfirmModal from "@/modals/ConfirmModal";
 
     export default {
         props: {
@@ -52,7 +54,8 @@
         data() {
             return {
                 publicPath: process.env.BASE_URL,
-                img: img
+                img: img,
+                confirmShow: false
             };
         },
         methods: {
@@ -64,11 +67,12 @@
                             this.$toastr("success", "Объект успешно удален", "Успешно удалено");
                         }
                     });
-            }
+            },
         },
         components: {
             DefaultIcon,
-            SensorIcon
+            SensorIcon,
+            ConfirmModal
         }
     };
 </script>
