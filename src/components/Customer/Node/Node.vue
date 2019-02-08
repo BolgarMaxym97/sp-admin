@@ -4,6 +4,7 @@
                 :img-src="img"
                 img-alt="Объект"
                 img-top>
+            <b-badge variant="primary node-card__badge">{{node.type_name}}</b-badge>
             <p class="card-text">
                 {{node.object_name}}
             </p>
@@ -52,5 +53,10 @@
 <style lang="scss" scoped>
     .node-card {
         min-height: 100%;
+        .node-card__badge {
+            position: absolute;
+            top: 3%;
+            left: 3%;
+        }
     }
 </style>

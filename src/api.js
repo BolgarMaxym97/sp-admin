@@ -30,7 +30,7 @@ api.interceptors.response.use((response) => {
     return _.get(response, "data", {});
 }, error => {
     if (!error.response) {
-        Vue.prototype.$toastr("error", "Bad request", "Ошибка выполнения");
+        Vue.prototype.$toastr("error", "Серверная ошибка", "Ошибка выполнения");
     }
     if (error.response.status === 401) {
         store.dispatch("logout").then(() => router.push("/login"));
