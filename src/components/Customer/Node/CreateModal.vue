@@ -36,7 +36,8 @@
             return {
                 show: this.modalCreateShow,
                 selectOptions: [],
-                selected: null
+                selected: null,
+                objectName: ""
             };
         },
         mounted() {
@@ -50,7 +51,13 @@
                 this.$emit("hidden");
             },
             createNode() {
-
+                this.$http.post(ENDPOINTS.NODES, {
+                    user_id: this.customerId,
+                    type: this.selected.value,
+                    object_name: this.objectName
+                }).then(resp => {
+                    console.log(resp);
+                });
             }
         },
         watch: {

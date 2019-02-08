@@ -5,10 +5,11 @@
             <b-alert v-if="!nodes.length" show variant="danger">У этого пользователя нету ни одного объекта</b-alert>
             <b-row>
                 <node v-for="(node, index) in nodes"
+                      class="node-component"
                       :key="index"
                       :node="node"
                       :icons="icons"/>
-                <b-col xl="4" lg="6">
+                <b-col xl="4" lg="4" md="6" class="node-col">
                     <b-card class="text-center mt-3 new-node-card" id="new-node-card-tooltip"
                             @click="toggleModal">
                         <b-tooltip target="new-node-card-tooltip" title="Добавить новый объект"
@@ -37,7 +38,6 @@
                 icons: [],
                 loading: true,
                 modalCreateShow: false,
-                customerId: +this.$route.params.id
             };
         },
         mounted() {
@@ -55,6 +55,11 @@
             },
             toggleModal() {
                 this.modalCreateShow = !this.modalCreateShow;
+            }
+        },
+        computed: {
+            customerId() {
+                return +this.$route.params.id;
             }
         },
         watch: {

@@ -1,5 +1,5 @@
 <template>
-    <b-col xl="4" lg="6">
+    <b-col xl="4" lg="4" md="6" class="node-col">
         <b-card class="text-center mt-3 node-card"
                 :img-src="img"
                 img-alt="Объект"
