@@ -21,7 +21,7 @@
         </div>
         <create-modal :modal-create-show="modalCreateShow"
                       :customer-id="customerId"
-                      @fetch="fetch"
+                      @push-node="pushNode"
                       @hidden="toggleModal"/>
     </div>
 </template>
@@ -55,6 +55,9 @@
             },
             toggleModal() {
                 this.modalCreateShow = !this.modalCreateShow;
+            },
+            pushNode(e) {
+                this.nodes.push(e);
             }
         },
         computed: {
