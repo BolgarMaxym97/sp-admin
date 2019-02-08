@@ -24,34 +24,31 @@ let api = axios.create({
 
 api.interceptors.request.use((config) => {
     return config;
-}, error => {
-    return Promise.reject(error);
 });
 
 api.interceptors.response.use((response) => {
+    if (response.status === 201) {
+        Vue.prototype.$toastr("success", "Успешно создано", "");
+    }
     return _.get(response, "data", {});
 }, error => {
-    return new Promise(function () {
-        if (!error.response) {
-            Vue.prototype.$toastr("error", "Bad request", "Ошибка выполнения");
-            return Promise.reject({messages: "Bad request"});
-        }
-        if (error.response.status === 401) {
-            store.dispatch("logout").then(() => router.push("/login"));
-        } else if (error.response.status === 422) {
-            _.each(error.response.data.errors, function (errors) {
-                _.each(errors, function (error) {
-                    Vue.prototype.$toastr("error", error, _.get(error, "response.data.message", "Ошибка выполнения"));
-                });
+    if (!error.response) {
+        Vue.prototype.$toastr("error", "Серверная ошибка", "Ошибка выполнения");
+    }
+    if (error.response.status === 401) {
+        store.dispatch("logout").then(() => router.push("/login"));
+    } else if (error.response.status === 422) {
+        _.each(error.response.data.errors, function (errors) {
+            _.each(errors, function (error) {
+                Vue.prototype.$toastr("error", error, _.get(error, "response.data.message", "Ошибка выполнения"));
             });
-        } else {
-            let messages = _.get(error, "response.data.messages", [_.get(error, "response.data.message", "")]);
-            _.each(messages, function (message) {
-                Vue.prototype.$toastr("error", message, "Ошибка выполнения");
-            });
-            return Promise.reject({messages: messages});
-        }
-    });
+        });
+    } else {
+        let messages = _.get(error, "response.data.messages", [_.get(error, "response.data.message", "")]);
+        _.each(messages, function (message) {
+            Vue.prototype.$toastr("error", message, "Ошибка выполнения");
+        });
+    }
 
 });
 

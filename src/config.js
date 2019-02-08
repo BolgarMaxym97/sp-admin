@@ -2,7 +2,7 @@ export default {
     toastrDefaultOptions: {
         defaultPosition: "toast-top-right",
         defaultType: "info",
-        defaultTimeout: 2000
+        defaultTimeout: 4000
     },
     vueScrollOptions: {
         wheelSpeed: 0.5,
