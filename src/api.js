@@ -27,6 +27,9 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use((response) => {
+    if (response.status === 201) {
+        Vue.prototype.$toastr("success", "Успешно создано", "");
+    }
     return _.get(response, "data", {});
 }, error => {
     if (!error.response) {

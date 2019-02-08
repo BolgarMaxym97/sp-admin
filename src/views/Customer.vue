@@ -8,6 +8,7 @@
                       class="node-component"
                       :key="index"
                       :node="node"
+                      @on-delete="onDelete"
                       :icons="icons"/>
                 <b-col xl="4" lg="4" md="6" class="node-col">
                     <b-card class="text-center mt-3 new-node-card" id="new-node-card-tooltip"
@@ -19,17 +20,17 @@
                 </b-col>
             </b-row>
         </div>
-        <create-modal :modal-create-show="modalCreateShow"
-                      :customer-id="customerId"
-                      @push-node="pushNode"
-                      @hidden="toggleModal"/>
+        <node-create-modal :modal-create-show="modalCreateShow"
+                           :customer-id="customerId"
+                           @push-node="pushNode"
+                           @hidden="toggleModal"/>
     </div>
 </template>
 
 <script>
     import {ENDPOINTS} from "@/api";
     import Node from "@/components/Customer/Node/Node";
-    import CreateModal from "@/components/Customer/Node/CreateModal";
+    import NodeCreateModal from "@/modals/NodeCreateModal";
 
     export default {
         data() {
@@ -58,6 +59,14 @@
             },
             pushNode(e) {
                 this.nodes.push(e);
+            },
+            onDelete(e) {
+                const index = this.nodes.findIndex(function (node) {
+                    return node.id === e;
+                });
+                if (index !== -1) {
+                    this.nodes.splice(index, 1);
+                }
             }
         },
         computed: {
@@ -72,7 +81,7 @@
         },
         components: {
             Node,
-            CreateModal
+            NodeCreateModal
         }
     };
 </script>
