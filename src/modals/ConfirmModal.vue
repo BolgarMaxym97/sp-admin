@@ -8,7 +8,7 @@
              ok-variant="success"
              @hidden="onHidden"
              @ok="ok">
-        {{text}}
+        <span v-html="text"></span>
     </b-modal>
 </template>
 

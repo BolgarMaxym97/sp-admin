@@ -22,12 +22,14 @@
                 <b>Название:</b> {{node.object_name}}
             </p>
             <sensor-icon v-for="(sensor) in node.sensors"
-                         :key="sensor.id"
+                         :key="sensor.id + node.id + sensor.type"
                          :sensor="sensor"/>
 
             <default-icon v-for="(icon) in icons"
                           :key="icon.id"
                           :icon="icon"
+                          :node-id="node.id"
+                          @after-creation="pushSensor"
                           :existing-types="node.existing_types"/>
         </b-card>
     </b-col>
@@ -68,6 +70,10 @@
                         }
                     });
             },
+            pushSensor(e) {
+                this.node.sensors.push(e);
+                this.node.existing_types.push(+e.type);
+            }
         },
         components: {
             DefaultIcon,
