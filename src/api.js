@@ -12,6 +12,7 @@ const ENDPOINTS = {
     CUSTOMERS: "customers",
     STATISTIC: "statistic",
     NODES: "nodes",
+    SENSORS: "sensors",
     NODE_TYPES: "node-types",
 };
 

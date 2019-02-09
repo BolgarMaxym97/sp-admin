@@ -8,7 +8,7 @@
              ok-variant="success"
              @hidden="onHidden"
              @ok="ok">
-        {{text}}
+        <span v-html="text"></span>
     </b-modal>
 </template>
 
@@ -36,8 +36,8 @@
             onHidden() {
                 this.$emit("hidden");
             },
-            ok() {
-                this.$emit("onOk");
+            ok(ev) {
+                this.$emit("onOk", ev);
             }
         },
         watch: {
