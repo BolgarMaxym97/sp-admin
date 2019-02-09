@@ -1,7 +1,7 @@
 <template>
     <div class="sensor-placeholder"
          :style="iconStyle"
-         v-b-tooltip.hover="true" :title="`${this.sensor.last_data || 'Нету данных'} ${this.sensor.sensor_type.dimension || ''}`">
+         v-b-tooltip.hover="true" :title="`${sensor.type_name}`">
         <font-awesome-icon
                 :icon="sensor.sensor_type.sensor_icon.icon"
                 class="sensor-placeholder__icon"/>

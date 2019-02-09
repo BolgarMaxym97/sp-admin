@@ -4,13 +4,13 @@
              class="sensor-placeholder"
              @click="confirmShow = true"
              :style="iconStyle"
-             v-b-tooltip.hover :title="`Добавить '${icon.type_name}'`">
+             v-b-tooltip.hover :title="`Добавить '${icon.sensor_type_rel.name}'`">
             <font-awesome-icon
                     icon="plus"
                     class="sensor-placeholder__icon"/>
         </div>
         <confirm-modal @hidden="confirmShow = false" @onOk="createSensor"
-                       :text="`Вы уверены что хотите добавить датчик <b>'${icon.type_name}'</b>?`" :show="confirmShow"/>
+                       :text="`Вы уверены что хотите добавить датчик <b>'${icon.sensor_type_rel.name}'</b>?`" :show="confirmShow"/>
     </div>
 </template>
 
