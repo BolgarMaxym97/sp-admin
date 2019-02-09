@@ -36,8 +36,8 @@
             onHidden() {
                 this.$emit("hidden");
             },
-            ok() {
-                this.$emit("onOk");
+            ok(ev) {
+                this.$emit("onOk", ev);
             }
         },
         watch: {

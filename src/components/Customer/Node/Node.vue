@@ -61,10 +61,12 @@
             };
         },
         methods: {
-            removeNode() {
+            removeNode(ev) {
+                ev.preventDefault();
                 this.$http.delete(ENDPOINTS.NODES + "/" + this.node.id)
                     .then(resp => {
                         if (resp.success) {
+                            this.confirmShow = false;
                             this.$emit("on-delete", this.node.id);
                             this.$toastr("success", "Объект успешно удален", "Успешно удалено");
                         }

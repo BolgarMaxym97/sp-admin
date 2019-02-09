@@ -49,13 +49,15 @@
             }
         },
         methods: {
-            createSensor() {
+            createSensor(ev) {
+                ev.preventDefault();
                 this.$http.post(ENDPOINTS.SENSORS, {
                     user_id: this.customerId,
                     type: this.icon.sensor_type,
                     node_id: this.nodeId
                 }).then(resp => {
                     if (_.size(resp)) {
+                        this.confirmShow = false;
                         this.$emit("after-creation", resp);
                     }
                 });
