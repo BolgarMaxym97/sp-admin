@@ -7,7 +7,9 @@
              ref="modal"
              @shown="modalHeight"
              @hidden="onHidden">
-        <temperature-chart :chartData="chartData"/>
+        <font-awesome-icon v-if="loading" icon="spinner" class="loader"/>
+        <p v-else-if="!loading && !this.data.length">Нету данных за эту дату</p>
+        <temperature-chart v-else :chartData="chartData"/>
     </b-modal>
 </template>
 
@@ -30,6 +32,7 @@
             };
         },
         mounted() {
+            this.loading = true;
             this.$http.get(ENDPOINTS.SENSORS + "/" + this.sensorId)
                 .then(resp => {
                     this.data = resp.data;
@@ -42,7 +45,10 @@
                 this.$emit("hidden");
             },
             modalHeight() {
-                document.getElementsByTagName("canvas")[0].style.height = "600px";
+                let canvasElement = document.getElementsByTagName("canvas")[0];
+                if (canvasElement) {
+                    canvasElement.style.height = "600px";
+                }
             }
         },
         computed: {
@@ -70,6 +76,11 @@
     };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import "../../assets/scss/colors";
 
+    .loader {
+        color: $primary-color-5;
+        font-size: 72px;
+    }
 </style>

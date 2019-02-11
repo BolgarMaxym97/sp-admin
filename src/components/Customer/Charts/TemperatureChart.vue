@@ -1,7 +1,5 @@
 <script>
     import {Line, mixins} from "vue-chartjs";
-    // eslint-disable-next-line
-    import chartjsPluginAnnotation from "chartjs-plugin-annotation";
 
     export default {
         extends: Line,
@@ -11,10 +9,6 @@
             const options = {
                 responsive: true,
                 maintainAspectRatio: false,
-                title: {
-                    display: true,
-                    text: "Температура"
-                },
                 tooltips: {
                     mode: "x-axis"
                 },
