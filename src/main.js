@@ -8,6 +8,7 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 import "@/assets/scss/main.scss";
 import "@/assets/css/AdminLTE.min.css";
 import vSelect from "vue-select";
+import moment from "vue-moment";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faUser, faSignInAlt, faArrowRight, faSpinner, faUsers, faNetworkWired, faThermometerHalf, faPlus, faTint, faGripLinesVertical, faBars, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
@@ -22,6 +23,7 @@ Vue.component("v-select", vSelect);
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 Vue.use(VueToastr, config.toastrDefaultOptions);
+Vue.use(moment);
 Vue.prototype.$http = api;
 
 new Vue({

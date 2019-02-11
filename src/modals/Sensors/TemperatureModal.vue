@@ -8,13 +8,17 @@
              @shown="modalHeight"
              @hidden="onHidden">
         <font-awesome-icon v-if="loading" icon="spinner" class="loader"/>
-        <p v-else-if="!loading && !this.data.length">Нету данных за эту дату</p>
-        <temperature-chart v-else :chartData="chartData"/>
+        <div v-else>
+            <date-picker value-type="format" v-model="date" lang="ru" :not-after="new Date()"/>
+            <p v-if="!loading && !this.data.length">Нету данных за эту дату</p>
+            <temperature-chart v-else :chartData="chartData"/>
+        </div>
     </b-modal>
 </template>
 
 <script>
     import TemperatureChart from "@/components/Customer/Charts/TemperatureChart";
+    import DatePicker from "vue2-datepicker";
     import {ENDPOINTS} from "@/api";
 
     export default {
@@ -26,6 +30,7 @@
         },
         data() {
             return {
+                date: this.$moment().format("YYYY-MM-DD"),
                 labels: [],
                 data: [],
                 loading: false,
@@ -33,12 +38,7 @@
         },
         mounted() {
             this.loading = true;
-            this.$http.get(ENDPOINTS.SENSORS + "/" + this.sensorId)
-                .then(resp => {
-                    this.data = resp.data;
-                    this.labels = resp.labels;
-                    this.loading = false;
-                });
+            this.fetch().then(() => this.loading = false);
         },
         methods: {
             onHidden() {
@@ -49,6 +49,13 @@
                 if (canvasElement) {
                     canvasElement.style.height = "600px";
                 }
+            },
+            fetch() {
+                return this.$http.get(ENDPOINTS.SENSORS + "/" + this.sensorId, {params: {date: this.date}})
+                    .then(resp => {
+                        this.data = resp.data;
+                        this.labels = resp.labels;
+                    });
             }
         },
         computed: {
@@ -71,7 +78,8 @@
             }
         },
         components: {
-            TemperatureChart
+            TemperatureChart,
+            DatePicker
         }
     };
 </script>
