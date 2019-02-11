@@ -7,10 +7,16 @@
              ref="modal"
              @shown="modalHeight"
              @hidden="onHidden">
+        <div class="change-date">
+            <font-awesome-icon v-if="disabledDatepicker" icon="spinner" class="loader"/>
+            <date-picker @change="fetch" value-type="format" v-model="date" lang="ru" :not-after="new Date()"
+                         :disabled="disabledDatepicker"/>
+        </div>
         <font-awesome-icon v-if="loading" icon="spinner" class="loader"/>
         <div v-else>
-            <date-picker value-type="format" v-model="date" lang="ru" :not-after="new Date()"/>
-            <p v-if="!loading && !this.data.length">Нету данных за эту дату</p>
+            <b-alert v-if="!loading && !this.data.length" variant="danger" show class="no-data-alert">Нету данных за эту
+                дату
+            </b-alert>
             <temperature-chart v-else :chartData="chartData"/>
         </div>
     </b-modal>
@@ -34,6 +40,7 @@
                 labels: [],
                 data: [],
                 loading: false,
+                disabledDatepicker: true,
             };
         },
         mounted() {
@@ -51,10 +58,12 @@
                 }
             },
             fetch() {
+                this.disabledDatepicker = true;
                 return this.$http.get(ENDPOINTS.SENSORS + "/" + this.sensorId, {params: {date: this.date}})
                     .then(resp => {
                         this.data = resp.data;
                         this.labels = resp.labels;
+                        this.disabledDatepicker = false;
                     });
             }
         },
@@ -90,5 +99,20 @@
     .loader {
         color: $primary-color-5;
         font-size: 72px;
+    }
+
+
+    .no-data-alert {
+        margin-top: 20px;
+    }
+
+    .change-date {
+        .loader {
+            font-size: 36px;
+        }
+
+        &:only-child {
+            display: inline-block;
+        }
     }
 </style>
