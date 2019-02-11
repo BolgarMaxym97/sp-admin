@@ -1,12 +1,12 @@
 <template>
-    <b-modal v-model="show"
+    <b-modal :visible="true"
              title="Данные о закрытии/октрытии форточки"
-             v-b-modal.modalxl
+             size="xl"
              cancel-only
              ref="modal"
              cancel-title="Закрыть"
              @hidden="onHidden">
-        Данные  о закрытии/октрытии форточки {{sensorId}}
+        Данные о закрытии/октрытии форточки {{sensorId}}
     </b-modal>
 </template>
 

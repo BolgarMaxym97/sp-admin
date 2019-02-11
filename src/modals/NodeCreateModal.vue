@@ -14,7 +14,8 @@
                 description="Выберите тип для нового объекта"
                 label="Тип объекта"
                 label-for="node-select">
-            <v-select id="node-select" v-model="selected" :options="selectOptions" :disabled="loading || !selectOptions.length">
+            <v-select id="node-select" v-model="selected" :options="selectOptions"
+                      :disabled="loading || !selectOptions.length">
                 <span slot="no-options">Не найдено ни одного типа объектов</span>
             </v-select>
         </b-form-group>
@@ -94,7 +95,7 @@
         color: $primary-color-5;
         position: absolute;
         top: 50px;
-        left: 0px;
+        left: 0;
         font-size: 90px;
     }
 </style>

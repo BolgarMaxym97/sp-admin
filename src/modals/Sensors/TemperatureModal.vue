@@ -1,7 +1,7 @@
 <template>
-    <b-modal v-model="show"
+    <b-modal :visible="true"
              title="Данные о температуре"
-             v-b-modal.modalxl
+             size="xl"
              cancel-only
              ref="modal"
              cancel-title="Закрыть"
