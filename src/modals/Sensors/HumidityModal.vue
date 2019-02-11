@@ -2,9 +2,9 @@
     <b-modal :visible="true"
              title="Данные о влажности"
              size="xl"
-             cancel-only
+             ok-only
+             ok-title="Закрыть"
              ref="modal"
-             cancel-title="Закрыть"
              @hidden="onHidden">
         Данные о влажности {{sensorId}}
     </b-modal>

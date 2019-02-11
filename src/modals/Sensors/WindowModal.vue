@@ -2,9 +2,9 @@
     <b-modal :visible="true"
              title="Данные о закрытии/октрытии форточки"
              size="xl"
-             cancel-only
+             ok-only
+             ok-title="Закрыть"
              ref="modal"
-             cancel-title="Закрыть"
              @hidden="onHidden">
         Данные о закрытии/октрытии форточки {{sensorId}}
     </b-modal>
