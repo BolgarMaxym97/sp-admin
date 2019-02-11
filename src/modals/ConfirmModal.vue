@@ -1,5 +1,5 @@
 <template>
-    <b-modal v-model="modalShow"
+    <b-modal :visible="true"
              :title="title"
              v-b-modal.modalsm
              ref="modal"
@@ -15,9 +15,6 @@
 <script>
     export default {
         props: {
-            show: {
-                type: Boolean
-            },
             title: {
                 type: String,
                 default: "Вы уверены?"
@@ -27,22 +24,12 @@
                 default: "Вы уверены что хотите сделать это?"
             }
         },
-        data() {
-            return {
-                modalShow: false,
-            };
-        },
         methods: {
             onHidden() {
                 this.$emit("hidden");
             },
             ok(ev) {
                 this.$emit("onOk", ev);
-            }
-        },
-        watch: {
-            show(newVal) {
-                this.modalShow = newVal;
             }
         }
     };

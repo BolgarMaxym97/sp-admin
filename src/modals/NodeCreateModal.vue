@@ -1,5 +1,5 @@
 <template>
-    <b-modal v-model="show"
+    <b-modal :visible="true"
              title="Создание нового объекта"
              v-b-modal.modalmd
              ok-only
@@ -39,9 +39,6 @@
 
     export default {
         props: {
-            modalCreateShow: {
-                type: Boolean
-            },
             customerId: {
                 type: Number,
                 required: true
@@ -49,7 +46,6 @@
         },
         data() {
             return {
-                show: this.modalCreateShow,
                 selectOptions: [],
                 selected: null,
                 objectName: "",
@@ -86,11 +82,6 @@
                 }).finally(() => {
                     this.loading = false;
                 });
-            }
-        },
-        watch: {
-            modalCreateShow: function (newVal) {
-                this.show = newVal;
             }
         }
     };
