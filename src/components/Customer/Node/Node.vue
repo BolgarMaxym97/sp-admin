@@ -22,7 +22,7 @@
                 <b>Название:</b> {{node.object_name}}
             </p>
             <sensor-icon v-for="(sensor) in node.sensors"
-                         :key="sensor.id + node.id + sensor.type"
+                         :key="sensor.created_at"
                          :sensor="sensor"/>
 
             <default-icon v-for="(icon) in icons"

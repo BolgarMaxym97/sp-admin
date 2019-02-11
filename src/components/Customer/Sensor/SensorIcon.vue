@@ -1,11 +1,13 @@
 <template>
-    <div class="sensor-placeholder"
-         :style="iconStyle"
-         @click="modalSensorShow = true"
-         v-b-tooltip.hover="true" :title="`${sensor.type_name}`">
-        <font-awesome-icon
-                :icon="sensor.sensor_type.sensor_icon.icon"
-                class="sensor-placeholder__icon"/>
+    <div>
+        <div class="sensor-placeholder"
+             :style="iconStyle"
+             @click="modalSensorShow = true"
+             v-b-tooltip.hover :title="`${sensor.type_name}`">
+            <font-awesome-icon
+                    :icon="sensor.sensor_type.sensor_icon.icon"
+                    class="sensor-placeholder__icon"/>
+        </div>
         <component v-if="modalSensorShow" @hidden="modalSensorShow = false" :is="component" :sensor-id="sensor.id"/>
     </div>
 </template>
