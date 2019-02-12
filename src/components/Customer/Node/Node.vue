@@ -12,14 +12,35 @@
                       @click="confirmShow = true">
                 <font-awesome-icon icon="trash"/>
             </b-button>
-            <confirm-modal @hidden="confirmShow = false" @onOk="removeNode" :text="`Вы уверены что хотите удалить объект?`" v-if="confirmShow"/>
+            <confirm-modal @hidden="confirmShow = false" @onOk="removeNode"
+                           :text="`Вы уверены что хотите удалить объект?`" v-if="confirmShow"/>
             <p class="card-text">
                 <!--TODO: alarms need to be finished-->
                 <span v-if="node.id % 2 === 0" class="node-card__alarms">
                     <b-badge variant="danger" class="node-card__alarms-item">Низкая температура</b-badge>
                     <b-badge variant="warning" class="node-card__alarms-item">Открыты форточки</b-badge>
                 </span>
-                <b>Название:</b> {{node.object_name}}
+                <b>{{node.object_name}}</b>
+                <b-row class="node-card__btns">
+                    <b-col col="4">
+                        <b-button variant="primary">
+                            <font-awesome-icon icon="sliders-h"/>
+                            Настройки
+                        </b-button>
+                    </b-col>
+                    <b-col col="4">
+                        <b-button variant="warning">
+                            <font-awesome-icon icon="chart-bar"/>
+                            Статистика
+                        </b-button>
+                    </b-col>
+                    <b-col col="4">
+                        <b-button variant="success">
+                            <font-awesome-icon icon="table"/>
+                            Текущие данные
+                        </b-button>
+                    </b-col>
+                </b-row>
             </p>
             <sensor-icon v-for="(sensor) in node.sensors"
                          :key="sensor.created_at"
@@ -111,6 +132,10 @@
             .node-card__alarms-item {
                 margin: 2px;
             }
+        }
+
+        .node-card__btns {
+            margin-top: 10px;
         }
     }
 </style>
