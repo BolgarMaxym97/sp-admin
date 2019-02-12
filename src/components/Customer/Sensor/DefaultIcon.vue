@@ -9,8 +9,8 @@
                     icon="plus"
                     class="sensor-placeholder__icon"/>
         </div>
-        <confirm-modal @hidden="confirmShow = false" @onOk="createSensor"
-                       :text="`Вы уверены что хотите добавить датчик <b>'${icon.sensor_type_rel.name}'</b>?`" :show="confirmShow"/>
+        <confirm-modal v-if="confirmShow" @hidden="confirmShow = false" @onOk="createSensor"
+                       :text="`Вы уверены что хотите добавить датчик <b>'${icon.sensor_type_rel.name}'</b>?`"/>
     </div>
 </template>
 

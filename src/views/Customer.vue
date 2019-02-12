@@ -20,7 +20,7 @@
                 </b-col>
             </b-row>
         </div>
-        <node-create-modal :modal-create-show="modalCreateShow"
+        <node-create-modal v-if="modalCreateShow"
                            :customer-id="customerId"
                            @push-node="pushNode"
                            @hidden="toggleModal"/>

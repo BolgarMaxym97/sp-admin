@@ -1,5 +1,5 @@
 <template>
-    <b-modal v-model="show"
+    <b-modal :visible="true"
              title="Создание нового объекта"
              v-b-modal.modalmd
              ok-only
@@ -14,7 +14,8 @@
                 description="Выберите тип для нового объекта"
                 label="Тип объекта"
                 label-for="node-select">
-            <v-select id="node-select" v-model="selected" :options="selectOptions" :disabled="loading">
+            <v-select id="node-select" v-model="selected" :options="selectOptions"
+                      :disabled="loading || !selectOptions.length">
                 <span slot="no-options">Не найдено ни одного типа объектов</span>
             </v-select>
         </b-form-group>
@@ -29,7 +30,7 @@
                           placeholder="Имя объекта">
             </b-form-input>
         </b-form-group>
-        <font-awesome-icon v-if="loading" icon="spinner" class="loader"/>
+        <font-awesome-icon v-if="loading || !selectOptions.length" icon="spinner" class="loader"/>
     </b-modal>
 </template>
 
@@ -39,9 +40,6 @@
 
     export default {
         props: {
-            modalCreateShow: {
-                type: Boolean
-            },
             customerId: {
                 type: Number,
                 required: true
@@ -49,7 +47,6 @@
         },
         data() {
             return {
-                show: this.modalCreateShow,
                 selectOptions: [],
                 selected: null,
                 objectName: "",
@@ -87,11 +84,6 @@
                     this.loading = false;
                 });
             }
-        },
-        watch: {
-            modalCreateShow: function (newVal) {
-                this.show = newVal;
-            }
         }
     };
 </script>
@@ -103,7 +95,7 @@
         color: $primary-color-5;
         position: absolute;
         top: 50px;
-        left: 0px;
+        left: 0;
         font-size: 90px;
     }
 </style>

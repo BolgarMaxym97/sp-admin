@@ -12,7 +12,7 @@
                       @click="confirmShow = true">
                 <font-awesome-icon icon="trash"/>
             </b-button>
-            <confirm-modal @hidden="confirmShow = false" @onOk="removeNode" :text="`Вы уверены что хотите удалить объект?`" :show="confirmShow"/>
+            <confirm-modal @hidden="confirmShow = false" @onOk="removeNode" :text="`Вы уверены что хотите удалить объект?`" v-if="confirmShow"/>
             <p class="card-text">
                 <!--TODO: alarms need to be finished-->
                 <span v-if="node.id % 2 === 0" class="node-card__alarms">
@@ -22,7 +22,7 @@
                 <b>Название:</b> {{node.object_name}}
             </p>
             <sensor-icon v-for="(sensor) in node.sensors"
-                         :key="sensor.id + node.id + sensor.type"
+                         :key="sensor.created_at"
                          :sensor="sensor"/>
 
             <default-icon v-for="(icon) in icons"

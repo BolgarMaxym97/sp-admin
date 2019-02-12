@@ -29,7 +29,6 @@ export default {
         return new Promise((resolve, reject) => {
             Vue.prototype.$http.post("register", data)
                 .then(resp => {
-                    console.log(resp);
                     resolve(resp);
                 })
                 .catch(err => {
