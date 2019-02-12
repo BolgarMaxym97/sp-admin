@@ -8,7 +8,20 @@
         props: ["chartData"],
         mounted() {
             const options = Object.assign(config.defaultOptionsForChartModal, {
-                //new options here
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Температура, °C"
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Время"
+                        }
+                    }]
+                }
             });
 
             this.renderChart(this.chartData, options);

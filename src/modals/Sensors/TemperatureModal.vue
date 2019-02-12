@@ -1,6 +1,6 @@
 <template>
     <b-modal :visible="true"
-             title="Данные о температуре"
+             :title="`Данные о температуре за ${date}`"
              size="xl"
              ok-only
              ok-title="Закрыть"
@@ -8,7 +8,7 @@
              @shown="modalHeight"
              @hidden="onHidden">
         <div class="change-date ">
-            <b-button class="arrow-btn" @click="subDay">
+            <b-button class="arrow-btn" @click="subDay" :disabled="disabledDatepicker">
                 <font-awesome-icon icon="arrow-left"/>
             </b-button>
             <date-picker @change="fetch"
@@ -17,8 +17,9 @@
                          lang="ru"
                          :not-after="new Date()"
                          :clearable="false"
+                         format="DD.MM.YYYY"
                          :disabled="disabledDatepicker"/>
-            <b-button class="arrow-btn" @click="addDay">
+            <b-button class="arrow-btn" @click="addDay" :disabled="disabledDatepicker">
                 <font-awesome-icon icon="arrow-right"/>
             </b-button>
             <font-awesome-icon v-if="disabledDatepicker" icon="spinner" class="loader"/>
@@ -47,7 +48,7 @@
         },
         data() {
             return {
-                date: this.$moment().format("YYYY-MM-DD"),
+                date: this.$moment().format("DD.MM.YYYY"),
                 labels: [],
                 data: [],
                 loading: false,
@@ -81,11 +82,11 @@
                     });
             },
             subDay() {
-                this.date = this.$moment(this.date).subtract(1, "days").format("YYYY-MM-DD");
+                this.date = this.$moment(this.date, "DD.MM.YYYY").subtract(1, "days").format("DD.MM.YYYY");
                 this.fetch();
             },
             addDay() {
-                this.date = this.$moment(this.date).add(1, "days").format("YYYY-MM-DD");
+                this.date = this.$moment(this.date, "DD.MM.YYYY").add(1, "days").format("DD.MM.YYYY");
                 this.fetch();
             }
         },
