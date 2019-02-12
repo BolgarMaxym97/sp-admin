@@ -7,10 +7,10 @@
              ref="modal"
              @shown="modalHeight"
              @hidden="onHidden">
-        <div class="change-date">
-            <font-awesome-icon v-if="disabledDatepicker" icon="spinner" class="loader"/>
+        <div class="change-date ">
             <date-picker @change="fetch" value-type="format" v-model="date" lang="ru" :not-after="new Date()"
                          :disabled="disabledDatepicker"/>
+            <font-awesome-icon v-if="disabledDatepicker" icon="spinner" class="loader"/>
         </div>
         <font-awesome-icon v-if="loading" icon="spinner" class="loader"/>
         <div v-else>
@@ -101,17 +101,21 @@
         font-size: 72px;
     }
 
-
     .no-data-alert {
         margin-top: 20px;
     }
 
     .change-date {
+        text-align: left;
+        margin: 0 0 15px 20px;
+
         .loader {
-            font-size: 36px;
+            font-size: 24px;
+            margin: 5px 0 0 5px;
+            width: 24px !important;
         }
 
-        &:only-child {
+        * {
             display: inline-block;
         }
     }
