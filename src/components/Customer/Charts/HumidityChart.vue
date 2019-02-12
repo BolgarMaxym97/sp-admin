@@ -12,7 +12,7 @@
                     yAxes: [{
                         scaleLabel: {
                             display: true,
-                            labelString: "Температура, °C"
+                            labelString: "Влажность, %"
                         }
                     }],
                     xAxes: [{

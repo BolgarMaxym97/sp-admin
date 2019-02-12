@@ -10,14 +10,14 @@ import "@/assets/css/AdminLTE.min.css";
 import vSelect from "vue-select";
 import moment from "vue-moment";
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faUser, faSignInAlt, faArrowRight, faSpinner, faUsers, faNetworkWired, faThermometerHalf, faPlus, faTint, faGripLinesVertical, faBars, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faUser, faSignInAlt, faArrowRight, faArrowLeft, faSpinner, faUsers, faNetworkWired, faThermometerHalf, faPlus, faTint, faGripLinesVertical, faBars, faTrash, faSlidersH, faTable, faChartBar} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import VueToastr from "@deveodk/vue-toastr";
 import "@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css";
 import {api} from "@/api";
 import config from "@/config";
 
-library.add(faUser, faSignInAlt, faArrowRight, faSpinner, faUsers, faNetworkWired, faThermometerHalf, faPlus, faTint, faGripLinesVertical, faBars, faTrash);
+library.add(faUser, faSignInAlt, faArrowRight, faArrowLeft, faSpinner, faUsers, faNetworkWired, faThermometerHalf, faPlus, faTint, faGripLinesVertical, faBars, faTrash, faSlidersH, faTable, faChartBar);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.component("v-select", vSelect);
 Vue.config.productionTip = false;

@@ -1,6 +1,6 @@
 <template>
     <b-modal :visible="true"
-             title="Данные о температуре"
+             :title="`Данные о температуре за ${date}`"
              size="xl"
              ok-only
              ok-title="Закрыть"
@@ -8,8 +8,20 @@
              @shown="modalHeight"
              @hidden="onHidden">
         <div class="change-date ">
-            <date-picker @change="fetch" value-type="format" v-model="date" lang="ru" :not-after="new Date()"
+            <b-button class="arrow-btn" @click="subDay" :disabled="disabledDatepicker">
+                <font-awesome-icon icon="arrow-left"/>
+            </b-button>
+            <date-picker @change="fetch"
+                         value-type="format"
+                         v-model="date"
+                         lang="ru"
+                         :not-after="new Date()"
+                         :clearable="false"
+                         format="DD.MM.YYYY"
                          :disabled="disabledDatepicker"/>
+            <b-button class="arrow-btn" @click="addDay" :disabled="disabledDatepicker">
+                <font-awesome-icon icon="arrow-right"/>
+            </b-button>
             <font-awesome-icon v-if="disabledDatepicker" icon="spinner" class="loader"/>
         </div>
         <font-awesome-icon v-if="loading" icon="spinner" class="loader"/>
@@ -36,7 +48,7 @@
         },
         data() {
             return {
-                date: this.$moment().format("YYYY-MM-DD"),
+                date: this.$moment().format("DD.MM.YYYY"),
                 labels: [],
                 data: [],
                 loading: false,
@@ -58,6 +70,9 @@
                 }
             },
             fetch() {
+                if (!this.date.length) {
+                    return false;
+                }
                 this.disabledDatepicker = true;
                 return this.$http.get(ENDPOINTS.SENSORS + "/" + this.sensorId, {params: {date: this.date}})
                     .then(resp => {
@@ -65,6 +80,14 @@
                         this.labels = resp.labels;
                         this.disabledDatepicker = false;
                     });
+            },
+            subDay() {
+                this.date = this.$moment(this.date, "DD.MM.YYYY").subtract(1, "days").format("DD.MM.YYYY");
+                this.fetch();
+            },
+            addDay() {
+                this.date = this.$moment(this.date, "DD.MM.YYYY").add(1, "days").format("DD.MM.YYYY");
+                this.fetch();
             }
         },
         computed: {
@@ -118,5 +141,11 @@
         * {
             display: inline-block;
         }
+    }
+
+    .arrow-btn {
+        padding: 0.28rem 0.75rem;
+        margin: 0 5px;
+        background-color: $primary-color-5;
     }
 </style>

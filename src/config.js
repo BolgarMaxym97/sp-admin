@@ -17,13 +17,6 @@ export default {
         legend: {
             display: false
         },
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true,
-                }
-            }]
-        },
         hover: {
             onHover: function () {
                 if (this.chart.tooltip._active && this.chart.tooltip._active.length) {
