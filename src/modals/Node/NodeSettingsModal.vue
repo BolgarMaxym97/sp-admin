@@ -9,13 +9,13 @@
              @hidden="onHidden">
         <node-settings :loading="loading" :node="node" @toggle-loading="toggleLoading" @after-update="afterUpdate"/>
         <hr>
-        <sensors-settings-table :node="node"/>
+        <sensors-settings-table :node-id="node.id"/>
         <font-awesome-icon v-if="loading" icon="spinner" class="loader"/>
     </b-modal>
 </template>
 
 <script>
-    import SensorsSettingsTable from "@/components/Customer/Sensor/SettingsTable";
+    import SensorsSettingsTable from "@/components/Customer/Sensor/SettingsTable/SettingsTable";
     import NodeSettings from "@/components/Customer/Node/NodeSettings";
 
     export default {
