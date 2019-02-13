@@ -1,5 +1,5 @@
 export default {
     isLoggedIn: state => !!state.token,
-    userName: state => `${state.user.name_first} ${state.user.name_last}`,
+    userName: state => `${state.user.name_first || "Пользователь"} ${state.user.name_last || ""}`,
     isMenuOpened: state => state.menuOpened
 };
