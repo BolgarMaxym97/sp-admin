@@ -15,11 +15,7 @@
             <confirm-modal @hidden="confirmShow = false" @onOk="removeNode"
                            :text="`Вы уверены что хотите удалить объект?`" v-if="confirmShow"/>
             <p class="card-text">
-                <!--TODO: alarms need to be finished-->
-                <span v-if="node.id % 2 === 0" class="node-card__alarms">
-                    <b-badge variant="danger" class="node-card__alarms-item">Низкая температура</b-badge>
-                    <b-badge variant="warning" class="node-card__alarms-item">Открыты форточки</b-badge>
-                </span>
+                <alarms :node="nodeState"/>
                 <b>{{nodeState.object_name}}</b>
                 <b-row class="node-card__btns">
                     <b-col cols="4">
@@ -64,6 +60,7 @@
     import {ENDPOINTS} from "@/api";
     import ConfirmModal from "@/modals/ConfirmModal";
     import NodeSettingsModal from "@/modals/Node/NodeSettingsModal";
+    import Alarms from "./Alarms";
 
     export default {
         props: {
@@ -109,7 +106,8 @@
             DefaultIcon,
             SensorIcon,
             ConfirmModal,
-            NodeSettingsModal
+            NodeSettingsModal,
+            Alarms
         }
     };
 </script>
