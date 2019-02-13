@@ -37,7 +37,7 @@
                 </b-form-group>
             </b-col>
             <b-col cols="2">
-                <b-button variant="success" class="save-object-setting" @click="saveObject">
+                <b-button variant="success" class="save-node-setting" @click="saveNode">
                     <font-awesome-icon icon="save"/>
                     Сохранить
                 </b-button>
@@ -81,7 +81,7 @@
             onHidden() {
                 this.$emit("hidden");
             },
-            saveObject() {
+            saveNode() {
 
             }
         }
@@ -99,7 +99,7 @@
         font-size: 90px;
     }
 
-    .save-object-setting {
+    .save-node-setting {
         margin-top: 35px;
     }
 

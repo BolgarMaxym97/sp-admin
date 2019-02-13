@@ -31,7 +31,7 @@
             this.$http.get(ENDPOINTS.STATISTIC)
                 .then(statistic => {
                     this.customersCount = statistic.customers_count;
-                    this.nodesCount = statistic.objects_count;
+                    this.nodesCount = statistic.nodes_count;
                     this.sensorsCount = statistic.sensors_count;
                     this.labels = statistic.chartData.labels;
                     this.data = statistic.chartData.data;
