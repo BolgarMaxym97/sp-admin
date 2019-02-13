@@ -22,22 +22,22 @@
                 </span>
                 <b>{{node.object_name}}</b>
                 <b-row class="node-card__btns">
-                    <b-col col="4">
-                        <b-button variant="primary">
+                    <b-col cols="4">
+                        <b-button variant="primary" v-b-tooltip.hover title="Настройки" @click="settingsModal = true">
                             <font-awesome-icon icon="sliders-h"/>
-                            Настройки
                         </b-button>
+                        <node-settings-modal v-if="settingsModal"
+                                             :node="node"
+                                             @hidden="settingsModal = false"/>
                     </b-col>
-                    <b-col col="4">
-                        <b-button variant="warning">
+                    <b-col cols="4">
+                        <b-button variant="warning" v-b-tooltip.hover title="Статистика">
                             <font-awesome-icon icon="chart-bar"/>
-                            Статистика
                         </b-button>
                     </b-col>
-                    <b-col col="4">
-                        <b-button variant="success">
+                    <b-col cols="4">
+                        <b-button variant="success" v-b-tooltip.hover title="Последние данные">
                             <font-awesome-icon icon="table"/>
-                            Текущие данные
                         </b-button>
                     </b-col>
                 </b-row>
@@ -62,6 +62,7 @@
     import SensorIcon from "../Sensor/SensorIcon";
     import {ENDPOINTS} from "@/api";
     import ConfirmModal from "@/modals/ConfirmModal";
+    import NodeSettingsModal from "@/modals/Node/NodeSettingsModal";
 
     export default {
         props: {
@@ -78,7 +79,8 @@
             return {
                 publicPath: process.env.BASE_URL,
                 img: img,
-                confirmShow: false
+                confirmShow: false,
+                settingsModal: false,
             };
         },
         methods: {
@@ -101,7 +103,8 @@
         components: {
             DefaultIcon,
             SensorIcon,
-            ConfirmModal
+            ConfirmModal,
+            NodeSettingsModal
         }
     };
 </script>
@@ -136,6 +139,10 @@
 
         .node-card__btns {
             margin-top: 10px;
+
+            .btn {
+                padding: 0.375rem 2rem;
+            }
         }
     }
 </style>
