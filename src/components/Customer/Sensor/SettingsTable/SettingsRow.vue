@@ -3,16 +3,16 @@
         <th scope="row">{{sensor.id}}</th>
         <td>{{sensor.type_name}}</td>
         <td>
-            <b-form-input v-model="maxNormalValue"
-                          type="text"
-                          size="sm"
-                          placeholder="Максимальное нормальное значение"></b-form-input>
-        </td>
-        <td>
             <b-form-input v-model="minNormalValue"
                           type="text"
                           size="sm"
                           placeholder="Минимальное нормальное значение"></b-form-input>
+        </td>
+        <td>
+            <b-form-input v-model="maxNormalValue"
+                          type="text"
+                          size="sm"
+                          placeholder="Максимальное нормальное значение"></b-form-input>
         </td>
         <td>
             <b-button :disabled="loading" variant="success" size="sm" @click="saveSensorSettings">
@@ -42,10 +42,10 @@
                 loading: false
             };
         },
-        method: {
+        methods: {
             saveSensorSettings() {
                 this.loading = true;
-                this.$http.post(ENDPOINTS, {
+                this.$http.post(ENDPOINTS.SETTINGS, {
                     sensor_id: this.sensor.id,
                     max_normal_value: this.maxNormalValue,
                     min_normal_value: this.minNormalValue,

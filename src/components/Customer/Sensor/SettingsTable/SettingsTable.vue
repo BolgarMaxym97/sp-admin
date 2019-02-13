@@ -9,8 +9,8 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Тип</th>
-                    <th scope="col">Максимальное допустимое значение</th>
                     <th scope="col">Минимальное допустимое значение</th>
+                    <th scope="col">Максимальное допустимое значение</th>
                     <th></th>
                 </tr>
                 </thead>
