@@ -30,7 +30,7 @@
 <script>
     import {ENDPOINTS} from "@/api";
     import Node from "@/components/Customer/Node/Node";
-    import NodeCreateModal from "@/modals/NodeCreateModal";
+    import NodeCreateModal from "@/modals/Node/NodeCreateModal";
 
     export default {
         data() {

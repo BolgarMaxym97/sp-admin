@@ -8,7 +8,7 @@
                 </b-navbar-brand>
             </router-link>
             <b-navbar-nav class="ml-auto">
-                <b-nav-item-dropdown :text="userName || 'Пользователь'" right>
+                <b-nav-item-dropdown :text="userName" right>
                     <b-dropdown-item @click="logout">Logout</b-dropdown-item>
                 </b-nav-item-dropdown>
             </b-navbar-nav>
