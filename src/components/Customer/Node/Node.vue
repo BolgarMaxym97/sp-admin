@@ -4,7 +4,7 @@
                 :img-src="img"
                 img-alt="Объект"
                 img-top>
-            <b-badge variant="primary" class="node-card__badge">{{node.type_name}}</b-badge>
+            <b-badge variant="primary" class="node-card__badge">{{nodeState.type_name}}</b-badge>
             <b-button size="sm"
                       variant="danger"
                       class="node-card__delete"
@@ -20,15 +20,16 @@
                     <b-badge variant="danger" class="node-card__alarms-item">Низкая температура</b-badge>
                     <b-badge variant="warning" class="node-card__alarms-item">Открыты форточки</b-badge>
                 </span>
-                <b>{{node.object_name}}</b>
+                <b>{{nodeState.object_name}}</b>
                 <b-row class="node-card__btns">
                     <b-col cols="4">
                         <b-button variant="primary" v-b-tooltip.hover title="Настройки" @click="settingsModal = true">
                             <font-awesome-icon icon="sliders-h"/>
                         </b-button>
                         <node-settings-modal v-if="settingsModal"
-                                             :node="node"
-                                             @hidden="settingsModal = false"/>
+                                             :node="nodeState"
+                                             @hidden="settingsModal = false"
+                                             @after-update="afterUpdate"/>
                     </b-col>
                     <b-col cols="4">
                         <b-button variant="warning" v-b-tooltip.hover title="Статистика">
@@ -42,16 +43,16 @@
                     </b-col>
                 </b-row>
             </p>
-            <sensor-icon v-for="(sensor) in node.sensors"
+            <sensor-icon v-for="(sensor) in nodeState.sensors"
                          :key="sensor.created_at"
                          :sensor="sensor"/>
 
             <default-icon v-for="(icon) in icons"
                           :key="icon.id"
                           :icon="icon"
-                          :node-id="node.id"
+                          :node-id="nodeState.id"
                           @after-creation="pushSensor"
-                          :existing-types="node.existing_types"/>
+                          :existing-types="nodeState.existing_types"/>
         </b-card>
     </b-col>
 </template>
@@ -81,23 +82,27 @@
                 img: img,
                 confirmShow: false,
                 settingsModal: false,
+                nodeState: this.node
             };
         },
         methods: {
             removeNode(ev) {
                 ev.preventDefault();
-                this.$http.delete(ENDPOINTS.NODES + "/" + this.node.id)
+                this.$http.delete(ENDPOINTS.NODES + "/" + this.nodeState.id)
                     .then(resp => {
                         if (resp.success) {
                             this.confirmShow = false;
-                            this.$emit("on-delete", this.node.id);
+                            this.$emit("on-delete", this.nodeState.id);
                             this.$toastr("success", "Объект успешно удален", "Успешно удалено");
                         }
                     });
             },
             pushSensor(e) {
-                this.node.sensors.push(e);
-                this.node.existing_types.push(+e.type);
+                this.nodeState.sensors.push(e);
+                this.nodeState.existing_types.push(+e.type);
+            },
+            afterUpdate(e) {
+                this.nodeState = e;
             }
         },
         components: {

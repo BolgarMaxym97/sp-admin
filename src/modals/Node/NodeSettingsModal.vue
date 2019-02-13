@@ -82,7 +82,19 @@
                 this.$emit("hidden");
             },
             saveNode() {
-
+                this.loading = true;
+                this.$http.put(ENDPOINTS.NODES + "/" + this.node.id, {
+                    type: this.type,
+                    object_name: this.objectName
+                }).then(resp => {
+                    this.loading = false;
+                    if (resp.success) {
+                        this.$emit("after-update", resp.node);
+                        return this.$toastr("success", "Данные успешно обновлены", "");
+                    } else {
+                        return this.$toastr("error", "Данные заполнены неверно", "Ошибка");
+                    }
+                });
             }
         }
     };
@@ -94,7 +106,7 @@
     .loader {
         color: $primary-color-5;
         position: absolute;
-        top: 50px;
+        top: 0;
         left: 0;
         font-size: 90px;
     }
