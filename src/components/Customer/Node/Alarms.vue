@@ -20,6 +20,8 @@
 <style lang="scss" scoped>
     .node-card__alarms {
         display: block;
+        position: absolute;
+        bottom: 135px;
 
         .node-card__alarms-item {
             margin: 2px;

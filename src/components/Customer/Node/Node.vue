@@ -18,7 +18,7 @@
                 <alarms :node="nodeState"/>
                 <b>{{nodeState.object_name}}</b>
                 <b-row class="node-card__btns">
-                    <b-col cols="4">
+                    <b-col cols="3">
                         <b-button variant="primary" v-b-tooltip.hover title="Настройки" @click="settingsModal = true">
                             <font-awesome-icon icon="sliders-h"/>
                         </b-button>
@@ -27,14 +27,19 @@
                                              @hidden="settingsModal = false"
                                              @after-update="afterUpdate"/>
                     </b-col>
-                    <b-col cols="4">
+                    <b-col cols="3">
                         <b-button variant="warning" v-b-tooltip.hover title="Статистика">
                             <font-awesome-icon icon="chart-bar"/>
                         </b-button>
                     </b-col>
-                    <b-col cols="4">
+                    <b-col cols="3">
                         <b-button variant="success" v-b-tooltip.hover title="Последние данные">
                             <font-awesome-icon icon="table"/>
+                        </b-button>
+                    </b-col>
+                    <b-col cols="3">
+                        <b-button variant="danger" v-b-tooltip.hover title="Исходный код">
+                            <font-awesome-icon icon="code"/>
                         </b-button>
                     </b-col>
                 </b-row>
