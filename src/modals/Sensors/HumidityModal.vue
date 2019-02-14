@@ -29,7 +29,7 @@
             <b-alert v-if="!loading && !this.data.length" variant="danger" show class="no-data-alert">Нету данных за эту
                 дату
             </b-alert>
-            <humidity-chart v-else :chartData="chartData"/>
+            <humidity-chart v-else :chartData="chartData" :max-normal-value="maxNormalValue" :min-normal-value="minNormalValue"/>
         </div>
     </b-modal>
 </template>
@@ -53,6 +53,8 @@
                 data: [],
                 loading: false,
                 disabledDatepicker: true,
+                maxNormalValue: null,
+                minNormalValue: null
             };
         },
         mounted() {
@@ -79,6 +81,8 @@
                         this.data = resp.data;
                         this.labels = resp.labels;
                         this.disabledDatepicker = false;
+                        this.maxNormalValue = _.get(resp, "sensor.settings.max_normal_value");
+                        this.minNormalValue = _.get(resp, "sensor.settings.min_normal_value");
                     });
             },
             subDay() {
@@ -97,9 +101,9 @@
                     datasets: [
                         {
                             label: "Влажность",
-                            borderColor: "#301846",
-                            pointBackgroundColor: "#221130",
-                            backgroundColor: "#301846",
+                            borderColor: "#d4821c",
+                            pointBackgroundColor: "#9a5b1c",
+                            backgroundColor: "#d4821c",
                             borderWidth: 1,
                             pointRadius: 1.5,
                             fill: false,
