@@ -101,9 +101,9 @@
                     datasets: [
                         {
                             label: "Влажность",
-                            borderColor: "#301846",
-                            pointBackgroundColor: "#221130",
-                            backgroundColor: "#301846",
+                            borderColor: "#d4821c",
+                            pointBackgroundColor: "#9a5b1c",
+                            backgroundColor: "#d4821c",
                             borderWidth: 1,
                             pointRadius: 1.5,
                             fill: false,
