@@ -29,7 +29,7 @@
             <b-alert v-if="!loading && !this.data.length" variant="danger" show class="no-data-alert">Нету данных за эту
                 дату
             </b-alert>
-            <temperature-chart v-else :chartData="chartData"/>
+            <temperature-chart v-else :chartData="chartData" :max-normal-value="maxNormalValue" :min-normal-value="minNormalValue"/>
         </div>
     </b-modal>
 </template>
@@ -38,6 +38,7 @@
     import TemperatureChart from "@/components/Customer/Charts/TemperatureChart";
     import DatePicker from "vue2-datepicker";
     import {ENDPOINTS} from "@/api";
+    import _ from "lodash";
 
     export default {
         props: {
@@ -53,6 +54,8 @@
                 data: [],
                 loading: false,
                 disabledDatepicker: true,
+                maxNormalValue: null,
+                minNormalValue: null,
             };
         },
         mounted() {
@@ -79,6 +82,8 @@
                         this.data = resp.data;
                         this.labels = resp.labels;
                         this.disabledDatepicker = false;
+                        this.maxNormalValue = _.get(resp, "sensor.settings.max_normal_value");
+                        this.minNormalValue = _.get(resp, "sensor.settings.min_normal_value");
                     });
             },
             subDay() {
@@ -100,8 +105,8 @@
                             borderColor: "#d4821c",
                             pointBackgroundColor: "#9a5b1c",
                             backgroundColor: "#d4821c",
-                            borderWidth: 1,
-                            pointRadius: 1.5,
+                            borderWidth: 2,
+                            pointRadius: 2,
                             fill: false,
                             data: this.data
                         }
