@@ -9,5 +9,8 @@ export default {
     },
     menuToggle(state) {
         state.menuOpened = !state.menuOpened;
+    },
+    customers(state, {customers}) {
+        state.customers = customers;
     }
 };

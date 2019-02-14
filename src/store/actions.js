@@ -47,5 +47,8 @@ export default {
     },
     toggleMenu({commit}) {
         commit("menuToggle");
+    },
+    customers({commit}, data) {
+        commit("customers", {customers: data});
     }
 };
