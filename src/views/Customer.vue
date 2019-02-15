@@ -31,6 +31,7 @@
     import {ENDPOINTS} from "@/api";
     import Node from "@/components/Customer/Node/Node";
     import NodeCreateModal from "@/modals/Node/NodeCreateModal";
+    import {mapGetters} from "vuex";
 
     export default {
         data() {
@@ -70,8 +71,14 @@
             }
         },
         computed: {
+            ...mapGetters([
+                "customers"
+            ]),
             customerId() {
                 return +this.$route.params.id;
+            },
+            customer() {
+                return this.customers.filter(customer => +customer.id === this.customerId);
             }
         },
         watch: {

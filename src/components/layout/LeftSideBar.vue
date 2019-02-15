@@ -22,6 +22,7 @@
             this.$http.get(ENDPOINTS.CUSTOMERS)
                 .then(customers => {
                     this.customers = customers;
+                    this.$store.dispatch("customers", customers);
                 });
         },
         components: {
