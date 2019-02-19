@@ -1,5 +1,6 @@
 <template>
     <div class="customer p-3">
+        <customer-info/>
         <font-awesome-icon v-if="loading" icon="spinner" class="loader"/>
         <div v-else class="customer-nodes">
             <b-alert v-if="!nodes.length" show variant="danger">У этого пользователя нету ни одного объекта</b-alert>
@@ -31,7 +32,8 @@
     import {ENDPOINTS} from "@/api";
     import Node from "@/components/Customer/Node/Node";
     import NodeCreateModal from "@/modals/Node/NodeCreateModal";
-    import {mapGetters} from "vuex";
+    import CustomerInfo from "@/components/Customer/CustomerInfo";
+
 
     export default {
         data() {
@@ -71,14 +73,8 @@
             }
         },
         computed: {
-            ...mapGetters([
-                "customers"
-            ]),
             customerId() {
                 return +this.$route.params.id;
-            },
-            customer() {
-                return this.customers.filter(customer => +customer.id === this.customerId);
             }
         },
         watch: {
@@ -88,7 +84,8 @@
         },
         components: {
             Node,
-            NodeCreateModal
+            NodeCreateModal,
+            CustomerInfo
         }
     };
 </script>
