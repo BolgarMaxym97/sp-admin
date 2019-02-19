@@ -4,7 +4,7 @@
             <font-awesome-icon icon="bars" @click="menuToggle" class="burger-icon"/>
             <router-link to="/">
                 <b-navbar-brand>
-                    {{title}}
+                    {{title}} - Jenkins Testing
                 </b-navbar-brand>
             </router-link>
             <b-navbar-nav class="ml-auto">
