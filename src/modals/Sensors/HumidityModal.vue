@@ -38,6 +38,7 @@
     import HumidityChart from "@/components/Customer/Charts/HumidityChart";
     import DatePicker from "vue2-datepicker";
     import {ENDPOINTS} from "@/api";
+    import _ from "lodash";
 
     export default {
         props: {
