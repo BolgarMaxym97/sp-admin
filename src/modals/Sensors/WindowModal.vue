@@ -6,23 +6,7 @@
              ok-title="Закрыть"
              ref="modal"
              @hidden="onHidden">
-        <div class="change-date ">
-            <b-button class="arrow-btn" @click="subDay" :disabled="disabledDatepicker">
-                <font-awesome-icon icon="arrow-left"/>
-            </b-button>
-            <date-picker @change="fetch"
-                         value-type="format"
-                         v-model="date"
-                         lang="ru"
-                         :not-after="new Date()"
-                         :clearable="false"
-                         format="DD.MM.YYYY"
-                         :disabled="disabledDatepicker"/>
-            <b-button class="arrow-btn" @click="addDay" :disabled="disabledDatepicker">
-                <font-awesome-icon icon="arrow-right"/>
-            </b-button>
-            <font-awesome-icon v-if="disabledDatepicker" icon="spinner" class="loader"/>
-        </div>
+        <date-picker @after-change="afterDateChange" :date="date" :disabledDatepicker="disabledDatepicker"/>
         <font-awesome-icon v-if="loading" icon="spinner" class="loader"/>
         <div v-else>
             <b-alert v-if="!loading && !this.data.length" variant="danger" show class="no-data-alert">Нету данных за эту
@@ -35,7 +19,7 @@
 
 <script>
     import WindowChart from "@/components/Customer/Charts/WindowChart";
-    import DatePicker from "vue2-datepicker";
+    import DatePicker from "@/components/Customer/Charts/DatePicker";
     import {ENDPOINTS} from "@/api";
     import _ from "lodash";
 
@@ -83,12 +67,8 @@
                         this.disabledDatepicker = false;
                     });
             },
-            subDay() {
-                this.date = this.$moment(this.date, "DD.MM.YYYY").subtract(1, "days").format("DD.MM.YYYY");
-                this.fetch();
-            },
-            addDay() {
-                this.date = this.$moment(this.date, "DD.MM.YYYY").add(1, "days").format("DD.MM.YYYY");
+            afterDateChange(payload) {
+                this.date = payload;
                 this.fetch();
             }
         },
