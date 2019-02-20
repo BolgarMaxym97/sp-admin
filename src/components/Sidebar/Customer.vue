@@ -4,6 +4,9 @@
             <div class="customer-name">
                 <font-awesome-icon icon="user" class="mr-2"/>
                 {{customerName}}
+                <b-badge v-b-tooltip.hover title="Количество объектов" variant="light" class="ml-2">
+                    {{customer.nodes_count}}
+                </b-badge>
                 <span class="customer-arrow">
                 <font-awesome-icon icon="arrow-right"/>
             </span>
