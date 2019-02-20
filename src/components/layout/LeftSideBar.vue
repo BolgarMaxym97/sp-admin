@@ -1,6 +1,12 @@
 <template>
     <div class="left-side-bar h-auto">
-        <font-awesome-icon v-if="!customers.length" icon="spinner" class="loader"/>
+        <div class="actions-for-customers">
+            <b-form-input v-model="searchValue" type="text" placeholder="Поиск"
+                          class="mt-2 search-input"></b-form-input>
+            <div class="wrapper-under"></div>
+        </div>
+        <font-awesome-icon v-if="!customers.length && !searchValue.length" icon="spinner" class="loader"/>
+        <b-alert show variant="danger" class="mt-2" v-else-if="!customers.length && searchValue.length">Не найдено</b-alert>
         <customer
                 v-for="(customer, index) in customers"
                 :key="index"
@@ -15,7 +21,8 @@
     export default {
         data() {
             return {
-                customers: []
+                customers: [],
+                searchValue: ""
             };
         },
         mounted() {
@@ -25,8 +32,43 @@
                     this.$store.dispatch("customers", customers);
                 });
         },
+        watch: {
+            searchValue(newVal) {
+                if (newVal.length > 2) {
+                    return this.customers = this.stableCustomers.filter(customer => {
+                        return customer.full_name.toLowerCase().match(this.searchValue.toLowerCase()) ||
+                            customer.address.toLowerCase().match(this.searchValue.toLowerCase()) ||
+                            customer.email.toLowerCase().match(this.searchValue.toLowerCase()) ||
+                            customer.phone.toLowerCase().match(this.searchValue.toLowerCase());
+                    });
+                }
+                return this.customers = this.stableCustomers;
+            }
+        },
+        computed: {
+            stableCustomers() {
+                return this.$store.getters.customers;
+            }
+        },
         components: {
             Customer,
         },
     };
 </script>
+
+<style scoped lang="scss">
+    .actions-for-customers {
+        .wrapper-under {
+            background-color: #fff;
+            opacity: 0.2;
+            height: 10px;
+            margin-top: 10px;
+        }
+
+        .search-input {
+            width: 92%;
+            margin-left: 4%;
+            border-radius: 12px;
+        }
+    }
+</style>
