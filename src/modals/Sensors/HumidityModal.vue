@@ -29,7 +29,8 @@
             <b-alert v-if="!loading && !this.data.length" variant="danger" show class="no-data-alert">Нету данных за эту
                 дату
             </b-alert>
-            <humidity-chart v-else :chartData="chartData" :max-normal-value="maxNormalValue" :min-normal-value="minNormalValue"/>
+            <humidity-chart v-else :chartData="chartData" :max-normal-value="maxNormalValue"
+                            :min-normal-value="minNormalValue"/>
         </div>
     </b-modal>
 </template>
