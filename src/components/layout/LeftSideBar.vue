@@ -5,12 +5,15 @@
                           class="mt-2 search-input"></b-form-input>
             <div class="wrapper-under"></div>
         </div>
-        <font-awesome-icon v-if="!customers.length && !searchValue.length" icon="spinner" class="loader"/>
-        <b-alert show variant="danger" class="mt-2" v-else-if="!customers.length && searchValue.length">Не найдено</b-alert>
-        <customer
-                v-for="(customer, index) in customers"
-                :key="index"
-                :customer="customer"/>
+        <div class="customers-block">
+            <font-awesome-icon v-if="!customers.length && !searchValue.length" icon="spinner" class="loader"/>
+            <b-alert show variant="danger" class="mt-2" v-else-if="!customers.length && searchValue.length">Не найдено
+            </b-alert>
+            <customer
+                    v-for="(customer, index) in customers"
+                    :key="index"
+                    :customer="customer"/>
+        </div>
     </div>
 </template>
 
@@ -58,6 +61,10 @@
 
 <style scoped lang="scss">
     .actions-for-customers {
+        position: fixed;
+        width: 250px;
+        background-color: #272c33;
+
         .wrapper-under {
             background-color: #fff;
             opacity: 0.2;
@@ -70,5 +77,9 @@
             margin-left: 4%;
             border-radius: 12px;
         }
+    }
+
+    .customers-block {
+        padding-top: 80px;
     }
 </style>
