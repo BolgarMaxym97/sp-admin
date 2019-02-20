@@ -45,7 +45,7 @@
         methods: {
             saveSensorSettings() {
                 this.loading = true;
-                this.$http.post(ENDPOINTS.SETTINGS, {
+                this.$http.post(ENDPOINTS.SENSOR_SETTINGS, {
                     sensor_id: this.sensor.id,
                     max_normal_value: this.maxNormalValue,
                     min_normal_value: this.minNormalValue,
