@@ -33,9 +33,11 @@
                         </b-button>
                     </b-col>
                     <b-col cols="3">
-                        <b-button variant="success" v-b-tooltip.hover title="Последние данные">
+                        <b-button variant="success" v-b-tooltip.hover title="Последние данные"
+                                  @click="lastDataModal = true">
                             <font-awesome-icon icon="table"/>
                         </b-button>
+                        <last-data-modal v-if="lastDataModal" @hidden="lastDataModal = false" :node="nodeState"/>
                     </b-col>
                     <b-col cols="3">
                         <b-button variant="danger" v-b-tooltip.hover title="Исходный код">
@@ -65,6 +67,7 @@
     import {ENDPOINTS} from "@/api";
     import ConfirmModal from "@/modals/ConfirmModal";
     import NodeSettingsModal from "@/modals/Node/NodeSettingsModal";
+    import LastDataModal from "@/modals/Node/LastDataModal";
     import Alarms from "./Alarms";
 
     export default {
@@ -84,6 +87,7 @@
                 img: img,
                 confirmShow: false,
                 settingsModal: false,
+                lastDataModal: false,
                 nodeState: this.node
             };
         },
@@ -112,7 +116,8 @@
             SensorIcon,
             ConfirmModal,
             NodeSettingsModal,
-            Alarms
+            Alarms,
+            LastDataModal
         }
     };
 </script>

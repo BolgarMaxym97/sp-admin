@@ -40,7 +40,7 @@
                         is_percent: false
                     },
                     sensorsCount: {
-                        name: "Сенсоры",
+                        name: "Датчики",
                         count: this.sensorsCount,
                         bg_class: "bg-primary-color-3",
                         icon: "thermometer-half",
