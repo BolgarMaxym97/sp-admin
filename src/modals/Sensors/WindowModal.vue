@@ -21,7 +21,6 @@
     import WindowChart from "@/components/Customer/Charts/WindowChart";
     import DatePicker from "@/components/Customer/Charts/DatePicker";
     import {ENDPOINTS} from "@/api";
-    import _ from "lodash";
 
     export default {
         props: {

@@ -49,7 +49,7 @@
                         sensor.last_data = {data: null};
                     }
                     if (sensor.type === constants.SENSOR_TYPE_WINDOW_1 || sensor.type === constants.SENSOR_TYPE_WINDOW_2) {
-                        sensor.last_data.data = +sensor.last_data.data === 1 ? "Открыто" : "Закрыто";
+                        sensor.last_data.data = +sensor.last_data.data === constants.WINDOW_IS_OPENED ? "Открыто" : "Закрыто";
                     }
                 });
             });
