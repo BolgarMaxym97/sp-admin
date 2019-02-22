@@ -28,9 +28,11 @@
                                              @after-update="afterUpdate"/>
                     </b-col>
                     <b-col cols="3">
-                        <b-button variant="warning" v-b-tooltip.hover title="Статистика">
+                        <b-button variant="warning" v-b-tooltip.hover title="Статистика"
+                                  @click="statisticModal = true">
                             <font-awesome-icon icon="chart-bar"/>
                         </b-button>
+                        <statistic-modal v-if="statisticModal" @hidden="statisticModal = false" :node="nodeState"/>
                     </b-col>
                     <b-col cols="3">
                         <b-button variant="success" v-b-tooltip.hover title="Последние данные"
@@ -68,6 +70,7 @@
     import ConfirmModal from "@/modals/ConfirmModal";
     import NodeSettingsModal from "@/modals/Node/NodeSettingsModal";
     import LastDataModal from "@/modals/Node/LastDataModal";
+    import StatisticModal from "@/modals/Node/StatisticModal";
     import Alarms from "./Alarms";
 
     export default {
@@ -88,6 +91,7 @@
                 confirmShow: false,
                 settingsModal: false,
                 lastDataModal: false,
+                statisticModal: false,
                 nodeState: this.node
             };
         },
@@ -117,7 +121,8 @@
             ConfirmModal,
             NodeSettingsModal,
             Alarms,
-            LastDataModal
+            LastDataModal,
+            StatisticModal
         }
     };
 </script>

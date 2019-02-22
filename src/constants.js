@@ -3,4 +3,6 @@ export default {
     SENSOR_TYPE_HUMIDITY: 2,
     SENSOR_TYPE_WINDOW_1: 3,
     SENSOR_TYPE_WINDOW_2: 4,
+    WINDOW_IS_OPENED: 0,
+    WINDOW_IS_CLOSED: 1
 };

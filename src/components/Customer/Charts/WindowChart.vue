@@ -1,6 +1,7 @@
 <script>
     import {Bar, mixins} from "vue-chartjs";
     import config from "@/config";
+    import constants from "@/constants";
 
     export default {
         extends: Bar,
@@ -35,7 +36,7 @@
                 tooltips: {
                     callbacks: {
                         label: function (tooltipItem) {
-                            return tooltipItem.yLabel < 0 ? "Форточка закрыта" : "Форточка открыта";
+                            return tooltipItem.yLabel < constants.WINDOW_IS_OPENED ? "Форточка открыта" : "Форточка закрыта";
                         }
                     }
                 }
