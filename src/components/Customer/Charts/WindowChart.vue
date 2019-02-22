@@ -36,7 +36,7 @@
                 tooltips: {
                     callbacks: {
                         label: function (tooltipItem) {
-                            return tooltipItem.yLabel === constants.WINDOW_IS_OPENED ? "Форточка открыта" : "Форточка закрыта";
+                            return tooltipItem.yLabel < constants.WINDOW_IS_OPENED ? "Форточка открыта" : "Форточка закрыта";
                         }
                     }
                 }
