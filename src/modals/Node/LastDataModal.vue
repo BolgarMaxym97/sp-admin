@@ -14,7 +14,7 @@
                 <tr :key="sensor.id" v-for="sensor in lastData">
                     <th scope="row">{{sensor.type_name}}</th>
                     <td>{{`${sensor.last_data.data || '---'} ${sensor.sensor_type.dimension || ''}`}}</td>
-                    <td>{{sensor.last_data.created_at | moment("DD.MM.YYYY H:m:ss")}}</td>
+                    <td>{{sensor.last_data.created_at | moment("DD.MM.YYYY H:m")}}</td>
                 </tr>
                 </tbody>
             </table>

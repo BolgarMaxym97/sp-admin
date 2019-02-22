@@ -16,6 +16,7 @@ const ENDPOINTS = {
     NODE_TYPES: "node-types",
     SENSOR_SETTINGS: "sensor-settings",
     LAST_DATA: "last-data",
+    NODES_STATISTIC: "nodes-statistic",
 };
 
 let api = axios.create({
