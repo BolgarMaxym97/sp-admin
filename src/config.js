@@ -7,6 +7,7 @@ export default {
     vueScrollOptions: {
         wheelSpeed: 0.5,
         maxScrollbarLength: 60,
+        wheelPropagation: true,
     },
     defaultOptionsForChartModal: {
         responsive: true,
