@@ -4,6 +4,8 @@
             <b-form-input v-model="searchValue" type="text" placeholder="Поиск"
                           class="mt-2 search-input"></b-form-input>
             <div class="wrapper-under"></div>
+            <new-customer-btn/>
+            <div class="wrapper-under"></div>
         </div>
         <div class="customers-block">
             <font-awesome-icon v-if="!customers.length && !searchValue.length" icon="spinner" class="loader"/>
@@ -19,6 +21,8 @@
 
 <script>
     import Customer from "@/components/Sidebar/Customer";
+    import NewCustomerBtn from "@/components/Customer/NewCustomerBtn";
+
     import {ENDPOINTS} from "@/api";
 
     export default {
@@ -55,6 +59,7 @@
         },
         components: {
             Customer,
+            NewCustomerBtn
         },
     };
 </script>
@@ -80,6 +85,6 @@
     }
 
     .customers-block {
-        padding-top: 80px;
+        padding-top: 155px;
     }
 </style>
