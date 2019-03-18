@@ -34,7 +34,7 @@
                             enabled: true,
                             symbol: "circle",
                             lineWidth : 1,
-                            radius: 5
+                            radius: 4
                         },
                         data: [],
                     }, {
