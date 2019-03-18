@@ -13,6 +13,7 @@
 <script>
     import TopIcons from "@/components/Dashboard/TopIcons";
     import {ENDPOINTS} from "@/api";
+    import config from "@/config";
 
     export default {
         data() {
@@ -23,23 +24,17 @@
                 labels: [],
                 data: [],
                 loading: true,
-                chartOptions: {
-                    rangeSelector: {
-                        selected: 1
-                    },
-                    title: {
-                        text: 'AAPL Stock Price'
-                    },
+                chartOptions: Object.assign(config.defaultOptionsForChart, {
                     series: [{
-                        name: 'AAPL',
-                        data: [10, 20, 10, 23, 65, 121, 44, 66, 98, 30, 32, 56, 25, 12, 53],
-                        pointStart: Date.UTC(2018, 1, 1),
-                        pointInterval: 1000 * 3600 * 24,
-                        tooltip: {
-                            valueDecimals: 2
-                        }
+                        name: "Клиенты",
+                        showInNavigator: true,
+                        data: [],
+                    }, {
+                        name: "Объекты",
+                        showInNavigator: true,
+                        data: [],
                     }]
-                }
+                })
             };
         },
 
@@ -49,35 +44,10 @@
                     this.customersCount = statistic.customers_count;
                     this.nodesCount = statistic.nodes_count;
                     this.sensorsCount = statistic.sensors_count;
-                    this.labels = statistic.chartData.labels;
-                    this.data = statistic.chartData.data;
+                    this.chartOptions.series[0].data = statistic.customersCountByDates;
+                    this.chartOptions.series[1].data = statistic.nodesCountByDates;
                     this.loading = false;
                 });
-        },
-        computed: {
-            chartData() {
-                return {
-                    labels: this.labels,
-                    datasets: [
-                        {
-                            label: "Клиенты",
-                            borderColor: "#d4821c",
-                            pointBackgroundColor: "#9a5b1c",
-                            backgroundColor: "#d4821c",
-                            fill: false,
-                            data: this.data[0]
-                        },
-                        {
-                            label: "Объекты",
-                            borderColor: "#301846",
-                            pointBackgroundColor: "#221130",
-                            backgroundColor: "#301846",
-                            fill: false,
-                            data: this.data[1]
-                        }
-                    ],
-                };
-            }
         },
         components: {
             TopIcons

@@ -9,35 +9,50 @@ export default {
         maxScrollbarLength: 60,
         wheelPropagation: true,
     },
-    defaultOptionsForChartModal: {
-        responsive: true,
-        maintainAspectRatio: false,
-        tooltips: {
-            mode: "x-axis"
+    defaultOptionsForChart: {
+        time: {
+            useUTC: false
         },
-        legend: {
-            display: false
+        credits: {
+            enabled: false
         },
-        hover: {
-            onHover: function () {
-                if (this.chart.tooltip._active && this.chart.tooltip._active.length) {
-                    const activePoint = this.chart.tooltip._active[0],
-                        ctx = this.chart.ctx,
-                        x = activePoint.tooltipPosition().x,
-                        topY = this.chart.scales["y-axis-0"].top,
-                        bottomY = this.chart.scales["y-axis-0"].bottom;
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.moveTo(x, topY);
-                    ctx.lineTo(x, bottomY);
-                    ctx.lineWidth = 1;
-                    ctx.setLineDash([5, 8]);
-                    ctx.strokeStyle = "#45171d";
-                    ctx.stroke();
-                    ctx.restore();
+
+        yAxis: [{
+            opposite: false,
+            tickInterval: 1,
+            title: {
+                align: "middle",
+                text: ""
+            },
+        }],
+        plotOptions: {
+            line: {
+                connectNulls: false,
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
                 }
             },
-            animationDuration: 0,
+            series: {
+                connectNulls: false
+            }
+        },
+        rangeSelector: {
+            enabled: false
+        },
+        title: {
+            text: "Статистика"
+        },
+        legend: {
+            enabled: true,
+            align: "center",
+            verticalAlign: "top",
+        },
+        tooltip: {
+            crosshairs: true,
+            split: false
         }
     },
     minMaxLines(minNormalValue, maxNormalValue) {
