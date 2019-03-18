@@ -28,12 +28,15 @@ export default {
         plotOptions: {
             line: {
                 connectNulls: false,
-                lineWidth: 1,
+                lineWidth: 2,
                 states: {
                     hover: {
-                        lineWidth: 1
+                        lineWidth: 2
                     }
                 }
+            },
+            marker: {
+                enabled: true
             },
             series: {
                 connectNulls: false
