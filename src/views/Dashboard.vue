@@ -3,8 +3,8 @@
         <top-icons :customersCount="customersCount" :nodesCount="nodesCount" :sensorsCount="sensorsCount"/>
         <b-row>
             <b-card class="text-center m-auto chart-card">
-                <font-awesome-icon v-if="loading" icon="spinner" class="loader" />
-                <chart v-else :chartData="chartData"/>
+                <font-awesome-icon v-if="loading" icon="spinner" class="loader"/>
+                <highstock v-else :options="chartOptions"></highstock>
             </b-card>
         </b-row>
     </div>
@@ -12,7 +12,6 @@
 
 <script>
     import TopIcons from "@/components/Dashboard/TopIcons";
-    import Chart from "@/components/Dashboard/Chart";
     import {ENDPOINTS} from "@/api";
 
     export default {
@@ -23,7 +22,24 @@
                 sensorsCount: 0,
                 labels: [],
                 data: [],
-                loading: true
+                loading: true,
+                chartOptions: {
+                    rangeSelector: {
+                        selected: 1
+                    },
+                    title: {
+                        text: 'AAPL Stock Price'
+                    },
+                    series: [{
+                        name: 'AAPL',
+                        data: [10, 20, 10, 23, 65, 121, 44, 66, 98, 30, 32, 56, 25, 12, 53],
+                        pointStart: Date.UTC(2018, 1, 1),
+                        pointInterval: 1000 * 3600 * 24,
+                        tooltip: {
+                            valueDecimals: 2
+                        }
+                    }]
+                }
             };
         },
 
@@ -64,22 +80,24 @@
             }
         },
         components: {
-            TopIcons,
-            Chart
+            TopIcons
         },
     };
 </script>
 
 <style lang="scss" scoped>
     @import "../assets/scss/colors";
+
     .dashboard {
         padding: 2%;
     }
+
     .chart-card {
         position: relative;
         width: calc(100% - 30px);
         height: 450px;
     }
+
     .loader {
         color: $primary-color-5;
         font-size: 48px;

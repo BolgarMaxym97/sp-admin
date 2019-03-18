@@ -16,6 +16,9 @@ import VueToastr from "@deveodk/vue-toastr";
 import "@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css";
 import {api} from "@/api";
 import config from "@/config";
+import VueHighcharts from "vue-highcharts";
+import Highcharts from "highcharts";
+import stockInit from "highcharts/modules/stock";
 
 library.add(faUser, faSignInAlt, faArrowRight, faArrowLeft, faSpinner, faUsers, faNetworkWired, faThermometerHalf, faPlus, faTint, faGripLinesVertical, faBars, faTrash, faSlidersH, faTable, faChartBar, faSave, faCode);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
@@ -24,6 +27,8 @@ Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 Vue.use(VueToastr, config.toastrDefaultOptions);
 Vue.use(moment);
+stockInit(Highcharts);
+Vue.use(VueHighcharts);
 Vue.prototype.$http = api;
 
 new Vue({
