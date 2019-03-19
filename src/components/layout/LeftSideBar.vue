@@ -67,7 +67,7 @@
 <style scoped lang="scss">
     .actions-for-customers {
         position: fixed;
-        width: 250px;
+        width: 270px;
         background-color: #272c33;
 
         .wrapper-under {

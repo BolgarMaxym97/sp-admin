@@ -61,7 +61,7 @@
         height: calc(100% - 56px);
         overflow-y: auto;
         background-color: $sidebar-bg-color;
-        width: 250px;
+        width: 270px;
         position: fixed;
         margin-top: 56px;
         z-index: 999;

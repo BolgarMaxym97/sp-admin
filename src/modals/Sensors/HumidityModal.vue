@@ -10,19 +10,18 @@
         <date-picker @after-change="afterDateChange" :date="date" :disabledDatepicker="disabledDatepicker"/>
         <font-awesome-icon v-if="loading" icon="spinner" class="loader"/>
         <div v-else>
-            <b-alert v-if="!loading && !this.data.length" variant="danger" show class="no-data-alert">Нету данных за эту
+            <b-alert v-if="!loading && !dataLength" variant="danger" show class="no-data-alert">Нету данных за эту
                 дату
             </b-alert>
-            <humidity-chart v-else :chartData="chartData" :max-normal-value="maxNormalValue"
-                            :min-normal-value="minNormalValue"/>
+            <highstock v-else :options="chartOptions"></highstock>
         </div>
     </b-modal>
 </template>
 
 <script>
-    import HumidityChart from "@/components/Customer/Charts/HumidityChart";
     import DatePicker from "@/components/Customer/Charts/DatePicker";
     import {ENDPOINTS} from "@/api";
+    import config from "@/config";
     import _ from "lodash";
 
     export default {
@@ -39,8 +38,78 @@
                 data: [],
                 loading: false,
                 disabledDatepicker: true,
-                maxNormalValue: null,
-                minNormalValue: null
+                chartOptions: Object.assign(config.defaultOptionsForChart, {
+                    yAxis: {
+                        min: 0,
+                        max: 100,
+                        opposite: false,
+                        tickInterval: 1,
+                        title: {
+                            align: "middle",
+                            text: "Влажность, %"
+                        },
+                        plotLines: [{
+                            value: null,
+                            color: "#dd4b39",
+                            dashStyle: "shortdash",
+                            width: 2,
+                            zIndex: 5,
+                            label: {
+                                text: "Максимальное нормальное значение"
+                            }
+                        }, {
+                            value: null,
+                            color: "#004181",
+                            dashStyle: "shortdash",
+                            width: 2,
+                            zIndex: 5,
+                            label: {
+                                text: "Минимальное нормальное значение"
+                            }
+                        }],
+                    },
+                    xAxis: {
+                        title: {
+                            align: "middle",
+                            text: "Время"
+                        },
+                    },
+                    title: {
+                        text: ""
+                    },
+                    legend: {
+                        enabled: false,
+                    },
+                    series: [{
+                        name: "Влажность",
+                        showInNavigator: true,
+                        color: "#dd4b39",
+                        type: "spline",
+                        marker: {
+                            enabled: true,
+                            symbol: "circle",
+                            color: "#dd4b39",
+                            lineWidth: 1,
+                            radius: 3
+                        },
+                        data: [],
+                        zones: [{
+                            value: null,
+                            color: "#004181"
+                        }, {
+                            value: null,
+                            color: "#d4821c"
+                        }]
+                    }, {
+                        name: "Goal",
+                        type: "scatter",
+                        enableMouseTracking: false,
+                        marker: {
+                            enabled: false
+                        },
+                        data: []
+                    }]
+                })
             };
         },
         mounted() {
@@ -64,11 +133,15 @@
                 this.disabledDatepicker = true;
                 return this.$http.get(ENDPOINTS.SENSORS + "/" + this.sensorId, {params: {date: this.date}})
                     .then(resp => {
-                        this.data = resp.data;
-                        this.labels = resp.labels;
+                        this.chartOptions.series[0].data = resp.data;
                         this.disabledDatepicker = false;
-                        this.maxNormalValue = _.get(resp, "sensor.settings.max_normal_value");
-                        this.minNormalValue = _.get(resp, "sensor.settings.min_normal_value");
+                        let max = parseFloat(_.get(resp, "sensor.settings.max_normal_value"));
+                        let min = parseFloat(_.get(resp, "sensor.settings.min_normal_value"));
+                        this.chartOptions.yAxis.plotLines[0].value = max;
+                        this.chartOptions.yAxis.plotLines[1].value = min;
+                        this.chartOptions.series[0].zones[0].value = min;
+                        this.chartOptions.series[0].zones[1].value = max;
+                        this.chartOptions.series[1].data = [[this.$moment().unix() * 1000, max + 1], [this.$moment().unix() * 1000, min - 1]];
                     });
             },
             afterDateChange(payload) {
@@ -77,26 +150,11 @@
             }
         },
         computed: {
-            chartData() {
-                return {
-                    labels: this.labels,
-                    datasets: [
-                        {
-                            label: "Влажность",
-                            borderColor: "#d4821c",
-                            pointBackgroundColor: "#9a5b1c",
-                            backgroundColor: "#d4821c",
-                            borderWidth: 2,
-                            pointRadius: 2,
-                            fill: false,
-                            data: this.data
-                        }
-                    ],
-                };
-            }
+            dataLength() {
+                return !!this.chartOptions.series[0].data.length;
+            },
         },
         components: {
-            HumidityChart,
             DatePicker
         }
     };

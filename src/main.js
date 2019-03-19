@@ -16,6 +16,9 @@ import VueToastr from "@deveodk/vue-toastr";
 import "@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css";
 import {api} from "@/api";
 import config from "@/config";
+import VueHighcharts from "vue-highcharts";
+import Highcharts from "highcharts";
+import stockInit from "highcharts/modules/stock";
 
 library.add(faUser, faSignInAlt, faArrowRight, faArrowLeft, faSpinner, faUsers, faNetworkWired, faThermometerHalf, faPlus, faTint, faGripLinesVertical, faBars, faTrash, faSlidersH, faTable, faChartBar, faSave, faCode);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
@@ -24,6 +27,26 @@ Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 Vue.use(VueToastr, config.toastrDefaultOptions);
 Vue.use(moment);
+Highcharts.setOptions({
+    lang: {
+        loading: "Загрузка...",
+        months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+        weekdays: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+        shortMonths: ["Янв", "Фев", "Март", "Апр", "Май", "Июнь", "Июль", "Авг", "Сент", "Окт", "Нояб", "Дек"],
+        exportButtonTitle: "Экспорт",
+        printButtonTitle: "Печать",
+        rangeSelectorFrom: "С",
+        rangeSelectorTo: "По",
+        rangeSelectorZoom: "Период",
+        downloadPNG: "Скачать PNG",
+        downloadJPEG: "Скачать JPEG",
+        downloadPDF: "Скачать PDF",
+        downloadSVG: "Скачать SVG",
+        printChart: "Напечатать график"
+    }
+});
+stockInit(Highcharts);
+Vue.use(VueHighcharts);
 Vue.prototype.$http = api;
 
 new Vue({

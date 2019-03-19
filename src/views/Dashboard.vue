@@ -3,8 +3,8 @@
         <top-icons :customersCount="customersCount" :nodesCount="nodesCount" :sensorsCount="sensorsCount"/>
         <b-row>
             <b-card class="text-center m-auto chart-card">
-                <font-awesome-icon v-if="loading" icon="spinner" class="loader" />
-                <chart v-else :chartData="chartData"/>
+                <font-awesome-icon v-if="loading" icon="spinner" class="loader"/>
+                <highstock v-else :options="chartOptions"></highstock>
             </b-card>
         </b-row>
     </div>
@@ -12,8 +12,8 @@
 
 <script>
     import TopIcons from "@/components/Dashboard/TopIcons";
-    import Chart from "@/components/Dashboard/Chart";
     import {ENDPOINTS} from "@/api";
+    import config from "@/config";
 
     export default {
         data() {
@@ -23,7 +23,34 @@
                 sensorsCount: 0,
                 labels: [],
                 data: [],
-                loading: true
+                loading: true,
+                chartOptions: Object.assign(config.defaultOptionsForChart, {
+                    series: [{
+                        name: "Клиенты",
+                        showInNavigator: true,
+                        color: "#d4821c",
+                        type: "spline",
+                        marker: {
+                            enabled: true,
+                            symbol: "circle",
+                            lineWidth : 1,
+                            radius: 4
+                        },
+                        data: [],
+                    }, {
+                        name: "Объекты",
+                        showInNavigator: true,
+                        color: "#301846",
+                        type: "spline",
+                        marker: {
+                            enabled: true,
+                            symbol: "diamond",
+                            lineWidth : 1,
+                            radius: 5
+                        },
+                        data: [],
+                    }]
+                })
             };
         },
 
@@ -33,53 +60,30 @@
                     this.customersCount = statistic.customers_count;
                     this.nodesCount = statistic.nodes_count;
                     this.sensorsCount = statistic.sensors_count;
-                    this.labels = statistic.chartData.labels;
-                    this.data = statistic.chartData.data;
+                    this.chartOptions.series[0].data = statistic.customersCountByDates;
+                    this.chartOptions.series[1].data = statistic.nodesCountByDates;
                     this.loading = false;
                 });
         },
-        computed: {
-            chartData() {
-                return {
-                    labels: this.labels,
-                    datasets: [
-                        {
-                            label: "Клиенты",
-                            borderColor: "#d4821c",
-                            pointBackgroundColor: "#9a5b1c",
-                            backgroundColor: "#d4821c",
-                            fill: false,
-                            data: this.data[0]
-                        },
-                        {
-                            label: "Объекты",
-                            borderColor: "#301846",
-                            pointBackgroundColor: "#221130",
-                            backgroundColor: "#301846",
-                            fill: false,
-                            data: this.data[1]
-                        }
-                    ],
-                };
-            }
-        },
         components: {
-            TopIcons,
-            Chart
+            TopIcons
         },
     };
 </script>
 
 <style lang="scss" scoped>
     @import "../assets/scss/colors";
+
     .dashboard {
         padding: 2%;
     }
+
     .chart-card {
         position: relative;
         width: calc(100% - 30px);
         height: 450px;
     }
+
     .loader {
         color: $primary-color-5;
         font-size: 48px;

@@ -9,18 +9,18 @@
         <date-picker @after-change="afterDateChange" :date="date" :disabledDatepicker="disabledDatepicker"/>
         <font-awesome-icon v-if="loading" icon="spinner" class="loader"/>
         <div v-else>
-            <b-alert v-if="!loading && !this.data.length" variant="danger" show class="no-data-alert">Нету данных за эту
+            <b-alert v-if="!loading && !dataLength" variant="danger" show class="no-data-alert">Нету данных за эту
                 дату
             </b-alert>
-            <window-chart v-else :chartData="chartData"/>
+            <highstock v-else :options="chartOptions"></highstock>
         </div>
     </b-modal>
 </template>
 
 <script>
-    import WindowChart from "@/components/Customer/Charts/WindowChart";
     import DatePicker from "@/components/Customer/Charts/DatePicker";
     import {ENDPOINTS} from "@/api";
+    import config from "@/config";
 
     export default {
         props: {
@@ -32,10 +32,54 @@
         data() {
             return {
                 date: this.$moment().format("DD.MM.YYYY"),
-                labels: [],
-                data: [],
                 loading: false,
                 disabledDatepicker: true,
+                chartOptions: Object.assign(config.defaultOptionsForChart, {
+                    yAxis: {
+                        min: -1,
+                        max: 1,
+                        opposite: false,
+                        tickInterval: 1,
+                        labels: {
+                            enabled: false
+                        },
+                        title: {
+                            align: "middle",
+                            text: "Состояние, открыто/закрыто"
+                        },
+                    },
+                    xAxis: {
+                        title: {
+                            align: "middle",
+                            text: "Время"
+                        },
+                    },
+                    title: {
+                        text: ""
+                    },
+                    legend: {
+                        enabled: false,
+                    },
+                    tooltip: {
+                        formatter() {
+                            return `<b>${this.y === 1 ? "Форточка закрыта" : "Форточка открыта"}</b>`;
+                        }
+                    },
+                    series: [{
+                        name: "Состояние",
+                        showInNavigator: true,
+                        type: "column",
+                        color: "#d4821c",
+                        marker: {
+                            enabled: true,
+                            symbol: "circle",
+                            color: "#d4821c",
+                            lineWidth: 1,
+                            radius: 3
+                        },
+                        data: [],
+                    }]
+                })
             };
         },
         mounted() {
@@ -59,10 +103,7 @@
                 this.disabledDatepicker = true;
                 return this.$http.get(ENDPOINTS.SENSORS + "/" + this.sensorId, {params: {date: this.date}})
                     .then(resp => {
-                        this.data = resp.data.map(dataItem => {
-                            return dataItem === 0 ? -1 : dataItem;
-                        });
-                        this.labels = resp.labels;
+                        this.chartOptions.series[0].data = resp.data.map(item => item[1] === 0 ? [item[0], -1] : [item[0], item[1]]);
                         this.disabledDatepicker = false;
                     });
             },
@@ -72,21 +113,11 @@
             }
         },
         computed: {
-            chartData() {
-                return {
-                    labels: this.labels,
-                    datasets: [
-                        {
-                            label: "Состояние форточки",
-                            backgroundColor: "#d4821c",
-                            data: this.data
-                        }
-                    ],
-                };
-            }
+            dataLength() {
+                return !!this.chartOptions.series[0].data.length;
+            },
         },
         components: {
-            WindowChart,
             DatePicker
         }
     };
