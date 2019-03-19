@@ -10,19 +10,18 @@
         <date-picker @after-change="afterDateChange" :date="date" :disabledDatepicker="disabledDatepicker"/>
         <font-awesome-icon v-if="loading" icon="spinner" class="loader"/>
         <div v-else>
-            <b-alert v-if="!loading && !this.data.length" variant="danger" show class="no-data-alert">Нету данных за эту
+            <b-alert v-if="!loading && !dataLength" variant="danger" show class="no-data-alert">Нету данных за эту
                 дату
             </b-alert>
-            <temperature-chart v-else :chartData="chartData" :max-normal-value="maxNormalValue"
-                               :min-normal-value="minNormalValue"/>
+            <highstock v-else :options="chartOptions"></highstock>
         </div>
     </b-modal>
 </template>
 
 <script>
-    import TemperatureChart from "@/components/Customer/Charts/TemperatureChart";
     import DatePicker from "@/components/Customer/Charts/DatePicker";
     import {ENDPOINTS} from "@/api";
+    import config from "@/config";
     import _ from "lodash";
 
     export default {
@@ -35,17 +34,65 @@
         data() {
             return {
                 date: this.$moment().format("DD.MM.YYYY"),
-                labels: [],
-                data: [],
                 loading: false,
                 disabledDatepicker: true,
-                maxNormalValue: null,
-                minNormalValue: null,
+                chartOptions: Object.assign(config.defaultOptionsForChart, {
+                    yAxis: {
+                        type: "logarithmic",
+                        opposite: false,
+                        tickInterval: 1,
+                        title: {
+                            align: "middle",
+                            text: ""
+                        },
+                        plotLines: [{
+                            value: this.maxNormalValue,
+                            color: "#dd4b39",
+                            dashStyle: "shortdash",
+                            width: 2,
+                            label: {
+                                text: "Максимальное нормальное значение" + this.maxNormalValue
+                            }
+                        }, {
+                            value: this.minNormalValue,
+                            color: "#004181",
+                            dashStyle: "shortdash",
+                            width: 2,
+                            label: {
+                                text: "Минимальное нормальное значение" + this.minNormalValue
+                            }
+                        }]
+                    },
+                    title: {
+                        text: ""
+                    },
+                    legend: {
+                        enabled: false,
+                    },
+                    series: [{
+                        name: "Температура",
+                        showInNavigator: true,
+                        color: "#d4821c",
+                        type: "spline",
+                        marker: {
+                            enabled: true,
+                            symbol: "circle",
+                            lineWidth: 1,
+                            radius: 3
+                        },
+                        data: [],
+                    }]
+                })
             };
         },
         mounted() {
             this.loading = true;
             this.fetch().then(() => this.loading = false);
+        },
+        computed: {
+            dataLength() {
+                return !!this.chartOptions.series[0].data.length;
+            },
         },
         methods: {
             onHidden() {
@@ -64,11 +111,12 @@
                 this.disabledDatepicker = true;
                 return this.$http.get(ENDPOINTS.SENSORS + "/" + this.sensorId, {params: {date: this.date}})
                     .then(resp => {
-                        this.data = resp.data;
-                        this.labels = resp.labels;
+                        this.chartOptions.series[0].data = resp.data;
                         this.disabledDatepicker = false;
-                        this.maxNormalValue = _.get(resp, "sensor.settings.max_normal_value");
-                        this.minNormalValue = _.get(resp, "sensor.settings.min_normal_value");
+                        this.chartOptions.yAxis.plotLines[0].value = _.get(resp, "sensor.settings.max_normal_value");
+                        this.chartOptions.yAxis.plotLines[0].label.text = _.get(resp, "sensor.settings.max_normal_value");
+                        this.chartOptions.yAxis.plotLines[1].value = _.get(resp, "sensor.settings.min_normal_value");
+                        this.chartOptions.yAxis.plotLines[1].label.text = _.get(resp, "sensor.settings.min_normal_value");
                     });
             },
             afterDateChange(payload) {
@@ -76,27 +124,7 @@
                 this.fetch();
             }
         },
-        computed: {
-            chartData() {
-                return {
-                    labels: this.labels,
-                    datasets: [
-                        {
-                            label: "Температура",
-                            borderColor: "#d4821c",
-                            pointBackgroundColor: "#9a5b1c",
-                            backgroundColor: "#d4821c",
-                            borderWidth: 2,
-                            pointRadius: 2,
-                            fill: false,
-                            data: this.data
-                        }
-                    ],
-                };
-            }
-        },
         components: {
-            TemperatureChart,
             DatePicker
         }
     };
