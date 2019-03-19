@@ -38,7 +38,6 @@
                 disabledDatepicker: true,
                 chartOptions: Object.assign(config.defaultOptionsForChart, {
                     yAxis: {
-                        type: "logarithmic",
                         opposite: false,
                         tickInterval: 1,
                         title: {
@@ -46,20 +45,22 @@
                             text: ""
                         },
                         plotLines: [{
-                            value: this.maxNormalValue,
+                            value: null,
                             color: "#dd4b39",
                             dashStyle: "shortdash",
                             width: 2,
+                            zIndex: 5,
                             label: {
-                                text: "Максимальное нормальное значение" + this.maxNormalValue
+                                text: "Максимальное нормальное значение"
                             }
                         }, {
-                            value: this.minNormalValue,
+                            value: null,
                             color: "#004181",
                             dashStyle: "shortdash",
                             width: 2,
+                            zIndex: 5,
                             label: {
-                                text: "Минимальное нормальное значение" + this.minNormalValue
+                                text: "Минимальное нормальное значение"
                             }
                         }]
                     },
@@ -72,15 +73,31 @@
                     series: [{
                         name: "Температура",
                         showInNavigator: true,
-                        color: "#d4821c",
+                        color: "#dd4b39",
                         type: "spline",
                         marker: {
                             enabled: true,
                             symbol: "circle",
+                            color: "#dd4b39",
                             lineWidth: 1,
                             radius: 3
                         },
                         data: [],
+                        zones: [{
+                            value: null,
+                            color: "#004181"
+                        }, {
+                            value: null,
+                            color: "#d4821c"
+                        }]
+                    }, {
+                        name: "Goal",
+                        type: "scatter",
+                        enableMouseTracking: false,
+                        marker: {
+                            enabled: false
+                        },
+                        data: []
                     }]
                 })
             };
@@ -113,10 +130,13 @@
                     .then(resp => {
                         this.chartOptions.series[0].data = resp.data;
                         this.disabledDatepicker = false;
-                        this.chartOptions.yAxis.plotLines[0].value = _.get(resp, "sensor.settings.max_normal_value");
-                        this.chartOptions.yAxis.plotLines[0].label.text = _.get(resp, "sensor.settings.max_normal_value");
-                        this.chartOptions.yAxis.plotLines[1].value = _.get(resp, "sensor.settings.min_normal_value");
-                        this.chartOptions.yAxis.plotLines[1].label.text = _.get(resp, "sensor.settings.min_normal_value");
+                        let max = parseFloat(_.get(resp, "sensor.settings.max_normal_value"));
+                        let min = parseFloat(_.get(resp, "sensor.settings.min_normal_value"));
+                        this.chartOptions.yAxis.plotLines[0].value = max;
+                        this.chartOptions.yAxis.plotLines[1].value = min;
+                        this.chartOptions.series[0].zones[0].value = min;
+                        this.chartOptions.series[0].zones[1].value = max;
+                        this.chartOptions.series[1].data = [[this.$moment().unix() * 1000, max + 1], [this.$moment().unix() * 1000, min - 1]];
                     });
             },
             afterDateChange(payload) {
