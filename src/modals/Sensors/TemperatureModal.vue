@@ -42,7 +42,7 @@
                         tickInterval: 1,
                         title: {
                             align: "middle",
-                            text: ""
+                            text: "Температура, °C"
                         },
                         plotLines: [{
                             value: null,
@@ -62,7 +62,13 @@
                             label: {
                                 text: "Минимальное нормальное значение"
                             }
-                        }]
+                        }],
+                    },
+                    xAxis: {
+                        title: {
+                            align: "middle",
+                            text: "Время"
+                        },
                     },
                     title: {
                         text: ""
