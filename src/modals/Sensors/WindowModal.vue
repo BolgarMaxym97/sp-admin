@@ -18,6 +18,7 @@
 </template>
 
 <script>
+    import Vue from "vue";
     import DatePicker from "@/components/Customer/Charts/DatePicker";
     import {ENDPOINTS} from "@/api";
     import config from "@/config";
@@ -62,7 +63,7 @@
                     },
                     tooltip: {
                         formatter() {
-                            return `<b>${this.y === 1 ? "Форточка закрыта" : "Форточка открыта"}</b>`;
+                            return `${Vue.prototype.$moment.unix(this.x / 1000).format("DD MMMM, dddd - HH:mm")} <br/> <b>${this.y === 1 ? "Форточка закрыта" : "Форточка открыта"}</b>`;
                         }
                     },
                     series: [{

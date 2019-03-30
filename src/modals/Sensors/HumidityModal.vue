@@ -23,6 +23,7 @@
     import {ENDPOINTS} from "@/api";
     import config from "@/config";
     import _ from "lodash";
+    import Vue from "vue";
 
     export default {
         props: {
@@ -108,7 +109,12 @@
                             enabled: false
                         },
                         data: []
-                    }]
+                    }],
+                    tooltip: {
+                        formatter() {
+                            return `${Vue.prototype.$moment.unix(this.x / 1000).format("DD MMMM, dddd - HH:mm")} <br> <b> Влажность - ${this.y}, %</b>`;
+                        }
+                    }
                 })
             };
         },
