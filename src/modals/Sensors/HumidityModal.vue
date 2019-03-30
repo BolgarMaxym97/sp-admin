@@ -108,7 +108,11 @@
                             enabled: false
                         },
                         data: []
-                    }]
+                    }],
+                    tooltip: {
+                        crosshairs: true,
+                        split: false
+                    }
                 })
             };
         },
