@@ -8,7 +8,9 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 import "@/assets/scss/main.scss";
 import "@/assets/css/AdminLTE.min.css";
 import vSelect from "vue-select";
-import moment from "vue-moment";
+import VueMoment from "vue-moment";
+import moment from "moment";
+import "moment/locale/ru";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faUser, faSignInAlt, faArrowRight, faArrowLeft, faSpinner, faUsers, faNetworkWired, faThermometerHalf, faPlus, faTint, faGripLinesVertical, faBars, faTrash, faSlidersH, faTable, faChartBar, faSave, faCode} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
@@ -26,7 +28,7 @@ Vue.component("v-select", vSelect);
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 Vue.use(VueToastr, config.toastrDefaultOptions);
-Vue.use(moment);
+Vue.use(VueMoment, {moment});
 Highcharts.setOptions({
     lang: {
         loading: "Загрузка...",
