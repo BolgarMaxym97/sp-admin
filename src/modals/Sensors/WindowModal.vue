@@ -1,6 +1,6 @@
 <template>
     <b-modal :visible="true"
-             :title="`Данные о состоянии форточки (последнее состояние - ${checkCurrentWindowState().toLowerCase()})`"
+             title="Данные о состоянии форточки"
              size="xl"
              ok-only
              ok-title="Закрыть"
@@ -10,8 +10,7 @@
         <font-awesome-icon v-if="loading" icon="spinner" class="loader"/>
         <div v-else>
             <b-alert v-if="!loading && !windowData.length" variant="danger" show class="no-data-alert">Нету данных за
-                эту
-                дату
+                эту дату
             </b-alert>
         </div>
         <table class="table" v-if="!loading && windowData.length">
@@ -22,8 +21,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr :key="Object.keys(state)[0]" v-for="state in windowData" :class="checkTrClassName(Object.values(state)[0])">
-                <td>{{`${buildWindowDateTimeString(Object.keys(state)[0])}`}}</td>
+            <tr :key="Object.keys(state)[0]" v-for="(state, index) in windowData"
+                :class="checkTrClassName(Object.values(state)[0])">
+                <td>
+                    {{`${buildWindowDateTimeString(Object.keys(state)[0])}`}}
+                    <font-awesome-icon title="Текущее" icon="star" v-if="+index === windowData.length - 1"/>
+                </td>
                 <td>{{`${buildWindowStateString(Object.values(state)[0])}`}}</td>
             </tr>
             </tbody>
@@ -97,10 +100,6 @@
             },
             checkTrClassName(state) {
                 return +state === 0 ? "table-danger" : "table-success";
-            },
-            checkCurrentWindowState() {
-                let lastData = this.windowData[this.windowData.length - 1];
-                return lastData ? this.buildWindowStateString(Object.values(lastData)[0]) : "Нету данных";
             }
         },
         components: {
