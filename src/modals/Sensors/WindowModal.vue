@@ -25,7 +25,7 @@
                 :class="checkTrClassName(Object.values(state)[0])">
                 <td>
                     {{`${buildWindowDateTimeString(Object.keys(state)[0])}`}}
-                    <font-awesome-icon title="Текущее" icon="star" v-if="+index === windowData.length - 1"/>
+                    <font-awesome-icon icon="star" v-if="+index === windowData.length - 1"/>
                 </td>
                 <td>{{`${buildWindowStateString(Object.values(state)[0])}`}}</td>
             </tr>
