@@ -1,6 +1,6 @@
 <template>
     <b-modal :visible="true"
-             title="Данные о состоянии форточки"
+             :title="`Данные о состоянии форточки (последнее состояние - ${checkCurrentWindowState().toLowerCase()})`"
              size="xl"
              ok-only
              ok-title="Закрыть"
@@ -9,19 +9,31 @@
         <date-picker @after-change="afterDateChange" :date="date" :disabledDatepicker="disabledDatepicker"/>
         <font-awesome-icon v-if="loading" icon="spinner" class="loader"/>
         <div v-else>
-            <b-alert v-if="!loading && !dataLength" variant="danger" show class="no-data-alert">Нету данных за эту
+            <b-alert v-if="!loading && !windowData.length" variant="danger" show class="no-data-alert">Нету данных за
+                эту
                 дату
             </b-alert>
-            <highstock v-else :options="chartOptions"></highstock>
         </div>
+        <table class="table" v-if="!loading && windowData.length">
+            <thead>
+            <tr>
+                <th>Время</th>
+                <th>Состояние форточки</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr :key="Object.keys(state)[0]" v-for="state in windowData" :class="checkTrClassName(Object.values(state)[0])">
+                <td>{{`${buildWindowDateTimeString(Object.keys(state)[0])}`}}</td>
+                <td>{{`${buildWindowStateString(Object.values(state)[0])}`}}</td>
+            </tr>
+            </tbody>
+        </table>
     </b-modal>
 </template>
 
 <script>
-    import Vue from "vue";
     import DatePicker from "@/components/Customer/Charts/DatePicker";
     import {ENDPOINTS} from "@/api";
-    import config from "@/config";
 
     export default {
         props: {
@@ -35,52 +47,7 @@
                 date: this.$moment().format("DD.MM.YYYY"),
                 loading: false,
                 disabledDatepicker: true,
-                chartOptions: Object.assign(config.defaultOptionsForChart, {
-                    yAxis: {
-                        min: -1,
-                        max: 1,
-                        opposite: false,
-                        tickInterval: 1,
-                        labels: {
-                            enabled: false
-                        },
-                        title: {
-                            align: "middle",
-                            text: "Состояние, открыто/закрыто"
-                        },
-                    },
-                    xAxis: {
-                        title: {
-                            align: "middle",
-                            text: "Время"
-                        },
-                    },
-                    title: {
-                        text: ""
-                    },
-                    legend: {
-                        enabled: false,
-                    },
-                    tooltip: {
-                        formatter() {
-                            return `${Vue.prototype.$moment.unix(this.x / 1000).format("DD MMMM, dddd - HH:mm")} <br/> <b>${this.y === 1 ? "Форточка закрыта" : "Форточка открыта"}</b>`;
-                        }
-                    },
-                    series: [{
-                        name: "Состояние",
-                        showInNavigator: true,
-                        type: "column",
-                        color: "#d4821c",
-                        marker: {
-                            enabled: true,
-                            symbol: "circle",
-                            color: "#d4821c",
-                            lineWidth: 1,
-                            radius: 3
-                        },
-                        data: [],
-                    }]
-                })
+                windowData: []
             };
         },
         mounted() {
@@ -102,21 +69,39 @@
                     return false;
                 }
                 this.disabledDatepicker = true;
+                let data = [];
                 return this.$http.get(ENDPOINTS.SENSORS + "/" + this.sensorId, {params: {date: this.date}})
                     .then(resp => {
-                        this.chartOptions.series[0].data = resp.data.map(item => item[1] === 0 ? [item[0], -1] : [item[0], item[1]]);
+                        resp.data.forEach((item) => {
+                            if (!Object.keys(data).length) {
+                                data.push({[item[0]]: item[1]});
+                            } else {
+                                if (data[data.length - 1] && Object.values(data[data.length - 1])[0] !== item[1]) {
+                                    data.push({[item[0]]: item[1]});
+                                }
+                            }
+                        });
+                        this.windowData = data;
                         this.disabledDatepicker = false;
                     });
             },
             afterDateChange(payload) {
                 this.date = payload;
                 this.fetch();
-            }
-        },
-        computed: {
-            dataLength() {
-                return !!this.chartOptions.series[0].data.length;
             },
+            buildWindowStateString(state) {
+                return +state === 0 ? "Форточка открыта" : "Форточка закрыта";
+            },
+            buildWindowDateTimeString(timestamp) {
+                return this.$moment.unix(+timestamp / 1000).format("DD MMMM, dddd - HH:mm");
+            },
+            checkTrClassName(state) {
+                return +state === 0 ? "table-danger" : "table-success";
+            },
+            checkCurrentWindowState() {
+                let lastData = this.windowData[this.windowData.length - 1];
+                return lastData ? this.buildWindowStateString(Object.values(lastData)[0]) : "Нету данных";
+            }
         },
         components: {
             DatePicker

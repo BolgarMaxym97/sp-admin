@@ -91,7 +91,7 @@
                             symbol: "circle",
                             color: "#dd4b39",
                             lineWidth: 1,
-                            radius: 3
+                            radius: 2
                         },
                         data: [],
                         zones: [{
