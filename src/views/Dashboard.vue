@@ -24,33 +24,35 @@
                 labels: [],
                 data: [],
                 loading: true,
-                chartOptions: Object.assign(config.defaultOptionsForChart, {
-                    series: [{
-                        name: "Клиенты",
-                        showInNavigator: true,
-                        color: "#d4821c",
-                        type: "spline",
-                        marker: {
-                            enabled: true,
-                            symbol: "circle",
-                            lineWidth : 1,
-                            radius: 4
-                        },
-                        data: [],
-                    }, {
-                        name: "Объекты",
-                        showInNavigator: true,
-                        color: "#301846",
-                        type: "spline",
-                        marker: {
-                            enabled: true,
-                            symbol: "diamond",
-                            lineWidth : 1,
-                            radius: 5
-                        },
-                        data: [],
-                    }]
-                })
+                chartOptions: {
+                    ...config.defaultOptionsForChart, ...{
+                        series: [{
+                            name: "Клиенты",
+                            showInNavigator: true,
+                            color: "#d4821c",
+                            type: "spline",
+                            marker: {
+                                enabled: true,
+                                symbol: "circle",
+                                lineWidth: 1,
+                                radius: 4
+                            },
+                            data: [],
+                        }, {
+                            name: "Объекты",
+                            showInNavigator: true,
+                            color: "#301846",
+                            type: "spline",
+                            marker: {
+                                enabled: true,
+                                symbol: "diamond",
+                                lineWidth: 1,
+                                radius: 5
+                            },
+                            data: [],
+                        }]
+                    }
+                }
             };
         },
 
