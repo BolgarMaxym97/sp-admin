@@ -77,10 +77,10 @@
                     .then(resp => {
                         resp.data.forEach((item) => {
                             if (!Object.keys(data).length) {
-                                data.push({[item[0]]: item[1]});
+                                data.push({[item[0]]: parseInt(item[1])});
                             } else {
-                                if (data[data.length - 1] && Object.values(data[data.length - 1])[0] !== item[1]) {
-                                    data.push({[item[0]]: item[1]});
+                                if (data[data.length - 1] && parseInt(Object.values(data[data.length - 1])[0]) !== parseInt(item[1])) {
+                                    data.push({[item[0]]: parseInt(item[1])});
                                 }
                             }
                         });

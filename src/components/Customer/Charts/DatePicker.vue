@@ -11,7 +11,7 @@
                      :clearable="false"
                      format="DD.MM.YYYY"
                      :disabled="disabledDatepicker"/>
-        <b-button class="arrow-btn" @click="addDay" :disabled="disabledDatepicker">
+        <b-button class="arrow-btn" @click="addDay" :disabled="disabledDatepicker || checkCurrentDay">
             <font-awesome-icon icon="arrow-right"/>
         </b-button>
         <font-awesome-icon v-if="disabledDatepicker" icon="spinner" class="loader"/>
@@ -48,6 +48,12 @@
             },
             onChange() {
                 return this.$emit("after-change", this.dateState);
+            }
+        },
+
+        computed: {
+            checkCurrentDay() {
+                return this.$moment(this.dateState).isSame(this.$moment(), "day");
             }
         },
         components: {

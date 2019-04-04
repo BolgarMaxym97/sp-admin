@@ -13,7 +13,7 @@
             <b-alert v-if="!loading && !dataLength" variant="danger" show class="no-data-alert">Нету данных за эту
                 дату
             </b-alert>
-            <highstock v-else :options="chartOptions"></highstock>
+            <highstock v-else :options="chartOptions" ref="humidityChart"></highstock>
         </div>
     </b-modal>
 </template>
@@ -39,83 +39,85 @@
                 data: [],
                 loading: false,
                 disabledDatepicker: true,
-                chartOptions: Object.assign(config.defaultOptionsForChart, {
-                    yAxis: {
-                        min: 0,
-                        max: 100,
-                        opposite: false,
-                        tickInterval: 1,
-                        title: {
-                            align: "middle",
-                            text: "Влажность, %"
+                chartOptions: {
+                    ...config.defaultOptionsForChart, ...{
+                        yAxis: {
+                            min: 0,
+                            max: 100,
+                            opposite: false,
+                            tickInterval: 1,
+                            title: {
+                                align: "middle",
+                                text: "Влажность, %"
+                            },
+                            plotLines: [{
+                                value: null,
+                                color: "#dd4b39",
+                                dashStyle: "shortdash",
+                                width: 2,
+                                zIndex: 5,
+                                label: {
+                                    text: "Максимальное нормальное значение"
+                                }
+                            }, {
+                                value: null,
+                                color: "#004181",
+                                dashStyle: "shortdash",
+                                width: 2,
+                                zIndex: 5,
+                                label: {
+                                    text: "Минимальное нормальное значение"
+                                }
+                            }],
                         },
-                        plotLines: [{
-                            value: null,
+                        xAxis: {
+                            title: {
+                                align: "middle",
+                                text: "Время"
+                            },
+                        },
+                        title: {
+                            text: ""
+                        },
+                        legend: {
+                            enabled: false,
+                        },
+                        series: [{
+                            name: "Влажность",
+                            showInNavigator: true,
                             color: "#dd4b39",
-                            dashStyle: "shortdash",
-                            width: 2,
-                            zIndex: 5,
-                            label: {
-                                text: "Максимальное нормальное значение"
-                            }
+                            type: "spline",
+                            marker: {
+                                enabled: true,
+                                symbol: "circle",
+                                color: "#dd4b39",
+                                lineWidth: 1,
+                                radius: 0
+                            },
+                            data: [],
+                            zones: [{
+                                value: null,
+                                color: "#004181"
+                            }, {
+                                value: null,
+                                color: "#d4821c"
+                            }]
                         }, {
-                            value: null,
-                            color: "#004181",
-                            dashStyle: "shortdash",
-                            width: 2,
-                            zIndex: 5,
-                            label: {
-                                text: "Минимальное нормальное значение"
-                            }
+                            name: "Goal",
+                            type: "scatter",
+                            enableMouseTracking: false,
+                            marker: {
+                                enabled: false
+                            },
+                            data: []
                         }],
-                    },
-                    xAxis: {
-                        title: {
-                            align: "middle",
-                            text: "Время"
-                        },
-                    },
-                    title: {
-                        text: ""
-                    },
-                    legend: {
-                        enabled: false,
-                    },
-                    series: [{
-                        name: "Влажность",
-                        showInNavigator: true,
-                        color: "#dd4b39",
-                        type: "spline",
-                        marker: {
-                            enabled: true,
-                            symbol: "circle",
-                            color: "#dd4b39",
-                            lineWidth: 1,
-                            radius: 0
-                        },
-                        data: [],
-                        zones: [{
-                            value: null,
-                            color: "#004181"
-                        }, {
-                            value: null,
-                            color: "#d4821c"
-                        }]
-                    }, {
-                        name: "Goal",
-                        type: "scatter",
-                        enableMouseTracking: false,
-                        marker: {
-                            enabled: false
-                        },
-                        data: []
-                    }],
-                    tooltip: {
-                        formatter() {
-                            return `${Vue.prototype.$moment.unix(this.x / 1000).format("DD MMMM, dddd - HH:mm")} <br> <b> Влажность - ${this.y}, %</b>`;
+                        tooltip: {
+                            formatter() {
+                                return `${Vue.prototype.$moment.unix(this.x / 1000).format("DD MMMM, dddd - HH:mm")} <br> <b> Влажность - ${this.y}, %</b>`;
+                            }
                         }
                     }
-                })
+                }
             };
         },
         mounted() {

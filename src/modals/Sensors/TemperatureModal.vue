@@ -37,81 +37,83 @@
                 date: this.$moment().format("DD.MM.YYYY"),
                 loading: false,
                 disabledDatepicker: true,
-                chartOptions: Object.assign(config.defaultOptionsForChart, {
-                    yAxis: {
-                        opposite: false,
-                        tickInterval: 1,
-                        title: {
-                            align: "middle",
-                            text: "Температура, °C"
+                chartOptions: {
+                    ...config.defaultOptionsForChart, ...{
+                        yAxis: {
+                            opposite: false,
+                            tickInterval: 1,
+                            title: {
+                                align: "middle",
+                                text: "Температура, °C"
+                            },
+                            plotLines: [{
+                                value: null,
+                                color: "#dd4b39",
+                                dashStyle: "shortdash",
+                                width: 2,
+                                zIndex: 5,
+                                label: {
+                                    text: "Максимальное нормальное значение"
+                                }
+                            }, {
+                                value: null,
+                                color: "#004181",
+                                dashStyle: "shortdash",
+                                width: 2,
+                                zIndex: 5,
+                                label: {
+                                    text: "Минимальное нормальное значение"
+                                }
+                            }],
                         },
-                        plotLines: [{
-                            value: null,
+                        xAxis: {
+                            title: {
+                                align: "middle",
+                                text: "Время"
+                            },
+                        },
+                        title: {
+                            text: ""
+                        },
+                        legend: {
+                            enabled: false,
+                        },
+                        series: [{
+                            name: "Температура",
+                            showInNavigator: true,
                             color: "#dd4b39",
-                            dashStyle: "shortdash",
-                            width: 2,
-                            zIndex: 5,
-                            label: {
-                                text: "Максимальное нормальное значение"
-                            }
+                            type: "spline",
+                            marker: {
+                                enabled: true,
+                                symbol: "circle",
+                                color: "#dd4b39",
+                                lineWidth: 1,
+                                radius: 0
+                            },
+                            data: [],
+                            zones: [{
+                                value: null,
+                                color: "#004181"
+                            }, {
+                                value: null,
+                                color: "#d4821c"
+                            }]
                         }, {
-                            value: null,
-                            color: "#004181",
-                            dashStyle: "shortdash",
-                            width: 2,
-                            zIndex: 5,
-                            label: {
-                                text: "Минимальное нормальное значение"
-                            }
+                            name: "Goal",
+                            type: "scatter",
+                            enableMouseTracking: false,
+                            marker: {
+                                enabled: false
+                            },
+                            data: []
                         }],
-                    },
-                    xAxis: {
-                        title: {
-                            align: "middle",
-                            text: "Время"
-                        },
-                    },
-                    title: {
-                        text: ""
-                    },
-                    legend: {
-                        enabled: false,
-                    },
-                    series: [{
-                        name: "Температура",
-                        showInNavigator: true,
-                        color: "#dd4b39",
-                        type: "spline",
-                        marker: {
-                            enabled: true,
-                            symbol: "circle",
-                            color: "#dd4b39",
-                            lineWidth: 1,
-                            radius: 0
-                        },
-                        data: [],
-                        zones: [{
-                            value: null,
-                            color: "#004181"
-                        }, {
-                            value: null,
-                            color: "#d4821c"
-                        }]
-                    }, {
-                        name: "Goal",
-                        type: "scatter",
-                        enableMouseTracking: false,
-                        marker: {
-                            enabled: false
-                        },
-                        data: []
-                    }],
-                    tooltip: {
-                        formatter() {
-                            return `${Vue.prototype.$moment.unix(this.x / 1000).format("DD MMMM, dddd - HH:mm")} <br> <b>Температура - ${this.y}, °C</b>`;
+                        tooltip: {
+                            formatter() {
+                                return `${Vue.prototype.$moment.unix(this.x / 1000).format("DD MMMM, dddd - HH:mm")} <br> <b>Температура - ${this.y}, °C</b>`;
+                            }
                         }
                     }
-                })
+                }
             };
         },
         mounted() {

@@ -14,6 +14,7 @@
     import TopIcons from "@/components/Dashboard/TopIcons";
     import {ENDPOINTS} from "@/api";
     import config from "@/config";
+    import Vue from "vue";
 
     export default {
         data() {
@@ -24,33 +25,47 @@
                 labels: [],
                 data: [],
                 loading: true,
-                chartOptions: Object.assign(config.defaultOptionsForChart, {
-                    series: [{
-                        name: "Клиенты",
-                        showInNavigator: true,
-                        color: "#d4821c",
-                        type: "spline",
-                        marker: {
-                            enabled: true,
-                            symbol: "circle",
-                            lineWidth : 1,
-                            radius: 4
+                chartOptions: {
+                    ...config.defaultOptionsForChart, ...{
+                        series: [{
+                            name: "Клиенты",
+                            showInNavigator: true,
+                            color: "#d4821c",
+                            type: "spline",
+                            marker: {
+                                enabled: true,
+                                symbol: "circle",
+                                lineWidth: 1,
+                                radius: 4
+                            },
+                            data: [],
+                        }, {
+                            name: "Объекты",
+                            showInNavigator: true,
+                            color: "#301846",
+                            type: "spline",
+                            marker: {
+                                enabled: true,
+                                symbol: "diamond",
+                                lineWidth: 1,
+                                radius: 5
+                            },
+                            data: [],
+                        }],
+                        tooltip: {
+                            formatter: function () {
+                                let formattedTooltip = `${Vue.prototype.$moment.unix(this.points[0].x / 1000).format("DD MMMM YYYY")}<br>`;
+
+                                this.points.map(point => {
+                                    formattedTooltip += `<span style="color: ${point.color}">${point.series.name}: <b>${point.y}</b></span><br>`;
+                                });
+
+                                return formattedTooltip;
+                            },
+                            shared: true
                         },
-                        data: [],
-                    }, {
-                        name: "Объекты",
-                        showInNavigator: true,
-                        color: "#301846",
-                        type: "spline",
-                        marker: {
-                            enabled: true,
-                            symbol: "diamond",
-                            lineWidth : 1,
-                            radius: 5
-                        },
-                        data: [],
-                    }]
-                })
+                    }
+                }
             };
         },
 
