@@ -47,7 +47,6 @@
                     return "";
                 }
                 let data = this.sensor.last_data.data;
-                console.log(data);
                 if (+this.sensor.type === CONSTANTS.SENSOR_TYPE_WINDOW_1 || +this.sensor.tyoe === CONSTANTS.SENSOR_TYPE_WINDOW_2) {
                     data = (+this.sensor.last_data.data === 0 ? "Форточка открыта" : "Форточка закрыта");
                 }
