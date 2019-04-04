@@ -3,7 +3,7 @@
         <div class="sensor-placeholder"
              :style="iconStyle"
              @click="modalSensorShow = true"
-             v-b-tooltip.hover :title="`${sensor.type_name}`">
+             v-b-tooltip.hover :title="`${sensor.type_name} ${lastData}`">
             <font-awesome-icon
                     :icon="sensor.sensor_type.sensor_icon.icon"
                     class="sensor-placeholder__icon"/>
@@ -14,6 +14,7 @@
 
 <script>
     import CONSTANTS from "@/constants";
+    import _ from "lodash";
 
     export default {
         props: {
@@ -40,6 +41,17 @@
         computed: {
             component() {
                 return this.componentByType[this.sensor.type];
+            },
+            lastData() {
+                if (!_.size(this.sensor.last_data)) {
+                    return "";
+                }
+                let data = this.sensor.last_data.data;
+                console.log(data);
+                if (+this.sensor.type === CONSTANTS.SENSOR_TYPE_WINDOW_1 || +this.sensor.tyoe === CONSTANTS.SENSOR_TYPE_WINDOW_2) {
+                    data = (+this.sensor.last_data.data === 0 ? "Форточка открыта" : "Форточка закрыта");
+                }
+                return ` - ${data} ${this.sensor.sensor_type.dimension || ""}`;
             }
         }
     };
