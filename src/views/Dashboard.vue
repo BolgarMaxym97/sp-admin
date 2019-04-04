@@ -14,6 +14,7 @@
     import TopIcons from "@/components/Dashboard/TopIcons";
     import {ENDPOINTS} from "@/api";
     import config from "@/config";
+    import Vue from "vue";
 
     export default {
         data() {
@@ -50,7 +51,19 @@
                                 radius: 5
                             },
                             data: [],
-                        }]
+                        }],
+                        tooltip: {
+                            formatter: function () {
+                                let formattedTooltip = `${Vue.prototype.$moment.unix(this.points[0].x / 1000).format("DD MMMM YYYY")}<br>`;
+
+                                this.points.map(point => {
+                                    formattedTooltip += `<span style="color: ${point.color}">${point.series.name}: <b>${point.y}</b></span><br>`;
+                                });
+
+                                return formattedTooltip;
+                            },
+                            shared: true
+                        },
                     }
                 }
             };
