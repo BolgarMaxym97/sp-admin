@@ -21,6 +21,7 @@ import config from "@/config";
 import VueHighcharts from "vue-highcharts";
 import Highcharts from "highcharts";
 import stockInit from "highcharts/modules/stock";
+import mapInit from "highcharts/modules/map";
 
 library.add(faUser, faSignInAlt, faArrowRight, faArrowLeft, faSpinner, faUsers, faNetworkWired, faThermometerHalf, faPlus, faTint, faGripLinesVertical, faBars, faTrash, faSlidersH, faTable, faChartBar, faSave, faCode, faStar);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
@@ -48,6 +49,7 @@ Highcharts.setOptions({
     }
 });
 stockInit(Highcharts);
+mapInit(Highcharts);
 Vue.use(VueHighcharts);
 Vue.prototype.$http = api;
 
