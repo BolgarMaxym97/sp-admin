@@ -23,7 +23,8 @@
     import {ENDPOINTS} from "@/api";
     import config from "@/config";
     import Vue from "vue";
-    import dataJson from "@/assets/ukraine";
+    import dataJson from "@/maps/ukraine";
+    import "@/maps/lib/proj4";
 
     export default {
         data() {
@@ -135,6 +136,19 @@
                         dataLabels: {
                             enabled: true,
                             format: "{point.name}"
+                        },
+                    }, {
+                        type: "mappoint",
+                        name: "Объекты",
+                        color: "#f0424d",
+                        data: [{
+                            name: "Великие Копани",
+                            lat: 46.477437,
+                            lon: 32.975390
+                        }],
+                        tooltip: {
+                            headerFormat: "",
+                            pointFormat: "{point.name}"
                         },
                     }]
                 }
