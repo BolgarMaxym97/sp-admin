@@ -12,5 +12,13 @@ export default {
     },
     customers(state, {customers}) {
         state.customers = customers;
-    }
+    },
+    customersAfterEdit(state, {customer}) {
+        state.customers.map((c, index) => {
+            if (c.id === customer.id) {
+                state.customers[index] = customer;
+                return true;
+            }
+        });
+    },
 };

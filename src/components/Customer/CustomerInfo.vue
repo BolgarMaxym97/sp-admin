@@ -1,16 +1,19 @@
 <template>
-    <b-card v-if="customer" :title="customer.full_name">
-        <b-row>
-            <b-col cols="4">
+    <b-card v-if="customer" :title="customerName">
+        <font-awesome-icon
+                icon="edit"
+                @click="editCustomer = true"
+                class="customer-edit-btn"/>
+        <edit-customer-modal v-if="editCustomer" :userData="customer" @hidden="editCustomer = false"/>
+        <b-row class="ml-2">
+            <b-col xl="4" lg="4" md="6" sm="6">
                 <b-row :key="customer.id" v-for="customer in customerDataLeft">
-                    <b-col cols="6">{{customer.label}}</b-col>
-                    <b-col cols="6">{{customer.value || '---'}}</b-col>
+                    {{customer.label}}: <b class="ml-2">{{customer.value || "---"}}</b>
                 </b-row>
             </b-col>
-            <b-col cols="4">
+            <b-col xl="4" lg="4" md="6" sm="6">
                 <b-row :key="customer.id" v-for="customer in customerDataRight">
-                    <b-col cols="6">{{customer.label}}</b-col>
-                    <b-col cols="6">{{customer.value || '---'}}</b-col>
+                    {{customer.label}}: <b class="ml-2">{{customer.value || "---"}}</b>
                 </b-row>
             </b-col>
         </b-row>
@@ -19,8 +22,14 @@
 
 <script>
     import {mapGetters} from "vuex";
+    import EditCustomerModal from "@/modals/User/EditCustomerModal";
 
     export default {
+        data() {
+            return {
+                editCustomer: false
+            };
+        },
         computed: {
             ...mapGetters([
                 "customers"
@@ -30,6 +39,9 @@
             },
             customer() {
                 return this.customers.find(customer => +customer.id === this.customerId);
+            },
+            customerName() {
+                return `${this.customer.name_first} ${this.customer.name_last}`;
             },
             customerDataLeft() {
                 return [
@@ -48,9 +60,17 @@
                 ];
             }
         },
+        components: {
+            EditCustomerModal
+        }
     };
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+    .customer-edit-btn {
+        float: right;
+        position: relative;
+        top: -40px;
+        cursor: pointer;
+    }
 </style>

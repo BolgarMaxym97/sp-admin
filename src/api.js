@@ -9,6 +9,7 @@ import router from "@/router";
 const ENDPOINTS = {
     LOGIN: "login",
     REGISTER: "register",
+    USER: "user",
     CUSTOMERS: "customers",
     STATISTIC: "statistic",
     NODES: "nodes",

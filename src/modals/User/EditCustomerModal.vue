@@ -1,13 +1,13 @@
 <template>
     <b-modal :visible="true"
-             title="Создание нового пользователя"
+             title="Редактирование пользователя"
              size="lg"
              ref="modal"
              ok-title="Сохранить"
              cancel-title="Закрыть"
              ok-variant="success"
              :ok-disabled="loading"
-             @ok="createCustomer"
+             @ok="editCustomer"
              @hidden="onHidden">
         <user-form @change="changeUserData" :userData="userData" :loading="loading"></user-form>
     </b-modal>
@@ -19,34 +19,35 @@
     import Form from "@/components/Customer/Form";
 
     export default {
-        props: {},
+        props: {
+            userData: {
+                type: Object,
+                required: true
+            }
+        },
         data() {
             return {
                 loading: false,
-                userData: {
-                    email: null,
-                    password: null,
-                    password_confirmation: null,
-                    name_first: null,
-                    name_last: null,
-                    phone: null,
-                    address: null,
-                    is_customer: 1,
-                },
-
             };
         },
         methods: {
             onHidden() {
                 this.$emit("hidden");
             },
-            createCustomer(ev) {
+            editCustomer(ev) {
                 ev.preventDefault();
                 this.loading = true;
-                this.$http.post(ENDPOINTS.REGISTER, this.userData).then(resp => {
+                this.$http.put(ENDPOINTS.USER + "/" + this.userData.id, {
+                    name_first: this.userData.name_first,
+                    name_last: this.userData.name_last,
+                    address: this.userData.address,
+                    email: this.userData.email,
+                    phone: this.userData.phone,
+                    password: this.userData.password,
+                    password_confirmation: this.userData.password_confirmation,
+                }).then((resp) => {
                     this.loading = false;
-                    this.customers.push(resp.user);
-                    this.$store.dispatch("customers", this.customers);
+                    this.$store.dispatch("customersAfterEdit", resp.user);
                     this.$refs.modal.hide();
                 });
             },
