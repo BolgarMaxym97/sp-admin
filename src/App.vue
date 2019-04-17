@@ -4,7 +4,7 @@
         <b-container fluid>
             <b-row>
                 <transition name="slide">
-                    <div v-show="isLoggedIn" class="perfect-wrapper" :class="{show: isMenuOpened}">
+                    <div v-if="isLoggedIn" class="perfect-wrapper" :class="{show: isMenuOpened}">
                         <VuePerfectScrollbar class="left-sidebar-col p-0" v-once
                                              :settings="scrollBarrSetting">
                             <b-col cols="2" class="left-sidebar-col-placeholder p-0">
