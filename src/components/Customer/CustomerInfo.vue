@@ -5,17 +5,15 @@
                 @click="editCustomer = true"
                 class="customer-edit-btn"/>
         <edit-customer-modal v-if="editCustomer" :userData="customer" @hidden="editCustomer = false"/>
-        <b-row>
-            <b-col cols="4">
+        <b-row class="ml-2">
+            <b-col xl="4" lg="4" md="6" sm="6">
                 <b-row :key="customer.id" v-for="customer in customerDataLeft">
-                    <b-col cols="6">{{customer.label}}</b-col>
-                    <b-col cols="6">{{customer.value || "---"}}</b-col>
+                    {{customer.label}}: <b class="ml-2">{{customer.value || "---"}}</b>
                 </b-row>
             </b-col>
-            <b-col cols="4">
+            <b-col xl="4" lg="4" md="6" sm="6">
                 <b-row :key="customer.id" v-for="customer in customerDataRight">
-                    <b-col cols="6">{{customer.label}}</b-col>
-                    <b-col cols="6">{{customer.value || "---"}}</b-col>
+                    {{customer.label}}: <b class="ml-2">{{customer.value || "---"}}</b>
                 </b-row>
             </b-col>
         </b-row>
