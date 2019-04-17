@@ -11,6 +11,7 @@
                         :type="input.type"
                         :class="`${input.name}-input`"
                         :value="userData[input.name]"
+                        @input="handleChange($event, input.name)"
                         required
                         :disabled="loading"
                         :placeholder="`${input.label} пользователя`">
@@ -28,6 +29,7 @@
                         :type="input.type"
                         :class="`${input.name}-input`"
                         :value="userData[input.name]"
+                        @input="handleChange($event, input.name)"
                         required
                         :disabled="loading"
                         :placeholder="`${input.label} пользователя`">
@@ -92,6 +94,11 @@
                     }
                 ]
             };
+        },
+        methods: {
+            handleChange(value, name) {
+                this.$emit("change", {value, name});
+            }
         }
     };
 </script>

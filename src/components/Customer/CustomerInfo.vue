@@ -1,5 +1,5 @@
 <template>
-    <b-card v-if="customer" :title="customer.full_name">
+    <b-card v-if="customer" :title="customerName">
         <font-awesome-icon
                 icon="edit"
                 @click="editCustomer = true"
@@ -41,6 +41,9 @@
             },
             customer() {
                 return this.customers.find(customer => +customer.id === this.customerId);
+            },
+            customerName() {
+                return `${this.customer.name_first} ${this.customer.name_last}`;
             },
             customerDataLeft() {
                 return [

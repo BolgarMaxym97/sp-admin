@@ -50,5 +50,8 @@ export default {
     },
     customers({commit}, data) {
         commit("customers", {customers: data});
-    }
+    },
+    customersAfterEdit({commit}, data) {
+        commit("customersAfterEdit", {customer: data});
+    },
 };

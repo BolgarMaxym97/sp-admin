@@ -9,7 +9,7 @@
              :ok-disabled="loading"
              @ok="createCustomer"
              @hidden="onHidden">
-        <user-form :userData="userData" :loading="loading"></user-form>
+        <user-form @change="changeUserData" :userData="userData" :loading="loading"></user-form>
     </b-modal>
 </template>
 
@@ -49,6 +49,9 @@
                     this.$store.dispatch("customers", this.customers);
                     this.$refs.modal.hide();
                 });
+            },
+            changeUserData(ev) {
+                this.userData[ev.name] = ev.value;
             }
         },
         computed: {
