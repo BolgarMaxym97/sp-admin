@@ -1,6 +1,6 @@
 <template>
     <b-modal :visible="true"
-             title="Создание нового пользователя"
+             title="Редактирование пользователя"
              size="lg"
              ref="modal"
              ok-title="Сохранить"
@@ -19,21 +19,15 @@
     import Form from "@/components/Customer/Form";
 
     export default {
-        props: {},
+        props: {
+            userData: {
+                type: Object,
+                required: true
+            }
+        },
         data() {
             return {
                 loading: false,
-                userData: {
-                    email: null,
-                    password: null,
-                    password_confirmation: null,
-                    name_first: null,
-                    name_last: null,
-                    phone: null,
-                    address: null,
-                    is_customer: 1,
-                },
-
             };
         },
         methods: {

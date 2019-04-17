@@ -1,16 +1,21 @@
 <template>
     <b-card v-if="customer" :title="customer.full_name">
+        <font-awesome-icon
+                icon="edit"
+                @click="editCustomer = true"
+                class="customer-edit-btn"/>
+        <edit-customer-modal v-if="editCustomer" :userData="customer" @hidden="editCustomer = false"/>
         <b-row>
             <b-col cols="4">
                 <b-row :key="customer.id" v-for="customer in customerDataLeft">
                     <b-col cols="6">{{customer.label}}</b-col>
-                    <b-col cols="6">{{customer.value || '---'}}</b-col>
+                    <b-col cols="6">{{customer.value || "---"}}</b-col>
                 </b-row>
             </b-col>
             <b-col cols="4">
                 <b-row :key="customer.id" v-for="customer in customerDataRight">
                     <b-col cols="6">{{customer.label}}</b-col>
-                    <b-col cols="6">{{customer.value || '---'}}</b-col>
+                    <b-col cols="6">{{customer.value || "---"}}</b-col>
                 </b-row>
             </b-col>
         </b-row>
@@ -19,8 +24,14 @@
 
 <script>
     import {mapGetters} from "vuex";
+    import EditCustomerModal from "@/modals/User/EditCustomerModal";
 
     export default {
+        data() {
+            return {
+                editCustomer: false
+            };
+        },
         computed: {
             ...mapGetters([
                 "customers"
@@ -48,9 +59,17 @@
                 ];
             }
         },
+        components: {
+            EditCustomerModal
+        }
     };
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+    .customer-edit-btn {
+        float: right;
+        position: relative;
+        top: -40px;
+        cursor: pointer;
+    }
 </style>
