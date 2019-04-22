@@ -6,7 +6,7 @@
             Добавить
         </b-button>
         <new-admin-modal @admin-added="afterAdminAdded" v-if="newAdminModal" @hidden="newAdminModal = false"/>
-        <font-awesome-icon v-if="loading" icon="spinner" class="loader"/>
+        <font-awesome-icon v-if="loading" icon="spinner" class="loader mt-2"/>
         <table class="table table-hover" v-else>
             <thead>
             <tr>
@@ -25,7 +25,19 @@
                 <td>{{user.name_last}}</td>
                 <td>{{user.phone}}</td>
                 <td>{{user.email}}</td>
-                <td></td>
+                <td>
+                    <b-button variant="primary" size="sm" v-b-tooltip.hover
+                              title="Редактировать">
+                        <font-awesome-icon icon="edit"/>
+                    </b-button>
+                    <b-button variant="danger" size="sm" class="ml-2" v-b-tooltip.hover
+                              @click="confirmShow = true"
+                              title="Удалить">
+                        <font-awesome-icon icon="trash"/>
+                    </b-button>
+                    <confirm-modal @hidden="confirmShow = false" @onOk="removeAdmin(user.id)"
+                                   :text="`Вы уверены что хотите удалить даного администратора?`" v-if="confirmShow"/>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -36,13 +48,15 @@
 
     import {ENDPOINTS} from "@/api";
     import NewAdminModal from "@/modals/User/NewAdminModal";
+    import ConfirmModal from "@/modals/ConfirmModal";
 
     export default {
         data() {
             return {
                 loading: true,
                 users: [],
-                newAdminModal: false
+                newAdminModal: false,
+                confirmShow: false
             };
         },
         mounted() {
@@ -58,12 +72,27 @@
                     });
             },
             afterAdminAdded(payload) {
-                console.log(payload);
                 this.users.push(payload);
-            }
+            },
+            removeAdmin(id) {
+                this.$http.delete(ENDPOINTS.USER + "/" + id)
+                    .then(resp => {
+                        if (resp.success) {
+                            this.confirmShow = false;
+                            const index = this.users.findIndex(function (user) {
+                                return user.id === id;
+                            });
+                            if (index !== -1) {
+                                this.users.splice(index, 1);
+                            }
+                            this.$toastr("success", "Администратор успешно удален", "Успешно удалено");
+                        }
+                    });
+            },
         },
         components: {
-            NewAdminModal
+            NewAdminModal,
+            ConfirmModal
         }
     };
 </script>
