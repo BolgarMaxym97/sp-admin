@@ -15,7 +15,7 @@
                     </b-button>
                 </router-link>
                 <b-nav-item-dropdown :text="userName" right>
-                    <b-dropdown-item @click="logout">Logout</b-dropdown-item>
+                    <b-dropdown-item @click="logout">Выйти</b-dropdown-item>
                 </b-nav-item-dropdown>
             </b-navbar-nav>
         </b-navbar>
