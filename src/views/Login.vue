@@ -50,7 +50,8 @@
             login: function () {
                 let email = this.email;
                 let password = this.password;
-                this.$store.dispatch("login", {email, password})
+                let is_customer = 0;
+                this.$store.dispatch("login", {email, password, is_customer})
                     .then(() => this.$router.push("/"));
             }
         }
