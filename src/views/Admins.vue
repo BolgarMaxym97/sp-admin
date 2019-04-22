@@ -31,12 +31,12 @@
                               title="Редактировать">
                         <font-awesome-icon icon="edit"/>
                     </b-button>
-                    <edit-admin-modal v-if="editCustomerModal" :userData="user" @hidden="editCustomerModal = false"/>
                     <b-button variant="danger" size="sm" class="ml-2" v-b-tooltip.hover
                               @click="confirmShow = true"
                               title="Удалить">
                         <font-awesome-icon icon="trash"/>
                     </b-button>
+                    <edit-admin-modal v-if="editCustomerModal" :userData="user" @hidden="editCustomerModal = false"/>
                     <confirm-modal @hidden="confirmShow = false" @onOk="removeAdmin(user.id)"
                                    :text="`Вы уверены что хотите удалить даного администратора?`" v-if="confirmShow"/>
                 </td>
