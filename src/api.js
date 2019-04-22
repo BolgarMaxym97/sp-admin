@@ -11,6 +11,7 @@ const ENDPOINTS = {
     REGISTER: "register",
     USER: "user",
     CUSTOMERS: "customers",
+    ADMINS: "admins",
     STATISTIC: "statistic",
     NODES: "nodes",
     SENSORS: "sensors",
