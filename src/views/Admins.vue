@@ -27,9 +27,11 @@
                 <td>{{user.email}}</td>
                 <td>
                     <b-button variant="primary" size="sm" v-b-tooltip.hover
+                              @click="editCustomerModal = true"
                               title="Редактировать">
                         <font-awesome-icon icon="edit"/>
                     </b-button>
+                    <edit-admin-modal v-if="editCustomerModal" :userData="user" @hidden="editCustomerModal = false"/>
                     <b-button variant="danger" size="sm" class="ml-2" v-b-tooltip.hover
                               @click="confirmShow = true"
                               title="Удалить">
@@ -47,6 +49,7 @@
 <script>
 
     import {ENDPOINTS} from "@/api";
+    import EditAdminModal from "@/modals/User/EditAdminModal";
     import NewAdminModal from "@/modals/User/NewAdminModal";
     import ConfirmModal from "@/modals/ConfirmModal";
 
@@ -56,7 +59,8 @@
                 loading: true,
                 users: [],
                 newAdminModal: false,
-                confirmShow: false
+                confirmShow: false,
+                editCustomerModal: false
             };
         },
         mounted() {
@@ -92,7 +96,8 @@
         },
         components: {
             NewAdminModal,
-            ConfirmModal
+            ConfirmModal,
+            EditAdminModal
         }
     };
 </script>

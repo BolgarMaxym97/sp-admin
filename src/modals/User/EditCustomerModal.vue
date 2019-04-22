@@ -7,6 +7,7 @@
              cancel-title="Закрыть"
              ok-variant="success"
              :ok-disabled="loading"
+             :no-close-on-backdrop="true"
              @ok="editCustomer"
              @hidden="onHidden">
         <user-form @change="changeUserData" :userData="userData" :loading="loading"></user-form>
