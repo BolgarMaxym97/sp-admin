@@ -5,6 +5,7 @@
              ref="modal"
              ok-title="Сохранить"
              cancel-title="Закрыть"
+             :no-close-on-backdrop="true"
              ok-variant="success"
              :ok-disabled="loading"
              @ok="createCustomer"

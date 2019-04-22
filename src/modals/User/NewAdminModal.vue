@@ -1,6 +1,6 @@
 <template>
     <b-modal :visible="true"
-             title="Редактирование пользователя"
+             title="Создание нового администратора"
              size="lg"
              ref="modal"
              ok-title="Сохранить"
@@ -8,7 +8,7 @@
              ok-variant="success"
              :ok-disabled="loading"
              :no-close-on-backdrop="true"
-             @ok="editCustomer"
+             @ok="createAdmin"
              @hidden="onHidden">
         <user-form @change="changeUserData" :userData="userData" :loading="loading"></user-form>
     </b-modal>
@@ -16,50 +16,42 @@
 
 <script>
     import {ENDPOINTS} from "@/api";
-    import {mapGetters} from "vuex";
     import Form from "@/components/Customer/Form";
 
     export default {
-        props: {
-            userData: {
-                type: Object,
-                required: true
-            }
-        },
+        props: {},
         data() {
             return {
                 loading: false,
+                userData: {
+                    email: null,
+                    password: null,
+                    password_confirmation: null,
+                    name_first: null,
+                    name_last: null,
+                    phone: null,
+                    address: null,
+                    is_customer: 0,
+                },
+
             };
         },
         methods: {
             onHidden() {
                 this.$emit("hidden");
             },
-            editCustomer(ev) {
+            createAdmin(ev) {
                 ev.preventDefault();
                 this.loading = true;
-                this.$http.put(ENDPOINTS.USER + "/" + this.userData.id, {
-                    name_first: this.userData.name_first,
-                    name_last: this.userData.name_last,
-                    address: this.userData.address,
-                    email: this.userData.email,
-                    phone: this.userData.phone,
-                    password: this.userData.password,
-                    password_confirmation: this.userData.password_confirmation,
-                }).then((resp) => {
+                this.$http.post(ENDPOINTS.REGISTER, this.userData).then(resp => {
                     this.loading = false;
-                    this.$store.dispatch("customersAfterEdit", resp.user);
                     this.$refs.modal.hide();
+                    this.$emit("admin-added", resp.user);
                 });
             },
             changeUserData(ev) {
                 this.userData[ev.name] = ev.value;
             }
-        },
-        computed: {
-            ...mapGetters([
-                "customers",
-            ])
         },
         components: {
             UserForm: Form

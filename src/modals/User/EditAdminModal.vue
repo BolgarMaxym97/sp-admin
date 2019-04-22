@@ -1,14 +1,14 @@
 <template>
     <b-modal :visible="true"
-             title="Редактирование пользователя"
+             title="Редактирование администратора"
              size="lg"
              ref="modal"
              ok-title="Сохранить"
              cancel-title="Закрыть"
              ok-variant="success"
-             :ok-disabled="loading"
              :no-close-on-backdrop="true"
-             @ok="editCustomer"
+             :ok-disabled="loading"
+             @ok="editAdmin"
              @hidden="onHidden">
         <user-form @change="changeUserData" :userData="userData" :loading="loading"></user-form>
     </b-modal>
@@ -35,7 +35,7 @@
             onHidden() {
                 this.$emit("hidden");
             },
-            editCustomer(ev) {
+            editAdmin(ev) {
                 ev.preventDefault();
                 this.loading = true;
                 this.$http.put(ENDPOINTS.USER + "/" + this.userData.id, {
@@ -46,9 +46,8 @@
                     phone: this.userData.phone,
                     password: this.userData.password,
                     password_confirmation: this.userData.password_confirmation,
-                }).then((resp) => {
+                }).then(() => {
                     this.loading = false;
-                    this.$store.dispatch("customersAfterEdit", resp.user);
                     this.$refs.modal.hide();
                 });
             },

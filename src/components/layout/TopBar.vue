@@ -8,8 +8,14 @@
                 </b-navbar-brand>
             </router-link>
             <b-navbar-nav class="ml-auto">
+                <router-link :to="{ name: 'admins_page'}">
+                    <b-button variant="primary" size="sm" class="mr-2 mt-1" v-b-tooltip.hover
+                              title="Управление администраторами">
+                        <font-awesome-icon icon="users"/>
+                    </b-button>
+                </router-link>
                 <b-nav-item-dropdown :text="userName" right>
-                    <b-dropdown-item @click="logout">Logout</b-dropdown-item>
+                    <b-dropdown-item @click="logout">Выйти</b-dropdown-item>
                 </b-nav-item-dropdown>
             </b-navbar-nav>
         </b-navbar>

@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Dashboard from "@/views/Dashboard.vue";
 import Login from "@/views/Login.vue";
 import Customer from "@/views/Customer.vue";
+import Admins from "@/views/Admins.vue";
 import store from "@/store/index";
 
 Vue.use(Router);
@@ -34,6 +35,14 @@ const router = new Router({
             component: Customer,
             meta: {
                 title: "Объекты клиента"
+            }
+        },
+        {
+            path: "/admins",
+            name: "admins_page",
+            component: Admins,
+            meta: {
+                title: "Управление администраторами"
             }
         },
     ],
