@@ -19,7 +19,7 @@
                 <b>{{nodeState.object_name}}</b>
                 <b-row class="node-card__btns">
                     <b-col cols="3">
-                        <b-button variant="primary" v-b-tooltip.hover title="Настройки" @click="settingsModal = true">
+                        <b-button size="sm" variant="primary" v-b-tooltip.hover title="Настройки" @click="settingsModal = true">
                             <font-awesome-icon icon="sliders-h"/>
                         </b-button>
                         <node-settings-modal v-if="settingsModal"
@@ -28,21 +28,21 @@
                                              @after-update="afterUpdate"/>
                     </b-col>
                     <b-col cols="3">
-                        <b-button variant="warning" v-b-tooltip.hover title="Статистика"
+                        <b-button size="sm" variant="warning" v-b-tooltip.hover title="Статистика"
                                   @click="statisticModal = true">
                             <font-awesome-icon icon="chart-bar"/>
                         </b-button>
                         <statistic-modal v-if="statisticModal" @hidden="statisticModal = false" :node="nodeState"/>
                     </b-col>
                     <b-col cols="3">
-                        <b-button variant="success" v-b-tooltip.hover title="Последние данные"
+                        <b-button size="sm" variant="success" v-b-tooltip.hover title="Последние данные"
                                   @click="lastDataModal = true">
                             <font-awesome-icon icon="table"/>
                         </b-button>
                         <last-data-modal v-if="lastDataModal" @hidden="lastDataModal = false" :node="nodeState"/>
                     </b-col>
                     <b-col cols="3">
-                        <b-button variant="danger" v-b-tooltip.hover title="Исходный код">
+                        <b-button size="sm" variant="danger" v-b-tooltip.hover title="Исходный код">
                             <font-awesome-icon icon="code"/>
                         </b-button>
                     </b-col>
@@ -159,7 +159,7 @@
             margin-top: 10px;
 
             .btn {
-                padding: 0.375rem 2rem;
+                padding: 0.375rem 1rem;
             }
         }
     }
