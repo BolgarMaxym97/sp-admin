@@ -19,6 +19,7 @@ const ENDPOINTS = {
     SENSOR_SETTINGS: "sensor-settings",
     LAST_DATA: "last-data",
     NODES_STATISTIC: "nodes-statistic",
+    GENERATE_FIRMWARE: "nodes/generate-firmware",
 };
 
 let api = axios.create({

@@ -19,7 +19,8 @@
                 <b>{{nodeState.object_name}}</b>
                 <b-row class="node-card__btns">
                     <b-col cols="3">
-                        <b-button size="sm" variant="primary" v-b-tooltip.hover title="Настройки" @click="settingsModal = true">
+                        <b-button size="sm" variant="primary" v-b-tooltip.hover title="Настройки"
+                                  @click="settingsModal = true">
                             <font-awesome-icon icon="sliders-h"/>
                         </b-button>
                         <node-settings-modal v-if="settingsModal"
@@ -42,7 +43,8 @@
                         <last-data-modal v-if="lastDataModal" @hidden="lastDataModal = false" :node="nodeState"/>
                     </b-col>
                     <b-col cols="3">
-                        <b-button size="sm" variant="danger" v-b-tooltip.hover title="Исходный код">
+                        <b-button size="sm" variant="danger" @click="generateFirmware" v-b-tooltip.hover
+                                  title="Исходный код">
                             <font-awesome-icon icon="code"/>
                         </b-button>
                     </b-col>
@@ -72,6 +74,7 @@
     import LastDataModal from "@/modals/Node/LastDataModal";
     import StatisticModal from "@/modals/Node/StatisticModal";
     import Alarms from "./Alarms";
+    import {saveAs} from "file-saver";
 
     export default {
         props: {
@@ -113,6 +116,16 @@
             },
             afterUpdate(e) {
                 this.nodeState = e;
+            },
+            generateFirmware() {
+                this.$http.get(ENDPOINTS.GENERATE_FIRMWARE + "/" + this.nodeState.id)
+                    .then(resp => {
+                        this.$toastr("success", "Загрузка начнется через несколько секунд", "");
+                        for (const fileName of Object.keys(resp)) {
+                            var blob = new Blob([resp[fileName]], {type: "text/plain;charset=utf-8"});
+                            saveAs(blob, fileName);
+                        }
+                    });
             }
         },
         components: {
