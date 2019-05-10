@@ -15,7 +15,7 @@
             <confirm-modal @hidden="confirmShow = false" @onOk="removeNode"
                            :text="`Вы уверены что хотите удалить объект?`" v-if="confirmShow"/>
             <p class="card-text">
-                <alarms :node="nodeState"/>
+                <alerts :alerts="alerts"/>
                 <b>{{nodeState.object_name}}</b>
                 <b-row class="node-card__btns">
                     <b-col cols="3">
@@ -73,8 +73,9 @@
     import NodeSettingsModal from "@/modals/Node/NodeSettingsModal";
     import LastDataModal from "@/modals/Node/LastDataModal";
     import StatisticModal from "@/modals/Node/StatisticModal";
-    import Alarms from "./Alarms";
+    import Alerts from "./Alerts";
     import {saveAs} from "file-saver";
+    import _ from "lodash";
 
     export default {
         props: {
@@ -95,9 +96,26 @@
                 settingsModal: false,
                 lastDataModal: false,
                 statisticModal: false,
-                nodeState: this.node
+                nodeState: this.node,
+                alerts: []
             };
         },
+
+        mounted() {
+            this.nodeState.sensors.map(sensor => {
+                if (_.size(sensor.alerts)) {
+                    _.each(sensor.alerts, (alert, sensorType) => {
+                        if (alert.isAlertMin) {
+                            this.alerts.push(`Низкая ${sensorType.toLowerCase()}`);
+                        }
+                        if (alert.isAlertMax) {
+                            this.alerts.push(`Высокая ${sensorType.toLowerCase()}`);
+                        }
+                    });
+                }
+            });
+        },
+
         methods: {
             removeNode(ev) {
                 ev.preventDefault();
@@ -133,7 +151,7 @@
             SensorIcon,
             ConfirmModal,
             NodeSettingsModal,
-            Alarms,
+            Alerts,
             LastDataModal,
             StatisticModal
         }
@@ -160,10 +178,10 @@
             padding-top: 0;
         }
 
-        .node-card__alarms {
+        .node-card__alerts {
             display: block;
 
-            .node-card__alarms-item {
+            .node-card__alerts-item {
                 margin: 2px;
             }
         }
