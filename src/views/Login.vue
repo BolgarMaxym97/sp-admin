@@ -60,7 +60,7 @@
 
 <style scoped>
     .auth-card {
-        max-width: 30%;
+        max-width: 30em;
         left: 50%;
         transform: translate(-50%, 60%);
     }
